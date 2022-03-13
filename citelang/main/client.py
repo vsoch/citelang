@@ -3,18 +3,17 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 from citelang.logger import logger
-import citelang.defaults as defaults
 import citelang.utils as utils
 import citelang.main.endpoints as endpoints
 import citelang.main.table as table
 from citelang.main.settings import Settings
 
-from copy import deepcopy
 import time
 
 import os
 import json
 import requests
+import shutil
 
 
 class Client:
@@ -49,6 +48,14 @@ class Client:
         self.api_key = os.environ.get("CITELANG_LIBRARIES_KEY")
         if self.api_key:
             self.params.update({"api_key": self.api_key})
+
+    def clear_cache(self):
+        """
+        Clear the cache (with confirmation).
+        """
+        if utils.confirm_action("Are you sure you want to clear the cache? "):
+            if os.path.exists(self.settings.cache_dir):
+                shutil.rmtree(self.settings.cache_dir)
 
     def cache(self, name, result):
         """
@@ -110,7 +117,7 @@ class Client:
         """
         if name not in endpoints.registry:
             names = endpoints.registry_names
-            sys.exit(f"{name} is not a known endpoint. Choose from {names}")
+            logger.exit(f"{name} is not a known endpoint. Choose from {names}")
 
         # Create the endpoint with any optional params
         endpoint = endpoints.registry[name](**kwargs)
@@ -147,6 +154,7 @@ class Client:
         """
         Lookup a package in a specific package manager
         """
+        # TODO need another endpoint / thing for version
         # Ensure we know the manager before
         # Store package in cache based on manager and name
         cache_name = f"package/{manager}/{name}"

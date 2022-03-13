@@ -5,6 +5,7 @@ __license__ = "MPL 2.0"
 import os
 import stat
 import json
+import sys
 import errno
 
 

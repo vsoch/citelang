@@ -6,7 +6,6 @@ __license__ = "MPL 2.0"
 
 import citelang
 from citelang.logger import setup_logger
-import citelang.main.endpoints as endpoints
 import argparse
 import sys
 import os
@@ -75,6 +74,12 @@ def get_parser():
     ls.add_argument("--json", help="output json", default=False, action="store_true")
     ls.add_argument("--all", help="output json", default=False, action="store_true")
     ls.add_argument("--outfile", "-o", help="write content to output file")
+
+    # Cache control
+    cache = subparsers.add_parser("cache", description="cache control")
+    cache.add_argument(
+        "--clear", help="clear the cache", default=False, action="store_true"
+    )
 
     # Get a package
     pkg = subparsers.add_parser(
@@ -178,7 +183,9 @@ def run():
                 helper = subparser
                 break
 
-    if args.command == "config":
+    if args.command == "cache":
+        from .cache import main
+    elif args.command == "config":
         from .config import main
     elif args.command == "shell":
         from .shell import main

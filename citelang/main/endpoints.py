@@ -3,7 +3,6 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import citelang.defaults as defaults
-from datetime import datetime
 import sys
 
 # Registered endpoints (populated on init)

@@ -145,7 +145,7 @@ class SettingsBase:
         if value not in current:
             # Add to the beginning of the list
             current = [value] + current
-            self._settings[key] = OrderedList()
+            self._settings[key] = []
             [self._settings[key].append(x) for x in current]
             self.change_validate(key, value)
             logger.warning(

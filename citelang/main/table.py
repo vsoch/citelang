@@ -4,20 +4,12 @@ __license__ = "MPL 2.0"
 
 from citelang.logger import logger
 import citelang.utils as utils
-import citelang.defaults as defaults
 
-from contextlib import contextmanager
 from rich.table import Table
-from rich import box
-from rich.align import Align
 from rich.console import Console
-from rich.live import Live
 
-import requests
 import random
 import os
-import sys
-import time
 
 
 class Result:

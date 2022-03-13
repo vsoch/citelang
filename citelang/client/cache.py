@@ -8,14 +8,8 @@ from citelang.main import Client
 def main(args, parser, extra, subparser):
 
     cli = Client(quiet=args.quiet, settings_file=args.settings_file)
-    result = cli.package_managers(use_cache=not args.no_cache)
 
-    # Default limit is 25, unless --all provided
-    if args.json and not args.outfile:
-        result.print_json()
-
-    elif args.outfile:
-        result.save(args.outfile)
-
+    if args.clear:
+        cli.clear_cache()
     else:
-        result.table()
+        print(cli.settings.cache_dir)

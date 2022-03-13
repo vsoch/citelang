@@ -148,11 +148,34 @@ manager. When we cache the list of managers available, this is possible without 
 API call.
 
 
+## Cache
+
+Citelng includes a cache command group for viewing or clearing your filesystem cache.
+
+```bash
+$ citelang cache
+/home/vanessa/.citelang/cache
+```
+
+Or list what's in it!
+
+```bash
+$ tree $(citelang cache)
+```
+
+And finally, clear it. You'll get a confirmation prompt first.
+
+```bash
+$ citelang cache --clear
+Are you sure you want to clear the cache? yes
+```
+
+
 ## TODO
 
- - add citlang cache command group
- - create documentation, settings table
  - add support for version
+ - citelang needs tests
+ - create documentation, settings table
 
 ## Contributors
 
