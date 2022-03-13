@@ -1,0 +1,11 @@
+
+# Disable caching packages and managers
+disable_cache: false
+
+# Disable caching package managers and packages to memory during a session
+disable_memory_cache: false
+
+# This is in user home in .citelang by default
+cache_dir: "$citelang_home/cache"
+
+

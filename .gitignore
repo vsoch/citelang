@@ -1,0 +1,17 @@
+bin/
+lib/
+citelang.egg-info/
+env
+.env
+env
+build
+docs/_build
+release
+_site
+dist/
+OLD
+__pycache__
+*.simg
+*.sif
+*.img
+.eggs
