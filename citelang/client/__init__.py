@@ -87,7 +87,14 @@ def get_parser():
         description="list package managers available to derive citations from.",
     )
     deps = subparsers.add_parser("deps", description="list dependencies for a package.")
-    for command in [pkg, deps]:
+    graph = subparsers.add_parser(
+        "graph", description="generate a graph for some package dependencies."
+    )
+    credit = subparsers.add_parser(
+        "credit", description="calculate dependency credit for a package."
+    )
+
+    for command in [pkg, deps, graph, credit]:
         command.add_argument(
             "package", help="package manager and name to parse", nargs=2
         )
@@ -99,6 +106,27 @@ def get_parser():
             action="store_true",
         )
         command.add_argument("--outfile", "-o", help="Save to an output json file.")
+
+    for command in [graph, credit]:
+        command.add_argument(
+            "--max-depth", help="maximum depth to parse tree (default is unset)"
+        )
+        command.add_argument(
+            "--max-deps",
+            help="maximum number of dependencies to include (default is unset)",
+        )
+        command.add_argument(
+            "--min-credit",
+            help="minimum credit to allocate (and stop when lower)",
+            type=float,
+            default=0.01,
+        )
+        command.add_argument(
+            "--credit-split",
+            help="credit to allocate to main package and 1-split to dependents",
+            type=float,
+            default=0.5,
+        )
 
     # Local shell with client loaded
     shell = subparsers.add_parser(
@@ -189,10 +217,14 @@ def run():
 
     if args.command == "cache":
         from .cache import main
-    elif args.command == "deps":
-        from .deps import main
     elif args.command == "config":
         from .config import main
+    elif args.command == "credit":
+        from .credit import main
+    elif args.command == "deps":
+        from .deps import main
+    elif args.command == "graph":
+        from .graph import main
     elif args.command == "shell":
         from .shell import main
     elif args.command == "list":
@@ -202,11 +234,11 @@ def run():
 
     # Pass on to the correct parser
     return_code = 0
-    try:
-        main(args=args, parser=parser, extra=extra, subparser=helper)
-        sys.exit(return_code)
-    except UnboundLocalError:
-        return_code = 1
+    # try:
+    main(args=args, parser=parser, extra=extra, subparser=helper)
+    sys.exit(return_code)
+    # except UnboundLocalError:
+    #    return_code = 1
 
     help(return_code)
 

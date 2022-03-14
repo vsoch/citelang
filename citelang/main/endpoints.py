@@ -55,7 +55,7 @@ class Endpoint:
 
     @property
     def title(self):
-        return self.name.capitalize()
+        return self.name.replace("_", " ").capitalize()
 
     def _get_attribute_or_list(self, name):
         listing = []
