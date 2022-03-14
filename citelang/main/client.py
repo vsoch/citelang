@@ -150,11 +150,39 @@ class Client:
         """
         return self.get_endpoint("package_managers", use_cache=use_cache)
 
+    def dependencies(self, manager, name, use_cache=True):
+        """
+        Get dependencies for a package. If no version, use latest.
+        """
+        # First try getting version from package name
+        version = None
+        if "@" in name:
+            name, version = name.split("@", 1)
+
+        if not version:
+            package = self.package(manager, name, use_cache)
+            if "versions" in package.data and package.data["versions"]:
+                version = package.data["versions"][-1]["number"]
+            if not version:
+                logger.exit(
+                    f"Cannot automatically derive version, please provide {name}@<version>"
+                )
+        return self.get_endpoint(
+            "dependencies",
+            use_cache=use_cache,
+            manager=manager,
+            package_name=name,
+            version=version,
+        )
+
     def package(self, manager, name, use_cache=True):
         """
         Lookup a package in a specific package manager
         """
-        # TODO need another endpoint / thing for version
+        if "@" in name:
+            logger.warning("This function does not require a package version.")
+            name, _ = name.split("@", 1)
+
         # Ensure we know the manager before
         # Store package in cache based on manager and name
         cache_name = f"package/{manager}/{name}"

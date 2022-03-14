@@ -81,20 +81,24 @@ def get_parser():
         "--clear", help="clear the cache", default=False, action="store_true"
     )
 
-    # Get a package
+    # Get a package or dependencies
     pkg = subparsers.add_parser(
         "package",
         description="list package managers available to derive citations from.",
     )
-    pkg.add_argument("package", help="package manager and name to parse", nargs=2)
-    pkg.add_argument(
-        "--json",
-        dest="json",
-        help="print output to json.",
-        default=False,
-        action="store_true",
-    )
-    pkg.add_argument("--outfile", "-o", help="Save to an output json file.")
+    deps = subparsers.add_parser("deps", description="list dependencies for a package.")
+    for command in [pkg, deps]:
+        command.add_argument(
+            "package", help="package manager and name to parse", nargs=2
+        )
+        command.add_argument(
+            "--json",
+            dest="json",
+            help="print output to json.",
+            default=False,
+            action="store_true",
+        )
+        command.add_argument("--outfile", "-o", help="Save to an output json file.")
 
     # Local shell with client loaded
     shell = subparsers.add_parser(
@@ -185,6 +189,8 @@ def run():
 
     if args.command == "cache":
         from .cache import main
+    elif args.command == "deps":
+        from .deps import main
     elif args.command == "config":
         from .config import main
     elif args.command == "shell":

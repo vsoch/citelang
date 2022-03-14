@@ -112,10 +112,19 @@ And from the command line:
 $ citelang package pypi requests
 ```
 
-Or with a version:
+### Dependencies
+
+You can ask to see package dependencies:
+
 
 ```bash
-$ citelang package pypi requests@2.27.1
+$ citelang deps pypi requests
+```
+
+If you don't provide a version, the latest will be used (retrieved from the package).
+
+```bash
+$ citelang deps pypi requests@2.27.1
 ```
 
 
@@ -173,7 +182,7 @@ Are you sure you want to clear the cache? yes
 
 ## TODO
 
- - add support for version
+ - add support for a citation or credit tree
  - citelang needs tests
  - create documentation, settings table
 

@@ -3,6 +3,7 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import citelang.defaults as defaults
+from datetime import datetime
 import sys
 
 # Registered endpoints (populated on init)
@@ -78,6 +79,18 @@ class PackageManagers(Endpoint):
     skips = ["color"]
 
 
+class Dependencies(Endpoint):
+    name = "dependencies"
+    path = "/api/{manager}/{package_name}/{version}/dependencies"
+    format_url = ["manager", "package_name", "version"]
+    emoji = "arrow"
+    skips = ["normalized_licenses"]
+    dont_truncate = ["project_name"]
+
+    def table_data(self, data):
+        return data.get("dependencies")
+
+
 class Package(Endpoint):
     name = "package"
     path = "/api/{manager}/{package_name}"
@@ -90,6 +103,20 @@ class Package(Endpoint):
         "original_license",
     ]
 
+    def order(self, data):
+        """
+        Order versions by published at
+        """
+        versions = data.get("versions", [])
+        if versions:
+            data["versions"] = sorted(
+                versions,
+                key=lambda x: datetime.strptime(
+                    x["published_at"].split("T", 1)[0], "%Y-%m-%d"
+                ),
+            )
+        return data
+
     def table_data(self, data):
         # package should return a list of versions
         return data.get("versions")
@@ -99,7 +126,7 @@ class Package(Endpoint):
         return "Package " + self.params.get("package_name", "")
 
 
-for endpoint in [PackageManagers, Package]:
+for endpoint in [PackageManagers, Package, Dependencies]:
     registry_names.append(endpoint.name)
     registry[endpoint.name] = endpoint
 
