@@ -204,7 +204,8 @@ class Tree(Result):
             "children": [],
         }
 
-        def add(data, children):
+        def add(data, children, total):
+            total += data.credit
             for child in data.children:
                 node = {
                     "name": child.name,
@@ -212,12 +213,13 @@ class Tree(Result):
                     "weight": child.weight,
                     "children": [],
                 }
-                add(child, node["children"])
+                total = add(child, node["children"], total)
                 children.append(node)
-            return data
+            return total
 
-        add(self.result, data["children"])
+        total = add(self.result, data["children"], 0)
         self.data = data
+        self.data["total"] = total
 
     def print_result(self):
         """
@@ -225,11 +227,15 @@ class Tree(Result):
         """
 
         def print_result(result, indent=2):
-            print("%s%20s: %s" % (" " * indent, result["name"], result["credit"]))
+            print(
+                "%s%20s: %s"
+                % (" " * indent, result["name"], round(result["credit"], 3))
+            )
             for child in result["children"]:
                 print_result(child, indent=indent * 2)
 
         print_result(self.data)
+        print("total: %s" % round(self.data["total"], 3))
 
 
 class Graph(Result):

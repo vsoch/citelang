@@ -97,6 +97,9 @@ class Client(base.BaseClient):
         # Booleans to trigger exiting parser
         stop_looking = False
 
+        # Keep handle to previous children in case we stop looking
+        previous = []
+
         while next_nodes and not stop_looking:
             next_node = next_nodes.pop(0)
             deps = next_node.obj.dependencies(return_data=True)
@@ -104,12 +107,11 @@ class Client(base.BaseClient):
             # Stopping point - exceeded max depth
             if max_depth and next_node.depth > max_depth:
                 stop_looking = True
-                break
 
             # Stopping point - exceeded max deps (plus 1 for original package)
             if max_deps and len(seen) + 1 > max_deps:
                 stop_looking = True
-                break
+
             seen.add(next_node.name)
 
             if not deps:
@@ -123,8 +125,32 @@ class Client(base.BaseClient):
             if dep_credit < min_credit:
                 stop_looking = True
 
-                # Give all remaining credit to the node we aren't parsing
+            # If we are stopping, time to break and distribute remaining credit
+            # to nodes we couldn't parse children for.
+            if stop_looking:
+
+                # We haven't parsed this one yet
                 next_node.total_credit = next_node.weight
+
+                # Give all remaining credit to the node we aren't parsing
+                for node in previous:
+
+                    # We might have added and given credit to some children
+                    if node.children:
+
+                        # Redistribute credit amongst children that were > threshold
+                        dep_credit = ((1 - credit_split) * node.weight) / len(
+                            node.children
+                        )
+                        for child in node.children:
+                            child.total_credit = dep_credit
+
+                        # The node's credit is that weight minus total dep credit
+                        node.total_credit = node.weight - (
+                            dep_credit * len(node.children)
+                        )
+                    else:
+                        node.total_credit = node.weight
                 break
 
             # Calculate credit for each dependency and add as child
@@ -145,6 +171,9 @@ class Client(base.BaseClient):
                 )
                 next_node.add_child(child)
                 next_nodes.append(child)
+
+                # Store previous if we need to update weight
+                previous.append(child)
 
         return root
 

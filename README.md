@@ -189,30 +189,46 @@ GET https://libraries.io/api/pypi/urllib3/1.26.8/dependencies
 ```
 And then you'll get the credit score:
 
-**Note**: I need to handle the summed "not accounted for" credit (<25%) that
-occurs because we truncate the graph when we reach a certain minimum credit. That's
- why it doesn't add up to 1!
-
 ```bash
-
+$ citelang credit pypi requests 
               requests: 0.5
-           win-inet-pton: 0.03571428571428571
-                 PySocks: 0.03571428571428571
-      charset-normalizer: 0.03571428571428571
-                unicodedata2: 0.017857142857142856
-                    idna: 0.03571428571428571
-                 chardet: 0.03571428571428571
-                 certifi: 0.03571428571428571
-                 urllib3: 0.03571428571428571
+           win-inet-pton: 0.071
+                 PySocks: 0.071
+      charset-normalizer: 0.036
+                unicodedata2: 0.036
+                    idna: 0.071
+                 chardet: 0.071
+                 certifi: 0.071
+                 urllib3: 0.071
+total: 1.0
 ```
 
-To change the minimum credit (e.g., to generate the entire graph) you can do:
+The default "minimum credit" (to determine when we stop parsing) is 0.01. 
+You can also try changing this value!
 
 ```bash
-$ citelang graph pypi requests --min-credit=0.0
+$ citelang credit pypi requests --min-credit 0.005
+              requests: 0.5
+           win-inet-pton: 0.071
+                 PySocks: 0.071
+      charset-normalizer: 0.036
+                unicodedata2: 0.036
+                    idna: 0.071
+                 chardet: 0.071
+                 certifi: 0.071
+                 urllib3: 0.036
+                     PySocks: 0.005
+                   ipaddress: 0.005
+                     certifi: 0.005
+                        idna: 0.005
+                cryptography: 0.005
+                   pyOpenSSL: 0.005
+                    brotlipy: 0.005
+total: 1.0
 ```
 
-Or also see `max_deps` and `max_depth` to adjust when to stop based on unique dependency count or depth, respectively.
+By default, the `--max-depth` and `--map-deps` are unset so we don't stop parsing based on some
+maximum depth or number of dependencies. You can try setting these values as well.
 
 
 ### Graph
