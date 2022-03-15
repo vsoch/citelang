@@ -4,8 +4,9 @@ __license__ = "MPL 2.0"
 
 from citelang.logger import logger
 import citelang.utils as utils
+import citelang.main.graph as graph
 
-from rich.table import Table
+from rich.table import Table as RichTable
 from rich.console import Console
 
 import random
@@ -24,12 +25,31 @@ class Result:
         data = data or {}
         self.data = self.endpoint.order(data)
 
+    def print_json(self):
+        print(utils.print_json(self.data))
+
+    def to_dict(self):
+        return self.data
+
+    def save(self, outfile):
+        """
+        Save to output file
+        """
+        logger.info("Saving %s to %s..." % (self.title or "data", outfile))
+        utils.write_json(self.data, outfile)
+
+
+class Table(Result):
+    """
+    A table is a result formatted as a table for the client.
+    """
+
+    def __init__(self, data, endpoint):
+        super().__init__(data, endpoint)
+
         # Keep track of the max length for each field not truncated
         self.max_widths = {}
         self.ensure_complete()
-
-    def print_json(self):
-        print(utils.print_json(self.data))
 
     def available_width(self, columns):
         """
@@ -90,16 +110,6 @@ class Result:
                     elif self.max_widths[field] < len(entry[field]):
                         self.max_widths[field] = len(entry[field])
 
-    def to_dict(self):
-        return self.data
-
-    def save(self, outfile):
-        """
-        Save to output file
-        """
-        logger.info("Saving %s to %s..." % (self.title or "data", outfile))
-        utils.write_json(self.data, outfile)
-
     @property
     def color(self):
         """
@@ -155,7 +165,7 @@ class Result:
         """
         Pretty print a table of results.
         """
-        table = Table(title=self.endpoint.title)
+        table = RichTable(title=self.endpoint.title)
 
         # Don't reuse colors
         seen_colors = []
@@ -166,7 +176,8 @@ class Result:
             color = None
             while not color or color in seen_colors:
                 color = self.color
-            table.add_column(column.capitalize(), style=color)
+            title = " ".join([x.capitalize() for x in column.split("_")])
+            table.add_column(title, style=color)
 
         # Add rows
         for row in self.table_rows(columns, limit=limit):
@@ -175,3 +186,78 @@ class Result:
         # And print!
         console = Console()
         console.print(table, justify="center")
+
+
+class Tree(Result):
+    def __init__(self, result):
+        self.result = result
+        self.parse_data()
+
+    def parse_data(self):
+        """
+        Parse result into data
+        """
+        data = {
+            "name": self.result.name,
+            "credit": self.result.credit,
+            "weight": self.result.weight,
+            "children": [],
+        }
+
+        def add(data, children, total):
+            total += data.credit
+            for child in data.children:
+                node = {
+                    "name": child.name,
+                    "credit": child.credit,
+                    "weight": child.weight,
+                    "children": [],
+                }
+                total = add(child, node["children"], total)
+                children.append(node)
+            return total
+
+        total = add(self.result, data["children"], 0)
+        self.data = data
+        self.data["total"] = total
+
+    def print_result(self):
+        """
+        Print a tree result (todo redo with color and rich)
+        """
+
+        def print_result(result, indent=2):
+            print(
+                "%s%20s: %s"
+                % (" " * indent, result["name"], round(result["credit"], 3))
+            )
+            for child in result["children"]:
+                print_result(child, indent=indent * 2)
+
+        print_result(self.data)
+        print("total: %s" % round(self.data["total"], 3))
+
+
+class Graph(Result):
+    """
+    A graph result can generate text for a graph
+    """
+
+    def __init__(self, root):
+        self.root = root
+
+    def graph(self, fmt=None):
+        """
+        Generate a graph of dependencies
+        """
+        # Select output format (default to console)
+        # if fmt == "dot":
+        #    out = graph.Dot(self.root)
+        # elif fmt == "cypher":
+        #    out = graph.Cypher(self.root)
+        # elif fmt == "gexf":
+        #    out = graph.Gexf(self.root)
+        # else:
+        # Only console supported for now!
+        out = graph.Console(self.root)
+        return out.generate()

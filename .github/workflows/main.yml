@@ -33,9 +33,12 @@ jobs:
           source activate black
           pyflakes citelang/*.py
           pyflakes citelang/client
-          pyflakes citelang/main
+          pyflakes citelang/main/*.py
           pyflakes citelang/utils/fileio.py
           pyflakes citelang/utils/terminal.py
+          pyflakes citelang/main/graph/base.py
+          pyflakes citelang/main/graph/text.py
+          pyflakes citelang/main/graph/tree.py
 
   testing:
     runs-on: ubuntu-latest

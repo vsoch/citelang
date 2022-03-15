@@ -2,147 +2,16 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
-import citelang.main.endpoints as endpoints
-import citelang.main.table as table
-from citelang.main.settings import Settings
-
-import time
-
-import os
-import json
-import requests
-import shutil
+import citelang.main.base as base
+import citelang.main.graph as graph
+import citelang.main.result as results
+import citelang.main.package as package
 
 
-class Client:
+class Client(base.BaseClient):
     """
     Interact with a libaries.io server via CiteLang
     """
-
-    def __init__(self, settings_file=None, validate=True, quiet=False):
-        self.quiet = quiet
-        self.session = requests.session()
-        self.headers = {"Accept": "application/json", "User-Agent": "citelang-python"}
-        self.params = {"per_page": 100}
-        self.getenv()
-
-        # keep a cache of data for a session
-        self._cache = {}
-
-        # If we don't have default settings, load
-        if not hasattr(self, "settings"):
-            self.settings = Settings(settings_file, validate=validate)
-
-    def __repr__(self):
-        return str(self)
-
-    def __str__(self):
-        return "[citelang-client]"
-
-    def getenv(self):
-        """
-        Get any token / username set in the environment
-        """
-        self.api_key = os.environ.get("CITELANG_LIBRARIES_KEY")
-        if self.api_key:
-            self.params.update({"api_key": self.api_key})
-
-    def clear_cache(self):
-        """
-        Clear the cache (with confirmation).
-        """
-        if utils.confirm_action("Are you sure you want to clear the cache? "):
-            if os.path.exists(self.settings.cache_dir):
-                shutil.rmtree(self.settings.cache_dir)
-
-    def cache(self, name, result):
-        """
-        Given a result, cache if the user has cache enabled.
-        """
-        if self.settings.disable_cache == True:
-            return
-
-        # If we are using the memory cache, return from there.
-        if not self.settings.disable_memory_cache:
-            if name in self._cache:
-                return self._cache[name]
-
-        # Ensure cache directory exists
-        utils.mkdir_p(self.settings.cache_dir)
-
-        # prepare the path (e.g., cache_dir/package_managers.json)
-        path = self.get_cache_name(name)
-
-        # Don't write empty data
-        if not result.data:
-            logger.warning("No data found for result, not writing %s" % path)
-            return
-
-        # If we are using the memory cache, save to it
-        if not self.settings.disable_memory_cache:
-            self._cache[name] = result.data
-
-        # We can't predict nesting, so always make directory
-        utils.mkdir_p(os.path.dirname(path))
-        utils.write_json(result.data, path)
-
-    def get_cache_name(self, name):
-        """
-        Return a json cache entry.
-        """
-        return os.path.join(self.settings.cache_dir, "%s.json" % name)
-
-    def get_cache(self, name, endpoint=None):
-        """
-        Given a cache name (typically matching the endpoint) retrieve if exists.
-        If provided and endpoint, wrap the result with the endpoint. Otherwise,
-        return the json result.
-        """
-        path = self.get_cache_name(name)
-        if not os.path.exists(path):
-            return
-
-        # Load the cache, return as a result if it exists.
-        data = utils.read_json(path)
-        if data and endpoint:
-            return table.Result(data, endpoint)
-        elif data:
-            return data
-
-    def get_endpoint(self, name, use_cache=True, cache_name=None, **kwargs):
-        """
-        Get a named endpoint, optionally, using the cache (default)
-        """
-        if name not in endpoints.registry:
-            names = endpoints.registry_names
-            logger.exit(f"{name} is not a known endpoint. Choose from {names}")
-
-        # Create the endpoint with any optional params
-        endpoint = endpoints.registry[name](**kwargs)
-
-        # First shot try to use cache OR not if disabled
-        result = self.get_cache(cache_name or name, endpoint)
-        if not result or not use_cache:
-            result = table.Result(self.get(endpoint.url), endpoint)
-
-        # If cache is enabled, we save the result
-        self.cache(cache_name or name, result)
-        return result
-
-    def check_manager(self, name, use_cache=True):
-        """
-        Ensure a package manager name is valid before attempting to query.
-        """
-        managers = self.get_endpoint("package_managers", use_cache=use_cache)
-
-        # Ensure the manager is allowed
-        if managers.data:
-            managers = [x["name"].lower() for x in managers.data]
-            if name not in managers:
-                managers = "\n".join(managers)
-                logger.exit(f"{name} is not a known manager. Choices are:\n{managers}")
 
     def package_managers(self, use_cache=True):
         """
@@ -154,150 +23,174 @@ class Client:
         """
         Get dependencies for a package. If no version, use latest.
         """
-        # First try getting version from package name
-        version = None
-        if "@" in name:
-            name, version = name.split("@", 1)
+        self.check_manager(manager, use_cache)
+        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+        return pkg.dependencies()
 
-        if not version:
-            package = self.package(manager, name, use_cache)
-            if "versions" in package.data and package.data["versions"]:
-                version = package.data["versions"][-1]["number"]
-            if not version:
-                logger.exit(
-                    f"Cannot automatically derive version, please provide {name}@<version>"
-                )
-        return self.get_endpoint(
-            "dependencies",
-            use_cache=use_cache,
+    def graph(
+        self,
+        manager,
+        name,
+        use_cache=True,
+        max_depth=None,
+        max_deps=None,
+        min_credit=0.01,
+        credit_split=0.5,
+    ):
+        """
+        Generate a graph for a package.
+
+        credit_split is how to split credit between some package and its dependents. E.g., 0.5 means 50/50. 0.8 means
+        the main package gets 80%, and dependencies split 20%. We go up until the min credit 0.05 at which case we
+        stop adding.
+        """
+        root = self._graph(
             manager=manager,
-            package_name=name,
-            version=version,
+            name=name,
+            use_cache=use_cache,
+            max_depth=max_depth,
+            max_deps=max_deps,
+            min_credit=min_credit,
+            credit_split=credit_split,
         )
+        return results.Graph(root).graph()
+
+    def _graph(
+        self,
+        manager,
+        name,
+        use_cache=True,
+        max_depth=None,
+        max_deps=None,
+        min_credit=0.01,
+        credit_split=0.01,
+    ):
+        """
+        Shared 'private' function to generate graph
+        """
+        self.check_manager(manager, use_cache)
+        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+
+        # keep track of deps (we only care about name, not version)
+        seen = set()
+
+        # Top node gets full credit 1.0 (to split between itself and deps)
+        root = graph.Node(obj=pkg, weight=1.0, credit_split=credit_split, depth=0)
+
+        # A pointer to the next node
+        next_nodes = [root]
+
+        # Booleans to trigger exiting parser
+        stop_looking = False
+
+        # Keep handle to previous children in case we stop looking
+        previous = []
+
+        while next_nodes and not stop_looking:
+            next_node = next_nodes.pop(0)
+            deps = next_node.obj.dependencies(return_data=True)
+
+            # Stopping point - exceeded max depth
+            if max_depth and next_node.depth > max_depth:
+                stop_looking = True
+
+            # Stopping point - exceeded max deps (plus 1 for original package)
+            if max_deps and len(seen) + 1 > max_deps:
+                stop_looking = True
+
+            seen.add(next_node.name)
+
+            if not deps:
+                continue
+
+            # How much credit for each of the new deps?
+            # credit for all deps AS a percentage of the weight BROKEN into number of deps
+            dep_credit = ((1 - credit_split) * next_node.weight) / len(deps)
+
+            # Stopping point - dependency credit is too small
+            if dep_credit < min_credit:
+                stop_looking = True
+
+            # If we are stopping, time to break and distribute remaining credit
+            # to nodes we couldn't parse children for.
+            if stop_looking:
+
+                # We haven't parsed this one yet
+                next_node.total_credit = next_node.weight
+
+                # Give all remaining credit to the node we aren't parsing
+                for node in previous:
+
+                    # We might have added and given credit to some children
+                    if node.children:
+
+                        # Redistribute credit amongst children that were > threshold
+                        dep_credit = ((1 - credit_split) * node.weight) / len(
+                            node.children
+                        )
+                        for child in node.children:
+                            child.total_credit = dep_credit
+
+                        # The node's credit is that weight minus total dep credit
+                        node.total_credit = node.weight - (
+                            dep_credit * len(node.children)
+                        )
+                    else:
+                        node.total_credit = node.weight
+                break
+
+            # Calculate credit for each dependency and add as child
+            for dep in deps:
+
+                # Haven't seen this case, but just a check
+                dep_name = dep["name"] or dep["project_name"]
+                if not dep_name:
+                    continue
+                depnode = package.Package(
+                    manager, dep_name, client=self, use_cache=use_cache
+                )
+                child = graph.Node(
+                    obj=depnode,
+                    weight=dep_credit,
+                    credit_split=credit_split,
+                    depth=next_node.depth + 1,
+                )
+                next_node.add_child(child)
+                next_nodes.append(child)
+
+                # Store previous if we need to update weight
+                previous.append(child)
+
+        return root
+
+    def credit(
+        self,
+        manager,
+        name,
+        use_cache=True,
+        max_depth=None,
+        max_deps=None,
+        min_credit=0.05,
+        credit_split=0.5,
+    ):
+        """
+        Get the credit root node, then do additional graph parsing.
+        """
+        root = self._graph(
+            manager=manager,
+            name=name,
+            use_cache=use_cache,
+            max_depth=max_depth,
+            max_deps=max_deps,
+            min_credit=min_credit,
+            credit_split=credit_split,
+        )
+        return results.Tree(root)
 
     def package(self, manager, name, use_cache=True):
         """
         Lookup a package in a specific package manager
         """
-        if "@" in name:
-            logger.warning("This function does not require a package version.")
-            name, _ = name.split("@", 1)
-
-        # Ensure we know the manager before
-        # Store package in cache based on manager and name
-        cache_name = f"package/{manager}/{name}"
         self.check_manager(manager, use_cache)
-        return self.get_endpoint(
-            "package",
-            cache_name=cache_name,
-            package_name=name,
-            manager=manager,
-            use_cache=use_cache,
-        )
-
-    def check_response(self, typ, r, return_json=True, stream=False, retry=True):
-        """
-        Ensure the response status code is 20x
-        """
-        # Rate is 60/minute
-        if r.status_code == 429:
-            logger.info("Exceeded API limit, sleeping 1 minute.")
-            time.sleep(60)
-            r = self.session.send(r.request)
-            return self.check_response(typ, r, return_json, stream, retry=retry)
-
-        if r.status_code == 401:
-            logger.exit("You must set CITELAG_LIBRARIES_KEY in the environment.")
-
-        if r.status_code not in [200, 201]:
-            logger.exit("Unsuccessful response: %s, %s" % (r.status_code, r.reason))
-
-        # All data is typically json
-        if return_json and not stream:
-            return r.json()
-        return r
-
-    def set_header(self, name, value):
-        """
-        Set a header, name and value pair
-        """
-        self.headers.update({name: value})
-
-    def print_response(self, r):
-        """
-        Print the result of a response
-        """
-        response = r.json()
-        logger.info("%s: %s" % (r.url, json.dumps(response, indent=4)))
-
-    def info(self):
-        """
-        Get basic server information
-        """
-        return self.get("/")
-
-    def do_request(
-        self,
-        typ,
-        url,
-        data=None,
-        json=None,
-        headers=None,
-        return_json=True,
-        stream=False,
-    ):
-        """
-        Do a request (get, post, etc)
-        """
-        # If we have a cached token, use it!
-        headers = headers or {}
-        headers.update(self.headers)
-
-        if not self.quiet:
-            logger.info("%s %s" % (typ.upper(), url))
-
-        # The first post when you upload the model defines the flavor (regression)
-        if json:
-            r = requests.request(typ, url, json=json, headers=headers, stream=stream)
-        else:
-            r = requests.request(typ, url, data=data, headers=headers, stream=stream)
-        if not self.quiet and not stream and not return_json:
-            self.print_response(r)
-        return self.check_response(typ, r, return_json=return_json, stream=stream)
-
-    def post(self, url, data=None, json=None, headers=None, return_json=True):
-        """
-        Perform a POST request
-        """
-        return self.do_request(
-            "post", url, data=data, json=json, headers=headers, return_json=return_json
-        )
-
-    def delete(self, url, data=None, json=None, headers=None, return_json=True):
-        """
-        Perform a DELETE request
-        """
-        return self.do_request(
-            "delete",
-            url,
-            data=data,
-            json=json,
-            headers=headers,
-            return_json=return_json,
-        )
-
-    def get(
-        self, url, data=None, json=None, headers=None, return_json=True, stream=False
-    ):
-        """
-        Perform a GET request
-        """
-        return self.do_request(
-            "get",
-            url,
-            data=data,
-            json=json,
-            headers=headers,
-            return_json=return_json,
-            stream=stream,
-        )
+        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+        return pkg.info()
