@@ -2,21 +2,6 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
-import citelang.main.base as base
-import citelang.main.endpoints as endpoints
-import citelang.main.result as results
-import citelang.main.package as package
-from citelang.main.settings import Settings
-
-import time
-
-import os
-import json
-import requests
-import shutil
-
 
 class Package:
     """
