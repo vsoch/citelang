@@ -243,19 +243,21 @@ class Graph(Result):
     A graph result can generate text for a graph
     """
 
+    def __init__(self, root):
+        self.root = root
+
     def graph(self, fmt=None):
         """
         Generate a graph of dependencies
         """
         # Select output format (default to console)
-        if fmt == "text":
-            out = graph.Text(binary, locations)
-        elif fmt == "dot":
-            out = graph.Dot(binary, locations)
-        elif fmt == "cypher":
-            out = graph.Cypher(binary, locations)
-        elif fmt == "gexf":
-            out = graph.Gexf(binary, locations)
-        else:
-            out = graph.Console(binary, locations)
-        out.generate()
+        # if fmt == "dot":
+        #    out = graph.Dot(self.root)
+        # elif fmt == "cypher":
+        #    out = graph.Cypher(self.root)
+        # elif fmt == "gexf":
+        #    out = graph.Gexf(self.root)
+        # else:
+        # Only console supported for now!
+        out = graph.Console(self.root)
+        return out.generate()

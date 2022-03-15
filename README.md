@@ -239,7 +239,25 @@ To create a simple citation graph, you can do:
 $ citelang graph pypi requests
 ```
 
-**under development**
+This will print a (much prettier) rendering of the graph to the console! Right now
+we just have support for a text tree, and soon we will have support for other graph formats
+(cypher, dot, gephi, etc.).
+
+![docs/assets/img/citelang-console.png](docs/assets/img/citelang-console.png)
+
+
+### Render
+
+This will be a set of commands that can take any of:
+
+1. an entire markdown file with software references 
+2. a grouping / list of software references
+
+and create a citation summary, probably in different formats that are useful. This isn't developed yet
+but this dinosaur is excited so it's coming soon!
+
+**under development** more coming soon!
+
 
 ### Python
 

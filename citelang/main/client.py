@@ -64,10 +64,7 @@ class Client(base.BaseClient):
             min_credit=min_credit,
             credit_split=credit_split,
         )
-        print("GRAPH")
-        import IPython
-
-        IPython.embed()
+        return results.Graph(root).graph()
 
     def _graph(
         self,

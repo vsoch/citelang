@@ -8,7 +8,7 @@ from citelang.main import Client
 def main(args, parser, extra, subparser):
 
     cli = Client(quiet=args.quiet, settings_file=args.settings_file)
-    result = cli.graph(
+    cli.graph(
         name=args.package[1],
         manager=args.package[0],
         use_cache=not args.no_cache,
@@ -17,16 +17,3 @@ def main(args, parser, extra, subparser):
         max_deps=args.max_deps,
         credit_split=args.credit_split,
     )
-
-    print("GRAPH")
-    import IPython
-
-    IPython.embed()
-    # TODO need graph result that cna save to json, etc.
-    # if args.json and not args.outfile:
-    #    result.print_json()
-
-    # elif args.outfile:
-    #    result.save(args.outfile)
-
-    # else:
