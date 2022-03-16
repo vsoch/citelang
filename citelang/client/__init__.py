@@ -90,6 +90,10 @@ def get_parser():
     graph = subparsers.add_parser(
         "graph", description="generate a graph for some package dependencies."
     )
+    graph.add_argument(
+        "--fmt", "-f", help="format of the graph (unset defaults to console print)"
+    )
+
     credit = subparsers.add_parser(
         "credit", description="calculate dependency credit for a package."
     )

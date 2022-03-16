@@ -15,7 +15,7 @@ class Endpoint:
     dont_truncate = ["url"]
     emoji = "sparkles"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, require_params=False, *args, **kwargs):
         self.apiroot = defaults.apiroot
         for attr in ["name", "path"]:
             if not hasattr(self, attr):
@@ -24,7 +24,10 @@ class Endpoint:
                 )
 
         # If we have attribute format_url we require the params
-        self.format_params(**kwargs)
+        if require_params:
+            self.require_params(**kwargs)
+        else:
+            self.format_params(**kwargs)
 
     def table_data(self, data):
         """
@@ -32,7 +35,7 @@ class Endpoint:
         """
         return data
 
-    def format_params(self, **kwargs):
+    def require_params(self, **kwargs):
         required = getattr(self, "format_url", [])
         params = {}
         for require in required:
@@ -40,6 +43,12 @@ class Endpoint:
                 sys.exit(f"parameter {require} is required for this endpoint.")
             params[require] = kwargs[require]
 
+        # If we have parameters, format the path
+        if params:
+            self.path = self.path.format(**params)
+        self.params = params
+
+    def format_params(self, **params):
         # If we have parameters, format the path
         if params:
             self.path = self.path.format(**params)
@@ -108,13 +117,18 @@ class Package(Endpoint):
         Order versions by published at
         """
         versions = data.get("versions", [])
-        if versions:
+        if versions and "published_at" in versions[0]:
             data["versions"] = sorted(
                 versions,
                 key=lambda x: datetime.strptime(
                     x["published_at"].split("T", 1)[0], "%Y-%m-%d"
                 ),
             )
+        elif versions:
+            data["versions"] = sorted(
+                data["versions"], key=lambda x: x["number"], reverse=True
+            )
+
         return data
 
     def table_data(self, data):

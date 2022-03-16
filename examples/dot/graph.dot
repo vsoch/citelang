@@ -1,0 +1,24 @@
+digraph requests {
+ ratio=0.562;
+ graph [fontname="Arial"];
+ node [fontname="Arial"];
+ edge [fontname="Arial"];
+ acqtavjy [label="requests (0.5)" tooltip="requests (0.5)", style=filled, color="#37F735"];
+ accbbuop [label="win-inet-pton (0.071)" tooltip="win-inet-pton (0.071)", style=filled, color="#1705D6"];
+ wafqcirc [label="PySocks (0.071)" tooltip="PySocks (0.071)", style=filled, color="#1705D6"];
+ pexabxfu [label="charset-normalizer (0.036)" tooltip="charset-normalizer (0.036)", style=filled, color="#1705D6"];
+ ejrtvcep [label="idna (0.071)" tooltip="idna (0.071)", style=filled, color="#1705D6"];
+ jdnuohoa [label="chardet (0.071)" tooltip="chardet (0.071)", style=filled, color="#1705D6"];
+ cpplprww [label="certifi (0.071)" tooltip="certifi (0.071)", style=filled, color="#1705D6"];
+ rafipoyi [label="urllib3 (0.071)" tooltip="urllib3 (0.071)", style=filled, color="#1705D6"];
+ ygtaghem [label="unicodedata2 (0.036)" tooltip="unicodedata2 (0.036)", style=filled, color="#1705D6"];
+ acqtavjy -> accbbuop [label=" depends on " tooltip="requests -> win-inet-pton"];
+ acqtavjy -> wafqcirc [label=" depends on " tooltip="requests -> PySocks"];
+ acqtavjy -> pexabxfu [label=" depends on " tooltip="requests -> charset-normalizer"];
+ acqtavjy -> ejrtvcep [label=" depends on " tooltip="requests -> idna"];
+ acqtavjy -> jdnuohoa [label=" depends on " tooltip="requests -> chardet"];
+ acqtavjy -> cpplprww [label=" depends on " tooltip="requests -> certifi"];
+ acqtavjy -> rafipoyi [label=" depends on " tooltip="requests -> urllib3"];
+ pexabxfu -> ygtaghem [label=" depends on " tooltip="charset-normalizer -> unicodedata2"];
+
+}

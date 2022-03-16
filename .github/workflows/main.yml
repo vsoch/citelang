@@ -39,6 +39,10 @@ jobs:
           pyflakes citelang/main/graph/base.py
           pyflakes citelang/main/graph/text.py
           pyflakes citelang/main/graph/tree.py
+          pyflakes citelang/main/graph/cypher.py
+          pyflakes citelang/main/graph/dot.py
+          pyflakes citelang/main/graph/gexf.py
+          pyflakes citelang/main/graph/graph.py
 
   testing:
     runs-on: ubuntu-latest

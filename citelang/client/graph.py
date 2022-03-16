@@ -16,4 +16,5 @@ def main(args, parser, extra, subparser):
         max_depth=args.max_depth,
         max_deps=args.max_deps,
         credit_split=args.credit_split,
+        fmt=args.fmt,
     )

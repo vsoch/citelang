@@ -157,7 +157,7 @@ To create a simple citation credit calculation, you can do:
 $ citelang credit pypi requests
 ```
 
-By default, we will split the graph until:
+By default, we will split the credit graph until:
 
  1. if set, we reach a threshold N of packages added (`--max-depth`)
  2. if set, we reach a total number of unique dependencies added (`--max-deps`)
@@ -239,11 +239,119 @@ To create a simple citation graph, you can do:
 $ citelang graph pypi requests
 ```
 
-This will print a (much prettier) rendering of the graph to the console! Right now
-we just have support for a text tree, and soon we will have support for other graph formats
-(cypher, dot, gephi, etc.).
+This will print a (much prettier) rendering of the graph to the console! 
 
-![docs/assets/img/citelang-console.png](docs/assets/img/citelang-console.png)
+![examples/console/citelang-console.png](examples/console/citelang-console.png)
+
+#### Dot
+
+To generate (and then render a dot graph):
+
+```bash
+$ citelang graph pypi requests --fmt dot > examples/dot/graph.dot
+$ dot -Tpng < examples/dot/graph.dot > examples/dot/graph.png
+$ dot -Tsvg < examples/dot/graph.dot > examples/dot/graph.svg
+```
+
+#### Cypher
+
+Cypher is the query format for Neo4j, the graph database.
+
+```bash
+$ citelang graph pypi requests --fmt cypher
+```
+```cypher
+CREATE (tlolycos:PACKAGE {name: 'requests (0.5)', label: 'tlolycos'}),
+(jgaoitav:PACKAGE {name: 'win-inet-pton (0.071)', label: 'jgaoitav'}),
+(jijibmow:PACKAGE {name: 'PySocks (0.071)', label: 'jijibmow'}),
+(gotbtadg:PACKAGE {name: 'charset-normalizer (0.036)', label: 'gotbtadg'}),
+(lflybqsc:PACKAGE {name: 'idna (0.071)', label: 'lflybqsc'}),
+(kitlrsbz:PACKAGE {name: 'chardet (0.071)', label: 'kitlrsbz'}),
+(gnveurko:PACKAGE {name: 'certifi (0.071)', label: 'gnveurko'}),
+(eoikqvix:PACKAGE {name: 'urllib3 (0.071)', label: 'eoikqvix'}),
+(kvccvkva:PACKAGE {name: 'unicodedata2 (0.036)', label: 'kvccvkva'}),
+(tlolycos)-[:DEPENDSON]->(jgaoitav),
+(tlolycos)-[:DEPENDSON]->(jijibmow),
+(tlolycos)-[:DEPENDSON]->(gotbtadg),
+(tlolycos)-[:DEPENDSON]->(lflybqsc),
+(tlolycos)-[:DEPENDSON]->(kitlrsbz),
+(tlolycos)-[:DEPENDSON]->(gnveurko),
+(tlolycos)-[:DEPENDSON]->(eoikqvix),
+(gotbtadg)-[:DEPENDSON]->(kvccvkva);
+```
+
+What you are seeing above is a definition of node and relationships. You can pipe to file:
+
+
+```bash
+$ citelang graph pypi requests --fmt cypher > examples/cypher/graph.cypher
+```
+
+If you test the output in the [Neo4J sandbox](https://sandbox.neo4j.com/) by first running the code to generate nodes and then doing:
+
+```bash
+MATCH (n) RETURN (n)
+```
+
+You should see:
+
+
+![examples/cypher/graph.png](examples/cypher/graph.png)
+
+From within Python you can do:
+
+```python
+from citelang.main import Client
+client = Client()
+client.graph(manager="pypi", name="requests", fmt="cypher")
+```
+
+
+#### Gexf (NetworkX)
+
+If you want to use networkX or Gephi or a [viewer](https://github.com/raphv/gexf-js) you can generate output as follows:
+
+```bash
+$ citelang graph pypi requests --fmt gexf
+$ citelang graph pypi requests --fmt gexf > examples/gexf/graph.xml
+```
+
+To use the viewer, you’ll first need to import into Gephi so the nodes have added spatial information. Without this information, you won’t see them in the UI. You can then do the following:
+
+```bash
+$ here=$PWD
+$ cd /tmp
+$ git clone https://github.com/raphv/gexf-js
+$ cd gexf-js
+```
+
+The file we generated above, we copy over the example so we don't have to edit config.js
+
+```bash
+$ cp $here/examples/gexf/graph.xml miserables.gexf
+```
+
+And then run the server!
+
+```bash
+python -m http.server 9999
+```
+
+As an alternative, networkx can also read in the gexf file:
+
+```python
+import matplotlib.pyplot as plt
+import networkx as nx
+
+graph = nx.read_gexf('examples/gexf/graph.xml')
+
+nx.draw(graph, with_labels=True, font_weight='bold')
+plt.show()
+```
+
+That should generate:
+
+![examples/gexf/graph.png](examples/gexf/graph.png)
 
 
 ### Render
