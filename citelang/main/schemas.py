@@ -68,7 +68,7 @@ package = {
     "$schema": schema_url,
     "title": "Package Schema",
     "type": "object",
-    "required": ["description", "homepage", "keywords", "language", "name", "versions"],
+    "required": ["description", "homepage", "language", "name", "versions"],
     "properties": packageProperties,
 }
 

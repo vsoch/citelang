@@ -26,7 +26,7 @@ def test_package(manager, name, tmp_path):
         assert prop in result.data
     result.print_json()
 
-    outfile = os.path.join(str(tmp_path), "%s.json" % name)
+    outfile = os.path.join(str(tmp_path), "%s.json" % os.path.basename(name))
     result.save(outfile)
     loaded = utils.read_json(outfile)
     assert loaded == result.data
@@ -67,7 +67,7 @@ def test_credit(manager, name, tmp_path):
     result = cli.credit(name=name, manager=manager)
     result.print_json()
 
-    outfile = os.path.join(str(tmp_path), "%s.json" % name)
+    outfile = os.path.join(str(tmp_path), "%s.json" % os.path.basename(name))
     result.save(outfile)
     loaded = utils.read_json(outfile)
     assert loaded == result.data
@@ -77,4 +77,4 @@ def test_credit(manager, name, tmp_path):
 @pytest.mark.parametrize("graphtype", [(None), ("cypher"), ("gexf"), ("dot")])
 def test_graph(graphtype):
     cli = client.Client(quiet=False)
-    cli.credit(name="requests", manager="pypi", fmt=graphtype)
+    cli.graph(name="requests", manager="pypi", fmt=graphtype)

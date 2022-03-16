@@ -16,11 +16,11 @@ def test_environment_substitution(tmp_path):
     settings = Settings(settings_file)
 
     assert "pancakes" not in settings.cache_dir
-    assert "cache" not in settings.cache_dir
+    assert "cache" in settings.cache_dir
     os.environ["SOME_PATH"] = "/tmp"
     os.putenv("SOME_PATH", "/tmp")
     settings.set("cache_dir", "$SOME_PATH/pancakes")
-    assert settings.module_base == "/tmp/pancakes"
+    assert settings.cache_dir == "/tmp/pancakes"
 
 
 def test_set_get(tmp_path):

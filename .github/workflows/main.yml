@@ -55,6 +55,8 @@ jobs:
         run: conda create --quiet --name testing pytest
           
       - name: Run Tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate testing

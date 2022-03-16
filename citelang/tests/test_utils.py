@@ -48,16 +48,7 @@ def test_write_json(tmp_path):
     assert "Wakkawakkawakka" in content
 
 
-def test_check_install():
-    print("Testing utils.check_install")
-    assert utils.check_install("echo")
-    assert not utils.check_install("fakesoftwarename")
-
-
 def test_get_installdir():
-    """get install directory should return the base of where shpc
-    is installed
-    """
     print("Testing utils.get_installdir")
 
     whereami = utils.get_installdir()
@@ -73,29 +64,18 @@ def test_run_command():
     assert result["return_code"] == 0
 
 
-def test_which():
-    print("Testing utils.which")
-
-    result = utils.which("echo")
-    assert result["message"].endswith("echo")
-    assert result["return_code"] == 0
-    result = utils.which("bwaaaaaaaaa")
-    assert result["message"] == ""
-    assert result["return_code"] == 1
-
-
 def test_get_tmpdir_tmpfile():
     print("Testing utils.get_tmpdir, get_tmpfile")
 
     tmpdir = utils.get_tmpdir()
     assert os.path.exists(tmpdir)
-    assert os.path.basename(tmpdir).startswith("shpc")
+    assert os.path.basename(tmpdir).startswith("citelang")
     shutil.rmtree(tmpdir)
     tmpdir = utils.get_tmpdir(prefix="name")
     assert os.path.basename(tmpdir).startswith("name")
     shutil.rmtree(tmpdir)
     tmpfile = utils.get_tmpfile()
-    assert "shpc" in tmpfile
+    assert "citelang" in tmpfile
     os.remove(tmpfile)
     tmpfile = utils.get_tmpfile(prefix="pancakes")
     assert "pancakes" in tmpfile
