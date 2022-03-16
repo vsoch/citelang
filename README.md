@@ -438,12 +438,11 @@ Without a version, we will grab the latest. Otherwise we use the version provide
 
 ## TODO
 
- - add support for a citation or credit tree
+ - dependencies for Github and spack
+ - look for dependencies in repo clone
+ - redo logger with rich colors and emoji!
  - citelang needs tests
  - create documentation, settings table
- - finish tree functions to print / show for credit and graph
- - account for missing credit
- - graph functions
 
 ## Contributors
 

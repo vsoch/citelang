@@ -5,6 +5,8 @@ from .terminal import (
     confirm_uninstall,
 )
 from .fileio import (
+    get_tmpfile,
+    get_tmpdir,
     mkdir_p,
     print_json,
     read_file,

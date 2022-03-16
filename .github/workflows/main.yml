@@ -43,6 +43,7 @@ jobs:
           pyflakes citelang/main/graph/dot.py
           pyflakes citelang/main/graph/gexf.py
           pyflakes citelang/main/graph/graph.py
+          pyflakes citelang/main/packages
 
   testing:
     runs-on: ubuntu-latest
