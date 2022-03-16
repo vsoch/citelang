@@ -44,6 +44,7 @@ jobs:
           pyflakes citelang/main/graph/gexf.py
           pyflakes citelang/main/graph/graph.py
           pyflakes citelang/main/packages
+          pyflakes citelang/tests
 
   testing:
     runs-on: ubuntu-latest
@@ -58,6 +59,6 @@ jobs:
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate testing
           pip install -e .
-          #cd citelang/tests
-          #/bin/bash test_client.sh
-          #pytest -xsv test_*.py
+          cd citelang/tests
+          /bin/bash test_client.sh
+          pytest -xsv test_*.py

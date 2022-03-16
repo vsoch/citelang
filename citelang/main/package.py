@@ -104,14 +104,18 @@ class CustomPackage(PackageBase):
 
         # If we don't have a version, we have to retrieve an update
         if not self.version:
-            deps = manager.package(self.name).dependencies()
-            return self.client.get_endpoint("dependencies", data=deps)
+            deps = manager.package(self.name)
+            result = self.client.get_endpoint("dependencies", data=deps)
+            if return_data:
+                return result.data.get("dependencies", [])
+            return result
 
+        # Case 2: Try to use the cache
         result = self.client.get_cache(cache_name)
         if not result or not self.use_cache:
             version = "@%s" % self.version if self.version else ""
             logger.info("Retrieving new result for %s@%s..." % (self.name, version))
-            deps = manager.package(self.name).dependencies()
+            deps = manager.package(self.name)
             result = self.client.get_endpoint("dependencies", data=deps)
         else:
             result = self.client.get_endpoint("dependencies", data=result)

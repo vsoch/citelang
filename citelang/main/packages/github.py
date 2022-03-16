@@ -13,12 +13,43 @@ import citelang.utils as utils
 from .base import PackageManager
 
 
-def find_dependencies(tmpdir):
+def find_dependencies(repo):
     """
-    Given a repository root, look for dependency files.
+    Given a repository root, look for dependency files. We could use the GraphQL
+    library, but this REQUIRES a GitHub token, which is kind of annoying. For now
+    we are trying to scrape them :)
     """
-    # TODO here we can clone and look for requirements.txt, etc.
-    return []
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        logger.exit(
+            "You need beautiful soup in order to get GitHub dependencies. pip install bs4"
+        )
+
+    url = "https://github.com/{}/network/dependencies".format(repo)
+
+    repos = set()
+    while url is not None:
+        response = requests.get(url)
+        if response.status_code != 200:
+            logger.warning("Issue getting dependencies for %s" % repo)
+            return [{"name": x} for x in sorted(list(repos))]
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        for t in soup.findAll("div", {"class": "Box-row"}):
+            repo = t.find("a", {"data-hovercard-type": "repository"})
+            if repo:
+                repo = repo.text.replace(" ", "").strip()
+                repos.add(repo)
+
+        # Do we have pagination?
+        pagination = soup.find("div", {"class": "paginate-container"})
+        url = None
+        if pagination:
+            pagination_a = pagination.find("a")
+            if pagination_a:
+                url = pagination_a["href"]
+    return [{"name": x} for x in sorted(list(repos))]
 
 
 class GitHubManager(PackageManager):
@@ -74,14 +105,8 @@ class GitHubManager(PackageManager):
 
         repo = self.get_or_fail(f"{self.apiroot}/repos/{name}", headers)
 
-        # TODO add parsing of clones
-        # Clone repository to look for dependency files
-        # dest = self.clone(name)
-        # if dest and os.path.exists(dest):
-        #    repo['dependencies'] = find_dependencies(dest)
-        #    shutil.rmtree(dest)
-        # else:
-        repo["dependencies"] = []
+        # Parse repos dependency page. This includes deps for CI too.
+        repo["dependencies"] = find_dependencies(name)
         repo["name"] = repo["full_name"]
 
         # Get versions from releases API

@@ -29,6 +29,17 @@ class SpackManager(PackageManager):
         except:
             return None
 
+    def dependencies(self, name):
+        """
+        Get dependencies for a spack package
+
+        Some package managers have separate endpoints for this, but we use
+        the same package endpoint and return that data.
+        """
+        if not hasattr(self, "data"):
+            self.package(name)
+        return self.data
+
     def package(self, name, **kwargs):
         """
         Get metadata for a spack package. Try to format like libraries.io
@@ -46,4 +57,5 @@ class SpackManager(PackageManager):
 
         # Ensure we match schema
         jsonschema.validate(meta, schema=schemas.package)
+        self.data = meta
         return meta

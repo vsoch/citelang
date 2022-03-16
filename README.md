@@ -239,9 +239,30 @@ To create a simple citation graph, you can do:
 $ citelang graph pypi requests
 ```
 
-This will print a (much prettier) rendering of the graph to the console! 
+This will print a (much prettier) rendering of the graph to the console! Here is for pypi:
 
-![examples/console/citelang-console.png](examples/console/citelang-console.png)
+![examples/console/citelang-console-pypi.png](examples/console/citelang-console-pypi.png)
+
+And citelang has custom package parsers, meaning we can add package managers that aren't in libraries.io!
+Here is spack:
+
+```bash
+$ citelang graph spack caliper
+```
+
+![examples/console/citelang-console-spack.png](examples/console/citelang-console-spack.png)
+
+And GitHub.
+
+```bash
+$ citelang graph github singularityhub/singularity-hpc
+```
+![examples/console/citelang-console-github.png](examples/console/citelang-console-github.png)
+
+GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
+If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won't show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
+that has a detectable file.
+
 
 #### Dot
 
@@ -305,7 +326,6 @@ from citelang.main import Client
 client = Client()
 client.graph(manager="pypi", name="requests", fmt="cypher")
 ```
-
 
 #### Gexf (NetworkX)
 
@@ -436,12 +456,23 @@ $ client.dependencies(manager="pypi", name="requests")
 Without a version, we will grab the latest. Otherwise we use the version provided.
 
 
+## Frequently Asked Questions
+
+### Why don't the trees print versions?
+
+The current thinking is that when I give credit to software, I'm not caring so much about the version.
+The goal of this isn't reproducibility, but rather to say "for this software package, here are the dependencies and credits to give for each." Given a version (which will default to latest) this will mean a particular
+set of dependencies, but it's not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.
+
+### Why don't the trees show package managers?
+
+In truth we probably should, because looking at a credit graph later you need to know the manager
+used to derive the graph (e.g., some packages can be present in multiple package managers!) 
+I haven't added this yet. 
+
 ## TODO
 
- - dependencies for Github and spack
- - look for dependencies in repo clone
- - redo logger with rich colors and emoji!
- - citelang needs tests
+ - add citelang parse of markdown with references (we need a citation format / summary format)
  - create documentation, settings table
 
 ## Contributors
