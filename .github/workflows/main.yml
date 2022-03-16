@@ -61,6 +61,7 @@ jobs:
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate testing
           pip install -e .
+          pip install bs4
           cd citelang/tests
           /bin/bash test_client.sh
           pytest -xsv test_*.py
