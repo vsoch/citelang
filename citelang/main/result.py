@@ -35,7 +35,7 @@ class Result:
         """
         Save to output file
         """
-        logger.info("Saving %s to %s..." % (self.title or "data", outfile))
+        logger.info("Saving to %s..." % outfile)
         utils.write_json(self.data, outfile)
 
 
