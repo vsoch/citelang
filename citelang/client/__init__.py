@@ -78,6 +78,12 @@ def get_parser():
     # Cache control
     cache = subparsers.add_parser("cache", description="cache control")
     cache.add_argument(
+        "--force",
+        help="do not ask for confirmation",
+        default=False,
+        action="store_true",
+    )
+    cache.add_argument(
         "--clear", help="clear the cache", default=False, action="store_true"
     )
 
@@ -90,6 +96,10 @@ def get_parser():
     graph = subparsers.add_parser(
         "graph", description="generate a graph for some package dependencies."
     )
+    graph.add_argument(
+        "--fmt", "-f", help="format of the graph (unset defaults to console print)"
+    )
+
     credit = subparsers.add_parser(
         "credit", description="calculate dependency credit for a package."
     )

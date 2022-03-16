@@ -39,6 +39,12 @@ jobs:
           pyflakes citelang/main/graph/base.py
           pyflakes citelang/main/graph/text.py
           pyflakes citelang/main/graph/tree.py
+          pyflakes citelang/main/graph/cypher.py
+          pyflakes citelang/main/graph/dot.py
+          pyflakes citelang/main/graph/gexf.py
+          pyflakes citelang/main/graph/graph.py
+          pyflakes citelang/main/packages
+          pyflakes citelang/tests
 
   testing:
     runs-on: ubuntu-latest
@@ -49,10 +55,13 @@ jobs:
         run: conda create --quiet --name testing pytest
           
       - name: Run Tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate testing
           pip install -e .
-          #cd citelang/tests
-          #/bin/bash test_client.sh
-          #pytest -xsv test_*.py
+          pip install bs4
+          cd citelang/tests
+          /bin/bash test_client.sh
+          pytest -xsv test_*.py

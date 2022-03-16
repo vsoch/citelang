@@ -7,6 +7,7 @@ import stat
 import json
 import sys
 import errno
+import tempfile
 
 
 def mkdir_p(path):
@@ -64,3 +65,35 @@ def read_json(filename, mode="r"):
     Read a json file to a dictionary.
     """
     return json.loads(read_file(filename))
+
+
+def get_tmpfile(tmpdir=None, prefix=""):
+    """
+    Get a temporary file with an optional prefix.
+    """
+    # First priority for the base goes to the user requested.
+    tmpdir = get_tmpdir(tmpdir)
+
+    # If tmpdir is set, add to prefix
+    if tmpdir:
+        prefix = os.path.join(tmpdir, os.path.basename(prefix))
+
+    fd, tmp_file = tempfile.mkstemp(prefix=prefix)
+    os.close(fd)
+
+    return tmp_file
+
+
+def get_tmpdir(tmpdir=None, prefix="", create=True):
+    """
+    Get a temporary directory for an operation.
+    """
+    tmpdir = tmpdir or tempfile.gettempdir()
+    prefix = prefix or "citelang-tmp"
+    prefix = "%s.%s" % (prefix, next(tempfile._get_candidate_names()))
+    tmpdir = os.path.join(tmpdir, prefix)
+
+    if not os.path.exists(tmpdir) and create is True:
+        os.mkdir(tmpdir)
+
+    return tmpdir

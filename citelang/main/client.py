@@ -6,18 +6,14 @@ import citelang.main.base as base
 import citelang.main.graph as graph
 import citelang.main.result as results
 import citelang.main.package as package
+import citelang.main.packages as packages
+from citelang.logger import logger
 
 
 class Client(base.BaseClient):
     """
-    Interact with a libaries.io server via CiteLang
+    Interact with a libaries.io or custom package server via CiteLang
     """
-
-    def package_managers(self, use_cache=True):
-        """
-        Get a listing of package managers supported on libraries.io
-        """
-        return self.get_endpoint("package_managers", use_cache=use_cache)
 
     def dependencies(self, manager, name, use_cache=True):
         """
@@ -26,6 +22,39 @@ class Client(base.BaseClient):
         self.check_manager(manager, use_cache)
         pkg = package.Package(manager, name, client=self, use_cache=use_cache)
         return pkg.dependencies()
+
+    def package_managers(self, use_cache=True):
+        """
+        Get a listing of package managers supported on libraries.io
+        """
+        result = self.get_cache("package_managers")
+        if not result or not use_cache:
+            logger.info("Retrieving new result for package managers...")
+            result = self.get_endpoint("package_managers")
+
+            # Update custom package managers
+            result.data += [p().info() for _, p in packages.managers.items()]
+        else:
+            result = self.get_endpoint("package_managers", data=result)
+
+        # If cache is enabled, we save the result
+        self.cache("package_managers", result)
+        return result
+
+    def check_manager(self, name, use_cache=True):
+        """
+        Check if a package manager is supported
+        """
+        if name in packages.manager_names:
+            return
+        managers = self.package_managers(use_cache)
+
+        # Ensure the manager is allowed
+        if managers.data:
+            managers = [x["name"].lower() for x in managers.data]
+            if name not in managers:
+                managers = "\n".join(managers)
+                logger.exit(f"{name} is not a known manager. Choices are:\n{managers}")
 
     def graph(
         self,
@@ -36,6 +65,7 @@ class Client(base.BaseClient):
         max_deps=None,
         min_credit=0.01,
         credit_split=0.5,
+        fmt=None,
     ):
         """
         Generate a graph for a package.
@@ -53,7 +83,7 @@ class Client(base.BaseClient):
             min_credit=min_credit,
             credit_split=credit_split,
         )
-        return results.Graph(root).graph()
+        return results.Graph(root).graph(fmt=fmt)
 
     def _graph(
         self,
@@ -69,7 +99,7 @@ class Client(base.BaseClient):
         Shared 'private' function to generate graph
         """
         self.check_manager(manager, use_cache)
-        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+        pkg = package.get_package(manager, name, client=self, use_cache=use_cache)
 
         # keep track of deps (we only care about name, not version)
         seen = set()
@@ -146,7 +176,7 @@ class Client(base.BaseClient):
                 dep_name = dep["name"] or dep["project_name"]
                 if not dep_name:
                     continue
-                depnode = package.Package(
+                depnode = package.get_package(
                     manager, dep_name, client=self, use_cache=use_cache
                 )
                 child = graph.Node(
@@ -192,5 +222,5 @@ class Client(base.BaseClient):
         Lookup a package in a specific package manager
         """
         self.check_manager(manager, use_cache)
-        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+        pkg = package.get_package(manager, name, client=self, use_cache=use_cache)
         return pkg.info()

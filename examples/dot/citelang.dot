@@ -1,0 +1,24 @@
+digraph requests {
+ ratio=0.562;
+ graph [fontname="Arial"];
+ node [fontname="Arial"];
+ edge [fontname="Arial"];
+ egvwhdmt [label="egvwhdmt" tooltip="requests", style=filled, color="#84C5EA"];
+ qptztfpo [label="qptztfpo" tooltip="win-inet-pton", style=filled, color="#48071F"];
+ tzfscthk [label="tzfscthk" tooltip="PySocks", style=filled, color="#48071F"];
+ dpqcnobj [label="dpqcnobj" tooltip="charset-normalizer", style=filled, color="#48071F"];
+ czbpzznd [label="czbpzznd" tooltip="idna", style=filled, color="#48071F"];
+ tuaztbqm [label="tuaztbqm" tooltip="chardet", style=filled, color="#48071F"];
+ bjgmsmgk [label="bjgmsmgk" tooltip="certifi", style=filled, color="#48071F"];
+ oktggtcz [label="oktggtcz" tooltip="urllib3", style=filled, color="#48071F"];
+ zxedxhpi [label="zxedxhpi" tooltip="unicodedata2", style=filled, color="#48071F"];
+ egvwhdmt -> qptztfpo [label=" links with " tooltip="requests -> win-inet-pton"];
+ egvwhdmt -> tzfscthk [label=" links with " tooltip="requests -> PySocks"];
+ egvwhdmt -> dpqcnobj [label=" links with " tooltip="requests -> charset-normalizer"];
+ egvwhdmt -> czbpzznd [label=" links with " tooltip="requests -> idna"];
+ egvwhdmt -> tuaztbqm [label=" links with " tooltip="requests -> chardet"];
+ egvwhdmt -> bjgmsmgk [label=" links with " tooltip="requests -> certifi"];
+ egvwhdmt -> oktggtcz [label=" links with " tooltip="requests -> urllib3"];
+ dpqcnobj -> zxedxhpi [label=" links with " tooltip="charset-normalizer -> unicodedata2"];
+
+}

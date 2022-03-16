@@ -157,7 +157,7 @@ To create a simple citation credit calculation, you can do:
 $ citelang credit pypi requests
 ```
 
-By default, we will split the graph until:
+By default, we will split the credit graph until:
 
  1. if set, we reach a threshold N of packages added (`--max-depth`)
  2. if set, we reach a total number of unique dependencies added (`--max-deps`)
@@ -239,11 +239,139 @@ To create a simple citation graph, you can do:
 $ citelang graph pypi requests
 ```
 
-This will print a (much prettier) rendering of the graph to the console! Right now
-we just have support for a text tree, and soon we will have support for other graph formats
-(cypher, dot, gephi, etc.).
+This will print a (much prettier) rendering of the graph to the console! Here is for pypi:
 
-![docs/assets/img/citelang-console.png](docs/assets/img/citelang-console.png)
+![examples/console/citelang-console-pypi.png](examples/console/citelang-console-pypi.png)
+
+And citelang has custom package parsers, meaning we can add package managers that aren't in libraries.io!
+Here is spack:
+
+```bash
+$ citelang graph spack caliper
+```
+
+![examples/console/citelang-console-spack.png](examples/console/citelang-console-spack.png)
+
+And GitHub.
+
+```bash
+$ citelang graph github singularityhub/singularity-hpc
+```
+![examples/console/citelang-console-github.png](examples/console/citelang-console-github.png)
+
+GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
+If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won't show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
+that has a detectable file.
+
+
+#### Dot
+
+To generate (and then render a dot graph):
+
+```bash
+$ citelang graph pypi requests --fmt dot > examples/dot/graph.dot
+$ dot -Tpng < examples/dot/graph.dot > examples/dot/graph.png
+$ dot -Tsvg < examples/dot/graph.dot > examples/dot/graph.svg
+```
+
+#### Cypher
+
+Cypher is the query format for Neo4j, the graph database.
+
+```bash
+$ citelang graph pypi requests --fmt cypher
+```
+```cypher
+CREATE (tlolycos:PACKAGE {name: 'requests (0.5)', label: 'tlolycos'}),
+(jgaoitav:PACKAGE {name: 'win-inet-pton (0.071)', label: 'jgaoitav'}),
+(jijibmow:PACKAGE {name: 'PySocks (0.071)', label: 'jijibmow'}),
+(gotbtadg:PACKAGE {name: 'charset-normalizer (0.036)', label: 'gotbtadg'}),
+(lflybqsc:PACKAGE {name: 'idna (0.071)', label: 'lflybqsc'}),
+(kitlrsbz:PACKAGE {name: 'chardet (0.071)', label: 'kitlrsbz'}),
+(gnveurko:PACKAGE {name: 'certifi (0.071)', label: 'gnveurko'}),
+(eoikqvix:PACKAGE {name: 'urllib3 (0.071)', label: 'eoikqvix'}),
+(kvccvkva:PACKAGE {name: 'unicodedata2 (0.036)', label: 'kvccvkva'}),
+(tlolycos)-[:DEPENDSON]->(jgaoitav),
+(tlolycos)-[:DEPENDSON]->(jijibmow),
+(tlolycos)-[:DEPENDSON]->(gotbtadg),
+(tlolycos)-[:DEPENDSON]->(lflybqsc),
+(tlolycos)-[:DEPENDSON]->(kitlrsbz),
+(tlolycos)-[:DEPENDSON]->(gnveurko),
+(tlolycos)-[:DEPENDSON]->(eoikqvix),
+(gotbtadg)-[:DEPENDSON]->(kvccvkva);
+```
+
+What you are seeing above is a definition of node and relationships. You can pipe to file:
+
+
+```bash
+$ citelang graph pypi requests --fmt cypher > examples/cypher/graph.cypher
+```
+
+If you test the output in the [Neo4J sandbox](https://sandbox.neo4j.com/) by first running the code to generate nodes and then doing:
+
+```bash
+MATCH (n) RETURN (n)
+```
+
+You should see:
+
+
+![examples/cypher/graph.png](examples/cypher/graph.png)
+
+From within Python you can do:
+
+```python
+from citelang.main import Client
+client = Client()
+client.graph(manager="pypi", name="requests", fmt="cypher")
+```
+
+#### Gexf (NetworkX)
+
+If you want to use networkX or Gephi or a [viewer](https://github.com/raphv/gexf-js) you can generate output as follows:
+
+```bash
+$ citelang graph pypi requests --fmt gexf
+$ citelang graph pypi requests --fmt gexf > examples/gexf/graph.xml
+```
+
+To use the viewer, you’ll first need to import into Gephi so the nodes have added spatial information. Without this information, you won’t see them in the UI. You can then do the following:
+
+```bash
+$ here=$PWD
+$ cd /tmp
+$ git clone https://github.com/raphv/gexf-js
+$ cd gexf-js
+```
+
+The file we generated above, we copy over the example so we don't have to edit config.js
+
+```bash
+$ cp $here/examples/gexf/graph.xml miserables.gexf
+```
+
+And then run the server!
+
+```bash
+python -m http.server 9999
+```
+
+As an alternative, networkx can also read in the gexf file:
+
+```python
+import matplotlib.pyplot as plt
+import networkx as nx
+
+graph = nx.read_gexf('examples/gexf/graph.xml')
+
+nx.draw(graph, with_labels=True, font_weight='bold')
+plt.show()
+```
+
+That should generate:
+
+![examples/gexf/graph.png](examples/gexf/graph.png)
 
 
 ### Render
@@ -328,14 +456,24 @@ $ client.dependencies(manager="pypi", name="requests")
 Without a version, we will grab the latest. Otherwise we use the version provided.
 
 
+## Frequently Asked Questions
+
+### Why don't the trees print versions?
+
+The current thinking is that when I give credit to software, I'm not caring so much about the version.
+The goal of this isn't reproducibility, but rather to say "for this software package, here are the dependencies and credits to give for each." Given a version (which will default to latest) this will mean a particular
+set of dependencies, but it's not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.
+
+### Why don't the trees show package managers?
+
+In truth we probably should, because looking at a credit graph later you need to know the manager
+used to derive the graph (e.g., some packages can be present in multiple package managers!) 
+I haven't added this yet. 
+
 ## TODO
 
- - add support for a citation or credit tree
- - citelang needs tests
+ - add citelang parse of markdown with references (we need a citation format / summary format)
  - create documentation, settings table
- - finish tree functions to print / show for credit and graph
- - account for missing credit
- - graph functions
 
 ## Contributors
 

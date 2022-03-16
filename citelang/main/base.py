@@ -49,13 +49,16 @@ class BaseClient:
         if self.api_key:
             self.params.update({"api_key": self.api_key})
 
-    def clear_cache(self):
+    def clear_cache(self, force=False):
         """
         Clear the cache (with confirmation).
         """
-        if utils.confirm_action("Are you sure you want to clear the cache? "):
-            if os.path.exists(self.settings.cache_dir):
-                shutil.rmtree(self.settings.cache_dir)
+        if not force and not utils.confirm_action(
+            "Are you sure you want to clear the cache? "
+        ):
+            return
+        if os.path.exists(self.settings.cache_dir):
+            shutil.rmtree(self.settings.cache_dir)
 
     def cache(self, name, result):
         """
@@ -111,7 +114,7 @@ class BaseClient:
         elif data:
             return data
 
-    def get_endpoint(self, name, use_cache=True, cache_name=None, **kwargs):
+    def get_endpoint(self, name, data=None, **kwargs):
         """
         Get a named endpoint, optionally, using the cache (default)
         """
@@ -120,29 +123,11 @@ class BaseClient:
             logger.exit(f"{name} is not a known endpoint. Choose from {names}")
 
         # Create the endpoint with any optional params
+        if not data:
+            endpoint = endpoints.registry[name](**kwargs, require_params=False)
+            return results.Table(self.get(endpoint.url), endpoint)
         endpoint = endpoints.registry[name](**kwargs)
-
-        # First shot try to use cache OR not if disabled
-        result = self.get_cache(cache_name or name, endpoint)
-        if not result or not use_cache:
-            result = results.Table(self.get(endpoint.url), endpoint)
-
-        # If cache is enabled, we save the result
-        self.cache(cache_name or name, result)
-        return result
-
-    def check_manager(self, name, use_cache=True):
-        """
-        Ensure a package manager name is valid before attempting to query.
-        """
-        managers = self.get_endpoint("package_managers", use_cache=use_cache)
-
-        # Ensure the manager is allowed
-        if managers.data:
-            managers = [x["name"].lower() for x in managers.data]
-            if name not in managers:
-                managers = "\n".join(managers)
-                logger.exit(f"{name} is not a known manager. Choices are:\n{managers}")
+        return results.Table(data, endpoint)
 
     def check_response(self, typ, r, return_json=True, stream=False, retry=True):
         """

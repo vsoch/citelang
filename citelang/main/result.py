@@ -35,7 +35,7 @@ class Result:
         """
         Save to output file
         """
-        logger.info("Saving %s to %s..." % (self.title or "data", outfile))
+        logger.info("Saving to %s..." % outfile)
         utils.write_json(self.data, outfile)
 
 
@@ -170,6 +170,12 @@ class Table(Result):
         # Don't reuse colors
         seen_colors = []
 
+        # No dependencies!
+        data = self.endpoint.table_data(self.data)
+        if not data:
+            print("This package does not have any dependencies.")
+            return
+
         # Get column titles
         columns = self.table_columns()
         for column in columns:
@@ -251,13 +257,13 @@ class Graph(Result):
         Generate a graph of dependencies
         """
         # Select output format (default to console)
-        # if fmt == "dot":
-        #    out = graph.Dot(self.root)
-        # elif fmt == "cypher":
-        #    out = graph.Cypher(self.root)
-        # elif fmt == "gexf":
-        #    out = graph.Gexf(self.root)
-        # else:
-        # Only console supported for now!
-        out = graph.Console(self.root)
+        if fmt == "dot":
+            out = graph.Dot(self.root)
+        elif fmt == "cypher":
+            out = graph.Cypher(self.root)
+        elif fmt == "gexf":
+            out = graph.Gexf(self.root)
+        else:
+            # Only console supported for now!
+            out = graph.Console(self.root)
         return out.generate()

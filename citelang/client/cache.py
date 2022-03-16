@@ -10,6 +10,6 @@ def main(args, parser, extra, subparser):
     cli = Client(quiet=args.quiet, settings_file=args.settings_file)
 
     if args.clear:
-        cli.clear_cache()
+        cli.clear_cache(force=args.force)
     else:
         print(cli.settings.cache_dir)
