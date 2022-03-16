@@ -26,6 +26,8 @@ fi
 
 # Create a temporary config file, module folder, etc.
 settings=$tmpdir/settings.yml
+cache=$tmpdir/cache
+mkdir -p $cache
 cp $root/settings.yml $settings
 
 echo
@@ -35,8 +37,8 @@ runTest 0 $output citelang --settings-file $settings --version
 echo
 echo "#### Testing config "
 runTest 0 $output citelang --settings-file $settings config --help
-runTest 0 $output citelang --settings-file $settings config set "key:value"
-runTest 0 $output citelang --settings-file $settings config get "key"
+runTest 0 $output citelang --settings-file $settings config set "cache_dir:$cache"
+runTest 0 $output citelang --settings-file $settings config get "cache_dir"
 
 echo
 echo "#### Testing list "
