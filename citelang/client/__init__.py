@@ -78,6 +78,12 @@ def get_parser():
     # Cache control
     cache = subparsers.add_parser("cache", description="cache control")
     cache.add_argument(
+        "--force",
+        help="do not ask for confirmation",
+        default=False,
+        action="store_true",
+    )
+    cache.add_argument(
         "--clear", help="clear the cache", default=False, action="store_true"
     )
 

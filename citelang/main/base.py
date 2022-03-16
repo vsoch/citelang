@@ -49,13 +49,16 @@ class BaseClient:
         if self.api_key:
             self.params.update({"api_key": self.api_key})
 
-    def clear_cache(self):
+    def clear_cache(self, force=False):
         """
         Clear the cache (with confirmation).
         """
-        if utils.confirm_action("Are you sure you want to clear the cache? "):
-            if os.path.exists(self.settings.cache_dir):
-                shutil.rmtree(self.settings.cache_dir)
+        if not force and not utils.confirm_action(
+            "Are you sure you want to clear the cache? "
+        ):
+            return
+        if os.path.exists(self.settings.cache_dir):
+            shutil.rmtree(self.settings.cache_dir)
 
     def cache(self, name, result):
         """

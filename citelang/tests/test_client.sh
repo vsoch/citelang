@@ -79,6 +79,6 @@ echo
 echo "#### Testing cache "
 runTest 0 $output citelang --settings-file $settings cache --help
 runTest 0 $output citelang --settings-file $settings cache
-runTest 0 $output citelang --settings-file $settings cache --clear
+runTest 0 $output citelang --settings-file $settings cache --clear --force
 
 rm -rf ${tmpdir}
