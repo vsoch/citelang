@@ -2,6 +2,8 @@
 
 [![PyPI version](https://badge.fury.io/py/citelang.svg)](https://badge.fury.io/py/citelang)
 
+![https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/citelang-tree.png](https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/citelang-tree.png)
+
 Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
 when you use CiteLang to reference software.
 
@@ -241,7 +243,7 @@ $ citelang graph pypi requests
 
 This will print a (much prettier) rendering of the graph to the console! Here is for pypi:
 
-![examples/console/citelang-console-pypi.png](examples/console/citelang-console-pypi.png)
+![https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-pypi.png](https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-pypi.png)
 
 And citelang has custom package parsers, meaning we can add package managers that aren't in libraries.io!
 Here is spack:
@@ -250,14 +252,14 @@ Here is spack:
 $ citelang graph spack caliper
 ```
 
-![examples/console/citelang-console-spack.png](examples/console/citelang-console-spack.png)
+![https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-spack.png](https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-spack.png)
 
 And GitHub.
 
 ```bash
 $ citelang graph github singularityhub/singularity-hpc
 ```
-![examples/console/citelang-console-github.png](examples/console/citelang-console-github.png)
+![https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-github.png](https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-github.png)
 
 GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
 If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won't show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
@@ -316,8 +318,7 @@ MATCH (n) RETURN (n)
 
 You should see:
 
-
-![examples/cypher/graph.png](examples/cypher/graph.png)
+![https://raw.githubusercontent.com/vsoch/citelang/main/examples/cypher/graph.png](https://raw.githubusercontent.com/vsoch/citelang/main/examples/cypher/graph.png)
 
 From within Python you can do:
 
@@ -369,7 +370,7 @@ nx.draw(graph, with_labels=True, font_weight='bold')
 plt.show()
 ```
 
-That should generate [examples/gexf/graph.xml](examples/gexf/graph.xml).
+That should generate [examples/gexf/graph.xml](https://raw.githubusercontent.com/vsoch/citelang/main/examples/gexf/graph.xml).
 
 
 ### Render

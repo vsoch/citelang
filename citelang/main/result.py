@@ -207,6 +207,7 @@ class Tree(Result):
             "name": self.result.name,
             "credit": self.result.credit,
             "weight": self.result.weight,
+            "round_by": self.result.round_by,
             "children": [],
         }
 
@@ -217,6 +218,7 @@ class Tree(Result):
                     "name": child.name,
                     "credit": child.credit,
                     "weight": child.weight,
+                    "round_by": child.round_by,
                     "children": [],
                 }
                 total = add(child, node["children"], total)
@@ -235,7 +237,11 @@ class Tree(Result):
         def print_result(result, indent=2):
             print(
                 "%s%20s: %s"
-                % (" " * indent, result["name"], round(result["credit"], 3))
+                % (
+                    " " * indent,
+                    result["name"],
+                    round(result["credit"], result["round_by"]),
+                )
             )
             for child in result["children"]:
                 print_result(child, indent=indent * 2)
