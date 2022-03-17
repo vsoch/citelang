@@ -369,9 +369,7 @@ nx.draw(graph, with_labels=True, font_weight='bold')
 plt.show()
 ```
 
-That should generate:
-
-![examples/gexf/graph.png](examples/gexf/graph.png)
+That should generate [examples/gexf/graph.xml](examples/gexf/graph.xml).
 
 
 ### Render
