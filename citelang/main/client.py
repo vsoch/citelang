@@ -105,7 +105,13 @@ class Client(base.BaseClient):
         seen = set()
 
         # Top node gets full credit 1.0 (to split between itself and deps)
-        root = graph.Node(obj=pkg, weight=1.0, credit_split=credit_split, depth=0)
+        root = graph.Node(
+            obj=pkg,
+            weight=1.0,
+            credit_split=credit_split,
+            depth=0,
+            min_credit=min_credit,
+        )
 
         # A pointer to the next node
         next_nodes = [root]
@@ -184,6 +190,7 @@ class Client(base.BaseClient):
                     weight=dep_credit,
                     credit_split=credit_split,
                     depth=next_node.depth + 1,
+                    min_credit=min_credit,
                 )
                 next_node.add_child(child)
                 next_nodes.append(child)

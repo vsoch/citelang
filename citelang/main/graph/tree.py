@@ -9,20 +9,27 @@ import random
 
 # Randomly select an AMAZING icon
 # Note some of these require TWO spaces after the icon to render properly!
-icons = ["⭐️ ", "✨️ ", "💛️ ", "🔷️ ", "❤️  ", "💜️ ", "🧡️ ", "💗️ ", "🔴️ ", "♦️  ", "🔶️ "]
+# The faded heart is my favorite, so we want it 1/2 the time
+icons = ["⭐️ ", "✨️ ", "💛️ ", "🔷️ ", "❤️  ", "💜️ ", "🧡️ ", "🔴️ ", "♦️  ", "🔶️ "] + [
+    "💗️ "
+] * 10
+root_icons = ["🦄️", "☕️", "🤓️", "⭐️"]
 
 
 def print_tree(root):
-    node = Text(f"🦄️ {root.name}", "bold magenta")
-    credit = round(root.credit, 3)
+
+    # Randomly select icons
+    icon = random.choice(icons)
+    root_icon = random.choice(root_icons)
+
+    node = Text(f"{root_icon} {root.name}", "bold magenta")
+    credit = round(root.credit, root.round_by)
     node.append(f" ({credit})", "blue")
     tree = Tree(
         node,
         guide_style="bold bright_blue",
     )
 
-    # Randomly select icons
-    icon = random.choice(icons)
     generate_tree(root, tree=tree, icon=icon)
     print(tree)
 
@@ -33,7 +40,7 @@ def generate_tree(next_node, icon, tree=None) -> None:
     """
     for child in next_node.children:
         # We won't have a tree on the first run
-        credit = round(child.credit, 3)
+        credit = round(child.credit, child.round_by)
         node = Text(child.name, "green")
         node.highlight_regex(r"\..*$", "bold red")
         node.stylize(f"link file://{child.name}")
