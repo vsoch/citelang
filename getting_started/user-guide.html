@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide &mdash; CiteLang Python 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CiteLang Python
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#credentials">Credentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#package-managers">Package Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#package">Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cache">Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#credit">Credit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#graph">Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render">Render</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-don-t-the-trees-show-package-managers">Why don’t the trees show package managers?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/citelang.html">CiteLang Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/internal/modules.html">Internal API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CiteLang Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Getting Started</a> &raquo;</li>
+      <li>User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/getting_started/user-guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="user-guide">
+<span id="getting-started-user-guide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+<p>Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
+when you use CiteLang to reference software.</p>
+<ol class="arabic simple">
+<li>Generate basic software credit trees</li>
+<li>Give credit accounting for dependencies!</li>
+</ol>
+<p>No - we aren’t using DOIs! A manually crafted identifier that a human has to remember to generate,
+in addition to a publication or release, is too much work for people to reasonably do. As research
+software engineers we also want to move away from the traditional “be valued like an academic” model.
+We are getting software metadata and a reference to an identifier via a package manager. This means
+that when you publish your software, you should publish it to an appropriate package manager.
+Please <a class="reference external" href="https://github.com/vsoch/citelang/issues">let us know</a> if you have a questions,
+find a bug, or want to request a feature! This is an open source project and we are
+eager for your contribution. 🎉️</p>
+</div>
+<div class="section" id="usage">
+<span id="getting-started-user-guide-usage"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<p>Once you have <code class="docutils literal notranslate"><span class="pre">citelang</span></code> installed (<a class="reference internal" href="installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a>) you
+can use citelang either from the command line, or from within Python.</p>
+<div class="section" id="credentials">
+<span id="getting-started-user-guide-usage-client"></span><h2>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline"></a></h2>
+<p>CiteLang will require a libraries.io token, so you should <a class="reference external" href="https://libraries.io/">login</a> (it works with
+GitHub and other easy OAuth2 that don’t require permissions beyond your email) and then
+go to the top right -&gt; Settings -&gt; API Key.</p>
+<p>You’ll want to export this in the environment:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export CITELANG_LIBRARIES_KEY=xxxxxxxxxxxxxxxxxxxxxxxxx</span>
+</pre></div>
+</div>
+<p>If you use the GitHub package type, it’s recommended to export a GitHub token too.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx</span>
+</pre></div>
+</div>
+<div class="section" id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h3>
+<p>The following commands are available.</p>
+</div>
+</div>
+<div class="section" id="package-managers">
+<h2>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this headline"></a></h2>
+<p>Let’s find package managers supported.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang list
+</pre></div>
+</div>
+<p>This gives us the listing of package managers that we can interact with. Since by default
+we create a cache of results (to not use our token ratelimit whenever possible) after calling
+this endpoint you’ll find packages cached in your citelang home!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tree ~/.citelang/
+<span class="go">/home/vanessa/.citelang/</span>
+<span class="go">├── cache</span>
+<span class="go">│   └── package_managers.json</span>
+<span class="go">└── settings.yml</span>
+</pre></div>
+</div>
+<p>This means if you make the call again, it will load data from here instead of making an API call.
+Note that there are actually two caches - the filesystem and memory cache. These are discussed in the
+config section. You can disable using or setting the cache for any command as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citeling list --no-cache
+</pre></div>
+</div>
+</div>
+<div class="section" id="package">
+<h2>Package<a class="headerlink" href="#package" title="Permalink to this headline"></a></h2>
+<p>To get metadata for a package, or from the command line, to list versions available:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang package pypi requests
+</pre></div>
+</div>
+<p>TODO put image here</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p>You can ask to see package dependencies:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests
+</pre></div>
+</div>
+<p>If you don’t provide a version, the latest will be used (retrieved from the package).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests@2.27.1
+</pre></div>
+</div>
+<p>TODO put dependencies here</p>
+</div>
+<div class="section" id="config">
+<h2>Config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h2>
+<p>You don’t technically need to do any custom configuration. However, if you want to make
+your own user-specific settings file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config inituser
+</pre></div>
+</div>
+<p>You can also edit the default config in [citelang/settings.yml](citelang/settings.yml)
+if you control the install. We will be adding a table of settings when we add official
+documentation. For now, let’s talk about specific variables.</p>
+<p>This defaults to false, meaning we aren’t disabling the cache. Not disabling the cache
+means we can cache different results in your citelang home. We do this to minimize API calls.
+The exception is for when you ask for a package without a version. Since we cannot
+be sure what the latest version is, we need to check again.</p>
+<p>Akin to the filesystem, given that you are using a client in a session (whether directly
+in Python or via a command provided by citelang) we will cache results in memory. E.g.,
+if you are asking for multiple packages, we check first that you are asking for a valid
+manager. When we cache the list of managers available, this is possible without an extra
+API call.</p>
+</div>
+<div class="section" id="cache">
+<h2>Cache<a class="headerlink" href="#cache" title="Permalink to this headline"></a></h2>
+<p>Citelng includes a cache command group for viewing or clearing your filesystem cache.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang cache
+<span class="go">/home/vanessa/.citelang/cache</span>
+</pre></div>
+</div>
+<p>Or list what’s in it!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tree <span class="k">$(</span>citelang cache<span class="k">)</span>
+</pre></div>
+</div>
+<p>And finally, clear it. You’ll get a confirmation prompt first.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang cache --clear
+<span class="go">Are you sure you want to clear the cache? yes</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="credit">
+<h2>Credit<a class="headerlink" href="#credit" title="Permalink to this headline"></a></h2>
+<p>To create a simple citation credit calculation, you can do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests
+</pre></div>
+</div>
+<p>By default, we will split the credit graph until:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>if set, we reach a threshold N of packages added (<cite>–max-depth</cite>)</li>
+<li>if set, we reach a total number of unique dependencies added (<cite>–max-deps</cite>)</li>
+<li>we reach a threshold that is smaller than our minimum credit (<cite>–min-credit</cite>)</li>
+</ol>
+</div></blockquote>
+<p>It’s up to you to set the first two cases (they default to None, meaning unset) and
+we always only go up to a minimum threshold (or when there are no more dependencies to allocate).
+Note that first time you do it, you’ll see the endpoints being hit (they aren’t cached yet):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests
+<span class="go">GET https://libraries.io/api/platforms</span>
+<span class="go">GET https://libraries.io/api/pypi/requests</span>
+<span class="go">GET https://libraries.io/api/pypi/requests/2.27.1/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/win-inet-pton</span>
+<span class="go">GET https://libraries.io/api/pypi/win-inet-pton/1.1.0/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/PySocks</span>
+<span class="go">GET https://libraries.io/api/pypi/PySocks/1.7.1/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/charset-normalizer</span>
+<span class="go">GET https://libraries.io/api/pypi/charset-normalizer/2.0.12/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/idna</span>
+<span class="go">GET https://libraries.io/api/pypi/idna/0.1/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/chardet</span>
+<span class="go">GET https://libraries.io/api/pypi/chardet/4.0.0/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/certifi</span>
+<span class="go">GET https://libraries.io/api/pypi/certifi/2015.4.28/dependencies</span>
+<span class="go">GET https://libraries.io/api/pypi/urllib3</span>
+<span class="go">GET https://libraries.io/api/pypi/urllib3/1.26.8/dependencies</span>
+</pre></div>
+</div>
+<p>And then you’ll get the credit score:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests
+<span class="go">              requests: 0.5</span>
+<span class="go">           win-inet-pton: 0.071</span>
+<span class="go">                 PySocks: 0.071</span>
+<span class="go">      charset-normalizer: 0.036</span>
+<span class="go">                unicodedata2: 0.036</span>
+<span class="go">                    idna: 0.071</span>
+<span class="go">                 chardet: 0.071</span>
+<span class="go">                 certifi: 0.071</span>
+<span class="go">                 urllib3: 0.071</span>
+<span class="go">total: 1.0</span>
+</pre></div>
+</div>
+<p>The default “minimum credit” (to determine when we stop parsing) is 0.01.
+You can also try changing this value!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests --min-credit <span class="m">0</span>.005
+<span class="go">              requests: 0.5</span>
+<span class="go">           win-inet-pton: 0.071</span>
+<span class="go">                 PySocks: 0.071</span>
+<span class="go">      charset-normalizer: 0.036</span>
+<span class="go">                unicodedata2: 0.036</span>
+<span class="go">                    idna: 0.071</span>
+<span class="go">                 chardet: 0.071</span>
+<span class="go">                 certifi: 0.071</span>
+<span class="go">                 urllib3: 0.036</span>
+<span class="go">                     PySocks: 0.005</span>
+<span class="go">                   ipaddress: 0.005</span>
+<span class="go">                     certifi: 0.005</span>
+<span class="go">                        idna: 0.005</span>
+<span class="go">                cryptography: 0.005</span>
+<span class="go">                   pyOpenSSL: 0.005</span>
+<span class="go">                    brotlipy: 0.005</span>
+<span class="go">total: 1.0</span>
+</pre></div>
+</div>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">--max-depth</span></code> and <code class="docutils literal notranslate"><span class="pre">--map-deps</span></code> are unset so we don’t stop parsing based on some
+maximum depth or number of dependencies. You can try setting these values as well.</p>
+</div>
+<div class="section" id="graph">
+<h2>Graph<a class="headerlink" href="#graph" title="Permalink to this headline"></a></h2>
+<p>To create a simple citation graph, you can do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests
+</pre></div>
+</div>
+<p>This will print a (much prettier) rendering of the graph to the console! Here is for pypi:</p>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-pypi.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-pypi.png" />
+<p>And citelang has custom package parsers, meaning we can add package managers that aren’t in libraries.io!
+Here is spack:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph spack caliper
+</pre></div>
+</div>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-spack.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-spack.png" />
+<p>And GitHub.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph github singularityhub/singularity-hpc
+</pre></div>
+</div>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-github.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/examples/console/citelang-console-github.png" />
+<p>GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
+If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won’t show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
+that has a detectable file.</p>
+<p>To generate (and then render a dot graph):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt dot &gt; examples/dot/graph.dot
+<span class="gp">$ </span>dot -Tpng &lt; examples/dot/graph.dot &gt; examples/dot/graph.png
+<span class="gp">$ </span>dot -Tsvg &lt; examples/dot/graph.dot &gt; examples/dot/graph.svg
+</pre></div>
+</div>
+<p>Cypher is the query format for Neo4j, the graph database.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt cypher
+
+<span class="go">CREATE (tlolycos:PACKAGE {name: &#39;requests (0.5)&#39;, label: &#39;tlolycos&#39;}),</span>
+<span class="gp gp-VirtualEnv">(jgaoitav:PACKAGE {name: &#39;win-inet-pton (0.071)</span><span class="go">&#39;, label: &#39;jgaoitav&#39;}),</span>
+<span class="gp gp-VirtualEnv">(jijibmow:PACKAGE {name: &#39;PySocks (0.071)</span><span class="go">&#39;, label: &#39;jijibmow&#39;}),</span>
+<span class="gp gp-VirtualEnv">(gotbtadg:PACKAGE {name: &#39;charset-normalizer (0.036)</span><span class="go">&#39;, label: &#39;gotbtadg&#39;}),</span>
+<span class="gp gp-VirtualEnv">(lflybqsc:PACKAGE {name: &#39;idna (0.071)</span><span class="go">&#39;, label: &#39;lflybqsc&#39;}),</span>
+<span class="gp gp-VirtualEnv">(kitlrsbz:PACKAGE {name: &#39;chardet (0.071)</span><span class="go">&#39;, label: &#39;kitlrsbz&#39;}),</span>
+<span class="gp gp-VirtualEnv">(gnveurko:PACKAGE {name: &#39;certifi (0.071)</span><span class="go">&#39;, label: &#39;gnveurko&#39;}),</span>
+<span class="gp gp-VirtualEnv">(eoikqvix:PACKAGE {name: &#39;urllib3 (0.071)</span><span class="go">&#39;, label: &#39;eoikqvix&#39;}),</span>
+<span class="gp gp-VirtualEnv">(kvccvkva:PACKAGE {name: &#39;unicodedata2 (0.036)</span><span class="go">&#39;, label: &#39;kvccvkva&#39;}),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(jgaoitav),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(jijibmow),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(gotbtadg),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(lflybqsc),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(kitlrsbz),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(gnveurko),</span>
+<span class="gp gp-VirtualEnv">(tlolycos)</span><span class="go">-[:DEPENDSON]-&gt;(eoikqvix),</span>
+<span class="gp gp-VirtualEnv">(gotbtadg)</span><span class="go">-[:DEPENDSON]-&gt;(kvccvkva);</span>
+</pre></div>
+</div>
+<p>What you are seeing above is a definition of node and relationships. You can pipe to file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt cypher &gt; examples/cypher/graph.cypher
+</pre></div>
+</div>
+<p>If you test the output in the [Neo4J sandbox](<a class="reference external" href="https://sandbox.neo4j.com/">https://sandbox.neo4j.com/</a>) by first running the code to generate nodes and then doing:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">MATCH (n) RETURN (n)</span>
+</pre></div>
+</div>
+<p>You should see:</p>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/examples/cypher/graph.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/examples/cypher/graph.png" />
+<p>From within Python you can do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">from citelang.main import Client</span>
+<span class="go">client = Client()</span>
+<span class="go">client.graph(manager=&quot;pypi&quot;, name=&quot;requests&quot;, fmt=&quot;cypher&quot;)</span>
+</pre></div>
+</div>
+<p>If you want to use networkX or Gephi or a <a class="reference external" href="https://github.com/raphv/gexf-js">viewer</a> you can generate output as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt gexf
+<span class="gp">$ </span>citelang graph pypi requests --fmt gexf &gt; examples/gexf/graph.xml
+</pre></div>
+</div>
+<p>To use the viewer, you’ll first need to import into Gephi so the nodes have added spatial information. Without this information, you won’t see them in the UI. You can then do the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">here</span><span class="o">=</span><span class="nv">$PWD</span>
+<span class="gp">$ </span><span class="nb">cd</span> /tmp
+<span class="gp">$ </span>git clone https://github.com/raphv/gexf-js
+<span class="gp">$ </span><span class="nb">cd</span> gexf-js
+</pre></div>
+</div>
+<p>The file we generated above, we copy over the example so we don’t have to edit config.js</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cp <span class="nv">$here</span>/examples/gexf/graph.xml miserables.gexf
+</pre></div>
+</div>
+<p>And then run the server!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m http.server 9999</span>
+</pre></div>
+</div>
+<p>As an alternative, networkx can also read in the gexf file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gexf</span><span class="p">(</span><span class="s1">&#39;examples/gexf/graph.xml&#39;</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That should generate <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/examples/gexf/graph.xml">examples/gexf/graph.xml</a>.</p>
+</div>
+<div class="section" id="render">
+<h2>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h2>
+<p>This will be a set of commands that can take any of:</p>
+<ol class="arabic simple">
+<li>an entire markdown file with software references</li>
+<li>a grouping / list of software references</li>
+</ol>
+<p>and create a citation summary, probably in different formats that are useful. This isn’t developed yet
+but this dinosaur is excited so it’s coming soon!</p>
+<p><strong>under development</strong> more coming soon!</p>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h3>
+<p>You can do all of the same interactions from within Python! And indeed if you want
+to do some kind of analysis or custom parsing this is the recommended approach.
+For all cases from within Python, after exporing the token, we need to create a client.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">citelang.main</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can optionally provide a custom settings file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">settings_file</span><span class="o">=</span><span class="s2">&quot;settings.yml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let’s get our list of package managers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">package_managers</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The raw data will be here on the results object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>And this is how we print to the terminal</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Let’s say you ran this, and you wanted to retrieve it again! Given that <cite>disable_cache</cite> in your settings
+is not set to True, you can call the function again and the data returned will be from the cache.
+You can also ask for it verbatim:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">package_managers</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="s1">&#39;package_managers&#39;</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Inqlude&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;project_count&#39;</span><span class="p">:</span> <span class="mi">228</span><span class="p">,</span>
+ <span class="s1">&#39;homepage&#39;</span><span class="p">:</span> <span class="s1">&#39;https://inqlude.org/&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#f34b7d&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;default_language&#39;</span><span class="p">:</span> <span class="s1">&#39;C++&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>To get metadata for a package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">manager</span><span class="o">=</span><span class="s2">&quot;pypi&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;requests&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to ask for dependencies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">dependencies</span><span class="p">(</span><span class="n">manager</span><span class="o">=</span><span class="s2">&quot;pypi&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;requests&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Without a version, we will grab the latest. Otherwise we use the version provided.</p>
+</div>
+<div class="section" id="frequently-asked-questions">
+<h3>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline"></a></h3>
+</div>
+</div>
+<div class="section" id="why-don-t-the-trees-print-versions">
+<h2>Why don’t the trees print versions?<a class="headerlink" href="#why-don-t-the-trees-print-versions" title="Permalink to this headline"></a></h2>
+<p>The current thinking is that when I give credit to software, I’m not caring so much about the version.
+The goal of this isn’t reproducibility, but rather to say “for this software package, here are the dependencies and credits to give for each.” Given a version (which will default to latest) this will mean a particular
+set of dependencies, but it’s not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.</p>
+</div>
+<div class="section" id="why-don-t-the-trees-show-package-managers">
+<h2>Why don’t the trees show package managers?<a class="headerlink" href="#why-don-t-the-trees-show-package-managers" title="Permalink to this headline"></a></h2>
+<p>In truth we probably should, because looking at a credit graph later you need to know the manager
+used to derive the graph (e.g., some packages can be present in multiple package managers!)
+I haven’t added this yet.</p>
+<p>This library is under development and we will have more documentation coming soon!</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="settings.html" class="btn btn-neutral float-right" title="Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Vanessa Sochat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

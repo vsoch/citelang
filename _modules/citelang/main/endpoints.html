@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>citelang.main.endpoints &mdash; CiteLang Python 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> CiteLang Python
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/user-guide.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/settings.html">Settings</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/citelang.html">CiteLang Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/internal/modules.html">Internal API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CiteLang Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>citelang.main.endpoints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for citelang.main.endpoints</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2022, Vanessa Sochat&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
+
+<span class="kn">import</span> <span class="nn">citelang.defaults</span> <span class="k">as</span> <span class="nn">defaults</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Registered endpoints (populated on init)</span>
+<span class="n">registry</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">registry_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="Endpoint"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint">[docs]</a><span class="k">class</span> <span class="nc">Endpoint</span><span class="p">:</span>
+    <span class="n">dont_truncate</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+    <span class="n">emoji</span> <span class="o">=</span> <span class="s2">&quot;sparkles&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">require_params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apiroot</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">apiroot</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+                    <span class="s2">&quot;Misconfigured endpoint </span><span class="si">%s</span><span class="s2"> missing </span><span class="si">%s</span><span class="s2"> attribute&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="c1"># If we have attribute format_url we require the params</span>
+        <span class="k">if</span> <span class="n">require_params</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">require_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">format_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Endpoint.table_data"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint.table_data">[docs]</a>    <span class="k">def</span> <span class="nf">table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A custom data parser, optionally if an endpoint needs to parse data further.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="Endpoint.require_params"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint.require_params">[docs]</a>    <span class="k">def</span> <span class="nf">require_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">required</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;format_url&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">require</span> <span class="ow">in</span> <span class="n">required</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">require</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;parameter </span><span class="si">{</span><span class="n">require</span><span class="si">}</span><span class="s2"> is required for this endpoint.&quot;</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">require</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">require</span><span class="p">]</span>
+
+        <span class="c1"># If we have parameters, format the path</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span></div>
+
+<div class="viewcode-block" id="Endpoint.format_params"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint.format_params">[docs]</a>    <span class="k">def</span> <span class="nf">format_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="c1"># If we have parameters, format the path</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span></div>
+
+    <span class="c1"># If needed, make sure endpoint data is sorted</span>
+<div class="viewcode-block" id="Endpoint.order"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apiroot</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_attribute_or_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">listing</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="n">listing</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">listing</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">truncate_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_attribute_or_list</span><span class="p">(</span><span class="s2">&quot;dont_truncate&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">skip_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_attribute_or_list</span><span class="p">(</span><span class="s2">&quot;skips&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagers"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.PackageManagers">[docs]</a><span class="k">class</span> <span class="nc">PackageManagers</span><span class="p">(</span><span class="n">Endpoint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;package_managers&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/api/platforms&quot;</span>
+    <span class="n">emoji</span> <span class="o">=</span> <span class="s2">&quot;box&quot;</span>
+    <span class="n">skips</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Dependencies"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Dependencies">[docs]</a><span class="k">class</span> <span class="nc">Dependencies</span><span class="p">(</span><span class="n">Endpoint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;dependencies&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/api/</span><span class="si">{manager}</span><span class="s2">/</span><span class="si">{package_name}</span><span class="s2">/</span><span class="si">{version}</span><span class="s2">/dependencies&quot;</span>
+    <span class="n">format_url</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">,</span> <span class="s2">&quot;package_name&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">]</span>
+    <span class="n">emoji</span> <span class="o">=</span> <span class="s2">&quot;arrow&quot;</span>
+    <span class="n">skips</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;normalized_licenses&quot;</span><span class="p">]</span>
+    <span class="n">dont_truncate</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;project_name&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Dependencies.table_data"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Dependencies.table_data">[docs]</a>    <span class="k">def</span> <span class="nf">table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Package"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Package">[docs]</a><span class="k">class</span> <span class="nc">Package</span><span class="p">(</span><span class="n">Endpoint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;package&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/api/</span><span class="si">{manager}</span><span class="s2">/</span><span class="si">{package_name}</span><span class="s2">&quot;</span>
+    <span class="n">emoji</span> <span class="o">=</span> <span class="s2">&quot;box&quot;</span>
+    <span class="n">format_url</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">,</span> <span class="s2">&quot;package_name&quot;</span><span class="p">]</span>
+    <span class="n">skips</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;repository_sources&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spdx_expression&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;researched_at&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;original_license&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="Package.order"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Package.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Order versions by published at</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">versions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;versions&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">versions</span> <span class="ow">and</span> <span class="s2">&quot;published_at&quot;</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">versions</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+                    <span class="n">x</span><span class="p">[</span><span class="s2">&quot;published_at&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">versions</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="Package.table_data"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Package.table_data">[docs]</a>    <span class="k">def</span> <span class="nf">table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># package should return a list of versions</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;versions&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Package &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;package_name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">for</span> <span class="n">endpoint</span> <span class="ow">in</span> <span class="p">[</span><span class="n">PackageManagers</span><span class="p">,</span> <span class="n">Package</span><span class="p">,</span> <span class="n">Dependencies</span><span class="p">]:</span>
+    <span class="n">registry_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">registry</span><span class="p">[</span><span class="n">endpoint</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">endpoint</span>
+
+<span class="n">registry_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Vanessa Sochat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
