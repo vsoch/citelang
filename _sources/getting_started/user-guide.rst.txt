@@ -22,9 +22,9 @@ eager for your contribution. 🎉️
 
 .. _getting_started-user-guide-usage:
 
-=====
+*****
 Usage
-=====
+*****
 
 Once you have ``citelang`` installed (:ref:`getting_started-installation`) you
 can use citelang either from the command line, or from within Python.
@@ -33,7 +33,7 @@ can use citelang either from the command line, or from within Python.
 
 
 Credentials
------------
+===========
 
 CiteLang will require a libraries.io token, so you should `login <https://libraries.io/>`_ (it works with 
 GitHub and other easy OAuth2 that don't require permissions beyond your email) and then
@@ -51,14 +51,14 @@ If you use the GitHub package type, it's recommended to export a GitHub token to
 
     export GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx
 
-
+********
 Commands
-========
+********
 
 The following commands are available.
 
 Package Managers
-----------------
+================
 
 Let's find package managers supported.
 
@@ -88,7 +88,7 @@ config section. You can disable using or setting the cache for any command as fo
     $ citeling list --no-cache
 
 Package
--------
+=======
 
 To get metadata for a package, or from the command line, to list versions available:
 
@@ -96,10 +96,11 @@ To get metadata for a package, or from the command line, to list versions availa
 
     $ citelang package pypi requests
 
-TODO put image here
+image:: img/package-requests.png
+
 
 Dependencies
-------------
+============
 
 You can ask to see package dependencies:
 
@@ -114,8 +115,7 @@ If you don't provide a version, the latest will be used (retrieved from the pack
     
     $ citelang deps pypi requests@2.27.1
 
-
-TODO put dependencies here
+image:: img/requests-deps.png
 
 
 Config
@@ -135,7 +135,7 @@ documentation. For now, let's talk about specific variables.
 
 
 disable_cache
-^^^^^^^^^^^^^
+-------------
 
 This defaults to false, meaning we aren't disabling the cache. Not disabling the cache
 means we can cache different results in your citelang home. We do this to minimize API calls.
@@ -143,7 +143,7 @@ The exception is for when you ask for a package without a version. Since we cann
 be sure what the latest version is, we need to check again.
 
 disable_memory_cache
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Akin to the filesystem, given that you are using a client in a session (whether directly
 in Python or via a command provided by citelang) we will cache results in memory. E.g.,
@@ -153,7 +153,7 @@ API call.
 
 
 Cache
------
+=====
 
 Citelng includes a cache command group for viewing or clearing your filesystem cache.
 
@@ -179,7 +179,7 @@ And finally, clear it. You'll get a confirmation prompt first.
 
 
 Credit
-------
+======
 
 To create a simple citation credit calculation, you can do:
 
@@ -266,7 +266,7 @@ By default, the ``--max-depth`` and ``--map-deps`` are unset so we don't stop pa
 maximum depth or number of dependencies. You can try setting these values as well.
 
 Graph
------
+=====
 
 To create a simple citation graph, you can do:
 
@@ -306,7 +306,7 @@ that has a detectable file.
 
 
 Dot
-^^^
+---
 
 To generate (and then render a dot graph):
 
@@ -317,7 +317,7 @@ To generate (and then render a dot graph):
     $ dot -Tsvg < examples/dot/graph.dot > examples/dot/graph.svg
 
 Cypher
-^^^^^^
+------
 
 Cypher is the query format for Neo4j, the graph database.
 
@@ -372,7 +372,7 @@ From within Python you can do:
     
     
 Gexf (NetworkX)
-^^^^^^^^^^^^^^^
+---------------
 
 If you want to use networkX or Gephi or a `viewer <https://github.com/raphv/gexf-js>`_ you can generate output as follows:
 
@@ -420,21 +420,56 @@ As an alternative, networkx can also read in the gexf file:
 
 That should generate `examples/gexf/graph.xml <https://raw.githubusercontent.com/vsoch/citelang/main/examples/gexf/graph.xml>`_.
 
-Render
-------
 
-This will be a set of commands that can take any of:
+Badge
+=====
+
+A badge is an interactive svg (meaning it will typically output an index.html file for you to include
+somewhere) for a user to interactively explore your dependency tree. We took inspiration from
+the periodic table of elements, meaning that the top layer looks like a single element, and clicking
+allows you to explore the nested inner tables.
+
+
+.. code-block:: console
+
+    $ citelang badge pypi requests
+
+or for more depth in your badge (and to save to a custom output file):
+
+
+.. code-block:: console
+
+    $ citelang badge pypi requests --min-credit 0.001 --outfile index.html
+    Saving to index.html...
+    Result saved to index.html
+
+Here is the current example badge - you can click around to explore it!
+
+image:: img/badge.png
+
+Or see the `interactive version here <../_static/example/badge/index.html>`_.
+
+The badge design is still being developed - for example it would be good to have
+a smaller version, or a static one. If you have ideas or inspiration please
+open an issue!
+
+Render
+======
+
+This command will support rendering:
 
 1. an entire markdown file with software references 
 2. a grouping / list of software references
+3. a page with multiple badges?
 
 and create a citation summary, probably in different formats that are useful. This isn't developed yet
 but this dinosaur is excited so it's coming soon!
 
 **under development** more coming soon!
 
+******
 Python
-======
+******
 
 You can do all of the same interactions from within Python! And indeed if you want
 to do some kind of analysis or custom parsing this is the recommended approach.
@@ -473,7 +508,7 @@ And this is how we print to the terminal
     result.table()
 
 
-Let's say you ran this, and you wanted to retrieve it again! Given that `disable_cache` in your settings
+Let's say you ran this, and you wanted to retrieve it again! Given that ``disable_cache`` in your settings
 is not set to True, you can call the function again and the data returned will be from the cache.
 You can also ask for it verbatim:
 
@@ -509,18 +544,19 @@ Or to ask for dependencies:
 Without a version, we will grab the latest. Otherwise we use the version provided.
 
 
+**************************
 Frequently Asked Questions
-==========================
+**************************
 
 Why don't the trees print versions?
------------------------------------
+===================================
 
 The current thinking is that when I give credit to software, I'm not caring so much about the version.
 The goal of this isn't reproducibility, but rather to say "for this software package, here are the dependencies and credits to give for each." Given a version (which will default to latest) this will mean a particular
 set of dependencies, but it's not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.
 
 Why don't the trees show package managers?
-------------------------------------------
+==========================================
 
 In truth we probably should, because looking at a credit graph later you need to know the manager
 used to derive the graph (e.g., some packages can be present in multiple package managers!) 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.1 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.1
+                0.0.11
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -45,26 +45,38 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#usage">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#credentials">Credentials</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#credentials">Credentials</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#package-managers">Package Managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#package">Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#config">Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cache">Cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#credit">Credit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#graph">Graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#render">Render</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#package-managers">Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#package">Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#config">Config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-cache">disable_cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-memory-cache">disable_memory_cache</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#why-don-t-the-trees-show-package-managers">Why don’t the trees show package managers?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cache">Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credit">Credit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph">Graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dot">Dot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cypher">Cypher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gexf-networkx">Gexf (NetworkX)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#badge">Badge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#render">Render</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-don-t-the-trees-show-package-managers">Why don’t the trees show package managers?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
@@ -116,13 +128,12 @@ that when you publish your software, you should publish it to an appropriate pac
 Please <a class="reference external" href="https://github.com/vsoch/citelang/issues">let us know</a> if you have a questions,
 find a bug, or want to request a feature! This is an open source project and we are
 eager for your contribution. 🎉️</p>
-</div>
 <div class="section" id="usage">
-<span id="getting-started-user-guide-usage"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<span id="getting-started-user-guide-usage"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
 <p>Once you have <code class="docutils literal notranslate"><span class="pre">citelang</span></code> installed (<a class="reference internal" href="installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a>) you
 can use citelang either from the command line, or from within Python.</p>
 <div class="section" id="credentials">
-<span id="getting-started-user-guide-usage-client"></span><h2>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline"></a></h2>
+<span id="getting-started-user-guide-usage-client"></span><h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline"></a></h3>
 <p>CiteLang will require a libraries.io token, so you should <a class="reference external" href="https://libraries.io/">login</a> (it works with
 GitHub and other easy OAuth2 that don’t require permissions beyond your email) and then
 go to the top right -&gt; Settings -&gt; API Key.</p>
@@ -134,13 +145,13 @@ go to the top right -&gt; Settings -&gt; API Key.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx</span>
 </pre></div>
 </div>
+</div>
+</div>
 <div class="section" id="commands">
-<h3>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h3>
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h2>
 <p>The following commands are available.</p>
-</div>
-</div>
 <div class="section" id="package-managers">
-<h2>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this headline"></a></h2>
+<h3>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this headline"></a></h3>
 <p>Let’s find package managers supported.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang list
 </pre></div>
@@ -163,15 +174,15 @@ config section. You can disable using or setting the cache for any command as fo
 </div>
 </div>
 <div class="section" id="package">
-<h2>Package<a class="headerlink" href="#package" title="Permalink to this headline"></a></h2>
+<h3>Package<a class="headerlink" href="#package" title="Permalink to this headline"></a></h3>
 <p>To get metadata for a package, or from the command line, to list versions available:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang package pypi requests
 </pre></div>
 </div>
-<p>TODO put image here</p>
+<p>image:: img/package-requests.png</p>
 </div>
 <div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
 <p>You can ask to see package dependencies:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests
 </pre></div>
@@ -180,10 +191,9 @@ config section. You can disable using or setting the cache for any command as fo
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests@2.27.1
 </pre></div>
 </div>
-<p>TODO put dependencies here</p>
-</div>
+<p>image:: img/requests-deps.png</p>
 <div class="section" id="config">
-<h2>Config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h2>
+<h4>Config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h4>
 <p>You don’t technically need to do any custom configuration. However, if you want to make
 your own user-specific settings file:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config inituser
@@ -192,18 +202,25 @@ your own user-specific settings file:</p>
 <p>You can also edit the default config in [citelang/settings.yml](citelang/settings.yml)
 if you control the install. We will be adding a table of settings when we add official
 documentation. For now, let’s talk about specific variables.</p>
+</div>
+<div class="section" id="disable-cache">
+<h4>disable_cache<a class="headerlink" href="#disable-cache" title="Permalink to this headline"></a></h4>
 <p>This defaults to false, meaning we aren’t disabling the cache. Not disabling the cache
 means we can cache different results in your citelang home. We do this to minimize API calls.
 The exception is for when you ask for a package without a version. Since we cannot
 be sure what the latest version is, we need to check again.</p>
+</div>
+<div class="section" id="disable-memory-cache">
+<h4>disable_memory_cache<a class="headerlink" href="#disable-memory-cache" title="Permalink to this headline"></a></h4>
 <p>Akin to the filesystem, given that you are using a client in a session (whether directly
 in Python or via a command provided by citelang) we will cache results in memory. E.g.,
 if you are asking for multiple packages, we check first that you are asking for a valid
 manager. When we cache the list of managers available, this is possible without an extra
 API call.</p>
 </div>
+</div>
 <div class="section" id="cache">
-<h2>Cache<a class="headerlink" href="#cache" title="Permalink to this headline"></a></h2>
+<h3>Cache<a class="headerlink" href="#cache" title="Permalink to this headline"></a></h3>
 <p>Citelng includes a cache command group for viewing or clearing your filesystem cache.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang cache
 <span class="go">/home/vanessa/.citelang/cache</span>
@@ -220,7 +237,7 @@ API call.</p>
 </div>
 </div>
 <div class="section" id="credit">
-<h2>Credit<a class="headerlink" href="#credit" title="Permalink to this headline"></a></h2>
+<h3>Credit<a class="headerlink" href="#credit" title="Permalink to this headline"></a></h3>
 <p>To create a simple citation credit calculation, you can do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests
 </pre></div>
@@ -296,7 +313,7 @@ You can also try changing this value!</p>
 maximum depth or number of dependencies. You can try setting these values as well.</p>
 </div>
 <div class="section" id="graph">
-<h2>Graph<a class="headerlink" href="#graph" title="Permalink to this headline"></a></h2>
+<h3>Graph<a class="headerlink" href="#graph" title="Permalink to this headline"></a></h3>
 <p>To create a simple citation graph, you can do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests
 </pre></div>
@@ -317,12 +334,17 @@ Here is spack:</p>
 <p>GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
 If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won’t show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
 that has a detectable file.</p>
+<div class="section" id="dot">
+<h4>Dot<a class="headerlink" href="#dot" title="Permalink to this headline"></a></h4>
 <p>To generate (and then render a dot graph):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt dot &gt; examples/dot/graph.dot
 <span class="gp">$ </span>dot -Tpng &lt; examples/dot/graph.dot &gt; examples/dot/graph.png
 <span class="gp">$ </span>dot -Tsvg &lt; examples/dot/graph.dot &gt; examples/dot/graph.svg
 </pre></div>
 </div>
+</div>
+<div class="section" id="cypher">
+<h4>Cypher<a class="headerlink" href="#cypher" title="Permalink to this headline"></a></h4>
 <p>Cypher is the query format for Neo4j, the graph database.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt cypher
 
@@ -361,6 +383,9 @@ that has a detectable file.</p>
 <span class="go">client.graph(manager=&quot;pypi&quot;, name=&quot;requests&quot;, fmt=&quot;cypher&quot;)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="gexf-networkx">
+<h4>Gexf (NetworkX)<a class="headerlink" href="#gexf-networkx" title="Permalink to this headline"></a></h4>
 <p>If you want to use networkX or Gephi or a <a class="reference external" href="https://github.com/raphv/gexf-js">viewer</a> you can generate output as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt gexf
 <span class="gp">$ </span>citelang graph pypi requests --fmt gexf &gt; examples/gexf/graph.xml
@@ -393,18 +418,44 @@ that has a detectable file.</p>
 </div>
 <p>That should generate <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/examples/gexf/graph.xml">examples/gexf/graph.xml</a>.</p>
 </div>
+</div>
+<div class="section" id="badge">
+<h3>Badge<a class="headerlink" href="#badge" title="Permalink to this headline"></a></h3>
+<p>A badge is an interactive svg (meaning it will typically output an index.html file for you to include
+somewhere) for a user to interactively explore your dependency tree. We took inspiration from
+the periodic table of elements, meaning that the top layer looks like a single element, and clicking
+allows you to explore the nested inner tables.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests
+</pre></div>
+</div>
+<p>or for more depth in your badge (and to save to a custom output file):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests --min-credit <span class="m">0</span>.001 --outfile index.html
+<span class="go">Saving to index.html...</span>
+<span class="go">Result saved to index.html</span>
+</pre></div>
+</div>
+<p>Here is the current example badge - you can click around to explore it!</p>
+<p>image:: img/badge.png</p>
+<p>Or see the <a class="reference external" href="../_static/example/badge/index.html">interactive version here</a>.</p>
+<p>The badge design is still being developed - for example it would be good to have
+a smaller version, or a static one. If you have ideas or inspiration please
+open an issue!</p>
+</div>
 <div class="section" id="render">
-<h2>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h2>
-<p>This will be a set of commands that can take any of:</p>
+<h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
+<p>This command will support rendering:</p>
 <ol class="arabic simple">
 <li>an entire markdown file with software references</li>
 <li>a grouping / list of software references</li>
+<li>a page with multiple badges?</li>
 </ol>
 <p>and create a citation summary, probably in different formats that are useful. This isn’t developed yet
 but this dinosaur is excited so it’s coming soon!</p>
 <p><strong>under development</strong> more coming soon!</p>
+</div>
+</div>
 <div class="section" id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h3>
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h2>
 <p>You can do all of the same interactions from within Python! And indeed if you want
 to do some kind of analysis or custom parsing this is the recommended approach.
 For all cases from within Python, after exporing the token, we need to create a client.</p>
@@ -428,7 +479,7 @@ For all cases from within Python, after exporing the token, we need to create a 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Let’s say you ran this, and you wanted to retrieve it again! Given that <cite>disable_cache</cite> in your settings
+<p>Let’s say you ran this, and you wanted to retrieve it again! Given that <code class="docutils literal notranslate"><span class="pre">disable_cache</span></code> in your settings
 is not set to True, you can call the function again and the data returned will be from the cache.
 You can also ask for it verbatim:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">package_managers</span><span class="p">()</span>
@@ -455,21 +506,20 @@ You can also ask for it verbatim:</p>
 <p>Without a version, we will grab the latest. Otherwise we use the version provided.</p>
 </div>
 <div class="section" id="frequently-asked-questions">
-<h3>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline"></a></h3>
-</div>
-</div>
+<h2>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline"></a></h2>
 <div class="section" id="why-don-t-the-trees-print-versions">
-<h2>Why don’t the trees print versions?<a class="headerlink" href="#why-don-t-the-trees-print-versions" title="Permalink to this headline"></a></h2>
+<h3>Why don’t the trees print versions?<a class="headerlink" href="#why-don-t-the-trees-print-versions" title="Permalink to this headline"></a></h3>
 <p>The current thinking is that when I give credit to software, I’m not caring so much about the version.
 The goal of this isn’t reproducibility, but rather to say “for this software package, here are the dependencies and credits to give for each.” Given a version (which will default to latest) this will mean a particular
 set of dependencies, but it’s not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.</p>
 </div>
 <div class="section" id="why-don-t-the-trees-show-package-managers">
-<h2>Why don’t the trees show package managers?<a class="headerlink" href="#why-don-t-the-trees-show-package-managers" title="Permalink to this headline"></a></h2>
+<h3>Why don’t the trees show package managers?<a class="headerlink" href="#why-don-t-the-trees-show-package-managers" title="Permalink to this headline"></a></h3>
 <p>In truth we probably should, because looking at a credit graph later you need to know the manager
 used to derive the graph (e.g., some packages can be present in multiple package managers!)
 I haven’t added this yet.</p>
 <p>This library is under development and we will have more documentation coming soon!</p>
+</div>
 </div>
 </div>
 

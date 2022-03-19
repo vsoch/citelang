@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang package &mdash; CiteLang Python 0.0.1 documentation</title>
+  <title>citelang package &mdash; CiteLang Python 0.0.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -31,7 +31,7 @@
             <a href="../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.1
+                0.0.11
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -45,7 +45,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/user-guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/user-guide.html#usage">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/settings.html">Settings</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
@@ -388,6 +387,12 @@ return the json result.</p>
 <dd><p>Bases: <a class="reference internal" href="#citelang.main.base.BaseClient" title="citelang.main.base.BaseClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.base.BaseClient</span></code></a></p>
 <p>Interact with a libaries.io or custom package server via CiteLang</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.client.Client.badge">
+<code class="sig-name descname"><span class="pre">badge</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">max_deps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">min_credit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em><span class="n"><span class="pre">credit_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.badge" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a badge for a package</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.client.Client.check_manager">
 <code class="sig-name descname"><span class="pre">check_manager</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.check_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.check_manager" title="Permalink to this definition"></a></dt>
 <dd><p>Check if a package manager is supported</p>
@@ -694,6 +699,25 @@ stop adding.</p>
 <div class="section" id="module-citelang.main.result">
 <span id="citelang-main-result-module"></span><h2>citelang.main.result module<a class="headerlink" href="#module-citelang.main.result" title="Permalink to this headline"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="citelang.main.result.Badge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Badge</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Badge" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#citelang.main.result.Tree" title="citelang.main.result.Tree"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.result.Tree</span></code></a></p>
+<p>A badge uses tree data with d3 for an interactive visualization</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.result.Badge.print_result">
+<code class="sig-name descname"><span class="pre">print_result</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Badge.print_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Badge.print_result" title="Permalink to this definition"></a></dt>
+<dd><p>Print a tree result (todo redo with color and rich)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.result.Badge.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">outfile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Badge.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Badge.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save to output file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.result.Graph">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Graph</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Graph" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#citelang.main.result.Result" title="citelang.main.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.result.Result</span></code></a></p>
@@ -740,12 +764,6 @@ stop adding.</p>
 <dd><p>Calculate available width based on fields we cannot truncate (urls)</p>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="citelang.main.result.Table.color">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">color</span></code><a class="headerlink" href="#citelang.main.result.Table.color" title="Permalink to this definition"></a></dt>
-<dd><p>Return a random color</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.result.Table.ensure_complete">
 <code class="sig-name descname"><span class="pre">ensure_complete</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Table.ensure_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Table.ensure_complete" title="Permalink to this definition"></a></dt>
@@ -785,7 +803,8 @@ stop adding.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.result.Tree.parse_data">
 <code class="sig-name descname"><span class="pre">parse_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Tree.parse_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Tree.parse_data" title="Permalink to this definition"></a></dt>
-<dd><p>Parse result into data</p>
+<dd><p>Parse result into data. The size is for d3, and makes each node
+relative to its siblings.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1191,7 +1210,7 @@ we are trying to scrape them :)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="citelang.utils.fileio.write_file">
-<code class="sig-prename descclassname"><span class="pre">citelang.utils.fileio.</span></code><code class="sig-name descname"><span class="pre">write_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename</span></span></em>, <em><span class="n"><span class="pre">content</span></span></em>, <em><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em><span class="n"><span class="pre">exec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/fileio.html#write_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.fileio.write_file" title="Permalink to this definition"></a></dt>
+<code class="sig-prename descclassname"><span class="pre">citelang.utils.fileio.</span></code><code class="sig-name descname"><span class="pre">write_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">content</span></span></em>, <em><span class="n"><span class="pre">filename</span></span></em>, <em><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em><span class="n"><span class="pre">exec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/fileio.html#write_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.fileio.write_file" title="Permalink to this definition"></a></dt>
 <dd><p>Write content to a filename</p>
 </dd></dl>
 
