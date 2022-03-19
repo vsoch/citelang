@@ -23,7 +23,7 @@ def mkdir_p(path):
             sys.exit("Error creating path %s, exiting." % path)
 
 
-def write_file(filename, content, mode="w", exec=False):
+def write_file(content, filename, mode="w", exec=False):
     """
     Write content to a filename
     """

@@ -15,7 +15,7 @@ def test_write_read_files(tmp_path):
 
     tmpfile = str(tmp_path / "written_file.txt")
     assert not os.path.exists(tmpfile)
-    utils.write_file(tmpfile, "hello!")
+    utils.write_file("hello!", tmpfile)
     assert os.path.exists(tmpfile)
 
     print("Testing utils.read_file...")

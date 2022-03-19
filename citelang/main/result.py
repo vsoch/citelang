@@ -5,12 +5,15 @@ __license__ = "MPL 2.0"
 from citelang.logger import logger
 import citelang.utils as utils
 import citelang.main.graph as graph
+import citelang.main.colors as colors
 
 from rich.table import Table as RichTable
 from rich.console import Console
 
-import random
+import json
 import os
+
+here = os.path.dirname(os.path.abspath(__file__))
 
 
 class Result:
@@ -110,13 +113,6 @@ class Table(Result):
                     elif self.max_widths[field] < len(entry[field]):
                         self.max_widths[field] = len(entry[field])
 
-    @property
-    def color(self):
-        """
-        Return a random color
-        """
-        return "color(" + str(random.choice(range(255))) + ")"
-
     def table_columns(self):
         """
         Shared function to return consistent table columns
@@ -124,11 +120,20 @@ class Table(Result):
         # An endpoint that returns structured json can choose to flatten
         data = self.endpoint.table_data(self.data)
 
+        # Plan to remove empty columns with count 0
+        column_counts = {x: 0 for x, _ in data[0].items()}
+
+        # Count entries for each column
+        for entry in data:
+            for column, value in entry.items():
+                if value:
+                    column_counts[column] += 1
+
         # Get column titles
         columns = []
         contenders = list(data[0].keys())
         for column in contenders:
-            if column in self.endpoint.skip_list:
+            if column in self.endpoint.skip_list or column_counts[column] == 0:
                 continue
             columns.append(column)
         return columns
@@ -165,10 +170,13 @@ class Table(Result):
         """
         Pretty print a table of results.
         """
-        table = RichTable(title=self.endpoint.title)
-
-        # Don't reuse colors
-        seen_colors = []
+        table_title = ""
+        if isinstance(self.data, dict) and "name" in self.data:
+            table_title = " " + self.data["name"]
+        table = RichTable(
+            title="%s%s"
+            % (self.endpoint.name.capitalize().replace("_", " "), table_title)
+        )
 
         # No dependencies!
         data = self.endpoint.table_data(self.data)
@@ -176,14 +184,13 @@ class Table(Result):
             print("This package does not have any dependencies.")
             return
 
-        # Get column titles
+        # Get column titles and unique colors
         columns = self.table_columns()
-        for column in columns:
-            color = None
-            while not color or color in seen_colors:
-                color = self.color
+        column_colors = colors.get_rich_colors(len(columns))
+
+        for i, column in enumerate(columns):
             title = " ".join([x.capitalize() for x in column.split("_")])
-            table.add_column(title, style=color)
+            table.add_column(title, style=column_colors[i])
 
         # Add rows
         for row in self.table_rows(columns, limit=limit):
@@ -201,25 +208,40 @@ class Tree(Result):
 
     def parse_data(self):
         """
-        Parse result into data
+        Parse result into data. The size is for d3, and makes each node
+        relative to its siblings.
         """
+        # Generate colors for all nodes
+        colorset = colors.get_color_range(N=self.result.total_nodes)
+        color_lookup = {
+            c: str(colorset[i]) for i, c in enumerate(self.result.children_names)
+        }
+
         data = {
             "name": self.result.name,
             "credit": self.result.credit,
             "weight": self.result.weight,
+            "size": 100,
             "round_by": self.result.round_by,
+            "credit_rounded": round(self.result.credit, self.result.round_by),
             "children": [],
+            "color": color_lookup[self.result.name],
         }
 
         def add(data, children, total):
             total += data.credit
+            if data.children:
+                child_size = 100 / len(data.children)
             for child in data.children:
                 node = {
                     "name": child.name,
                     "credit": child.credit,
+                    "credit_rounded": round(child.credit, child.round_by),
                     "weight": child.weight,
+                    "size": child_size,
                     "round_by": child.round_by,
                     "children": [],
+                    "color": color_lookup[child.name],
                 }
                 total = add(child, node["children"], total)
                 children.append(node)
@@ -273,3 +295,26 @@ class Graph(Result):
             # Only console supported for now!
             out = graph.Console(self.root)
         return out.generate()
+
+
+class Badge(Tree):
+    """
+    A badge uses tree data with d3 for an interactive visualization
+    """
+
+    def print_result(self):
+        pass
+
+    def save(self, outfile):
+        """
+        Save to output file
+        """
+        logger.info("Saving to %s..." % outfile)
+        template = utils.read_file(os.path.join(here, "badge", "template.html"))
+        template = template.replace("{{title}}", self.result.name)
+
+        # Add an extra parent to the data (root) so the one child is requests
+        root = {"name": "citelang", "size": 100, "children": [self.data]}
+        template = template.replace("{{data}}", json.dumps(root))
+        utils.write_file(template, outfile)
+        logger.info("Result saved to %s" % outfile)

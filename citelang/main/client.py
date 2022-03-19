@@ -85,6 +85,31 @@ class Client(base.BaseClient):
         )
         return results.Graph(root).graph(fmt=fmt)
 
+    def badge(
+        self,
+        manager,
+        name,
+        use_cache=True,
+        max_depth=None,
+        max_deps=None,
+        min_credit=0.01,
+        credit_split=0.5,
+        fmt=None,
+    ):
+        """
+        Generate a badge for a package
+        """
+        root = self._graph(
+            manager=manager,
+            name=name,
+            use_cache=use_cache,
+            max_depth=max_depth,
+            max_deps=max_deps,
+            min_credit=min_credit,
+            credit_split=credit_split,
+        )
+        return results.Badge(root)
+
     def _graph(
         self,
         manager,
@@ -101,8 +126,9 @@ class Client(base.BaseClient):
         self.check_manager(manager, use_cache)
         pkg = package.get_package(manager, name, client=self, use_cache=use_cache)
 
-        # keep track of deps (we only care about name, not version)
+        # keep track of deps (we only care about name, not version) and names
         seen = set()
+        node_names = set()
 
         # Top node gets full credit 1.0 (to split between itself and deps)
         root = graph.Node(
@@ -111,6 +137,7 @@ class Client(base.BaseClient):
             credit_split=credit_split,
             depth=0,
             min_credit=min_credit,
+            is_root=True,
         )
 
         # A pointer to the next node
@@ -125,6 +152,7 @@ class Client(base.BaseClient):
         while next_nodes and not stop_looking:
             next_node = next_nodes.pop(0)
             deps = next_node.obj.dependencies(return_data=True)
+            [node_names.add(d["name"]) for d in deps if "name" in d]
 
             # Stopping point - exceeded max depth
             if max_depth and next_node.depth > max_depth:
@@ -135,6 +163,7 @@ class Client(base.BaseClient):
                 stop_looking = True
 
             seen.add(next_node.name)
+            node_names.add(next_node.name)
 
             if not deps:
                 continue
@@ -198,6 +227,8 @@ class Client(base.BaseClient):
                 # Store previous if we need to update weight
                 previous.append(child)
 
+        # Add total node count to root
+        root.children_names = list(node_names)
         return root
 
     def credit(
