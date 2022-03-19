@@ -2,8 +2,6 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
 import colour
 import random
 
@@ -26,7 +24,7 @@ palettes = {
 }
 
 
-def get_rich_color(self):
+def get_rich_color():
     """
     Return a random color
     """

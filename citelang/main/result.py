@@ -10,7 +10,6 @@ import citelang.main.colors as colors
 from rich.table import Table as RichTable
 from rich.console import Console
 
-import random
 import json
 import os
 
@@ -185,7 +184,7 @@ class Table(Result):
 
         for i, column in enumerate(columns):
             title = " ".join([x.capitalize() for x in column.split("_")])
-            table.add_column(title, style=colors[i])
+            table.add_column(title, style=column_colors[i])
 
         # Add rows
         for row in self.table_rows(columns, limit=limit):
