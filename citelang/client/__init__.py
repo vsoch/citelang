@@ -93,6 +93,10 @@ def get_parser():
         description="list package managers available to derive citations from.",
     )
     deps = subparsers.add_parser("deps", description="list dependencies for a package.")
+
+    badge = subparsers.add_parser(
+        "badge", description="Generate an html (svg-based) badge."
+    )
     graph = subparsers.add_parser(
         "graph", description="generate a graph for some package dependencies."
     )
@@ -104,7 +108,7 @@ def get_parser():
         "credit", description="calculate dependency credit for a package."
     )
 
-    for command in [pkg, deps, graph, credit]:
+    for command in [pkg, deps, graph, credit, badge]:
         command.add_argument(
             "package", help="package manager and name to parse", nargs=2
         )
@@ -117,7 +121,7 @@ def get_parser():
         )
         command.add_argument("--outfile", "-o", help="Save to an output json file.")
 
-    for command in [graph, credit]:
+    for command in [graph, credit, badge]:
         command.add_argument(
             "--max-depth", help="maximum depth to parse tree (default is unset)"
         )
@@ -225,7 +229,9 @@ def run():
                 helper = subparser
                 break
 
-    if args.command == "cache":
+    if args.command == "badge":
+        from .badge import main
+    elif args.command == "cache":
         from .cache import main
     elif args.command == "config":
         from .config import main
@@ -244,11 +250,11 @@ def run():
 
     # Pass on to the correct parser
     return_code = 0
-    # try:
-    main(args=args, parser=parser, extra=extra, subparser=helper)
-    sys.exit(return_code)
-    # except UnboundLocalError:
-    #    return_code = 1
+    try:
+        main(args=args, parser=parser, extra=extra, subparser=helper)
+        sys.exit(return_code)
+    except UnboundLocalError:
+        return_code = 1
 
     help(return_code)
 

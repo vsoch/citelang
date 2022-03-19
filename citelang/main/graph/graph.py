@@ -4,7 +4,9 @@ __license__ = "MPL 2.0"
 
 
 class Node:
-    def __init__(self, obj, weight, credit_split=0.5, depth=0, min_credit=0.01):
+    def __init__(
+        self, obj, weight, credit_split=0.5, depth=0, min_credit=0.01, is_root=False
+    ):
         """
         A graph node has a name (or object), weight, and children
         """
@@ -14,10 +16,16 @@ class Node:
         self.credit_split = credit_split
         self.depth = depth
         self.min_credit = min_credit
+        self.is_root = is_root
 
         # If we stop parsing we can set this credit to whatever the node and
         # children would originall get
         self.total_credit = None
+        self.children_names = []
+
+    @property
+    def total_nodes(self):
+        return len(self.children_names)
 
     @property
     def name(self):
