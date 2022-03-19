@@ -170,7 +170,13 @@ class Table(Result):
         """
         Pretty print a table of results.
         """
-        table = RichTable(title="Dependencies for %s" % self.data["name"])
+        table_title = ""
+        if isinstance(self.data, dict) and "name" in self.data:
+            table_title = " " + self.data["name"]
+        table = RichTable(
+            title="%s%s"
+            % (self.endpoint.name.capitalize().replace("_", " "), table_title)
+        )
 
         # No dependencies!
         data = self.endpoint.table_data(self.data)
