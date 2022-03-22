@@ -21,6 +21,7 @@ class SpackManager(PackageManager):
     homepage = "https://spack.github.io/packages"
     color = "#0f3a80"
     default_language = None
+    default_versions = []
 
     @property
     def project_count(self):

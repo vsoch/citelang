@@ -23,6 +23,16 @@ class Node:
         self.total_credit = None
         self.children_names = []
 
+    def iternodes(self):
+        """
+        Iterate through all nodes of the graph
+        """
+        nodes = [self]
+        while nodes:
+            node = nodes.pop(0)
+            yield node
+            nodes += node.children
+
     @property
     def total_nodes(self):
         return len(self.children_names)

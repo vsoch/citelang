@@ -7,6 +7,7 @@ import citelang.main.graph as graph
 import citelang.main.result as results
 import citelang.main.package as package
 import citelang.main.packages as packages
+import citelang.main.parser as parser
 from citelang.logger import logger
 
 
@@ -22,6 +23,63 @@ class Client(base.BaseClient):
         self.check_manager(manager, use_cache)
         pkg = package.Package(manager, name, client=self, use_cache=use_cache)
         return pkg.dependencies()
+
+    def render(
+        self,
+        filename,
+        use_cache=True,
+        max_depth=None,
+        max_deps=None,
+        min_credit=0.01,
+        credit_split=0.5,
+    ):
+        """
+        Given a filename with references, render the citelang table.
+        """
+        p = parser.Parser(filename)
+        libs = p.parse()
+
+        # Derive each as a package credit tree
+        roots = {}
+        for lib in libs:
+            if "name" not in lib or "manager" not in lib:
+                logger.warning("Skipping %s, missing name or manager." % lib)
+            uid = "%s:%s" % (lib["manager"], lib["name"])
+            if "version" in lib or "release" in lib:
+                version = lib.get("version") or lib.get("release")
+                uid = "%s@%s" % (uid, version)
+                lib["name"] = "%s@%s" % (lib["name"], version)
+            roots[uid] = self._graph(
+                manager=lib["manager"],
+                name=lib["name"],
+                use_cache=use_cache,
+                max_depth=max_depth,
+                max_deps=max_deps,
+                min_credit=min_credit,
+                credit_split=credit_split,
+            )
+
+        # Generate the table with multiple roots - flatten out credit
+        table = {}
+
+        # Multiplier for credit depending on total packages
+        splitby = 1 / len(roots)
+        for lib, root in roots.items():
+            manager = lib.split(":")[0]
+            for node in root.iternodes():
+                if manager not in table:
+                    table[manager] = {}
+                if node.name not in table[manager]:
+                    table[manager][node.name] = {
+                        "credit": 0,
+                        "url": node.obj.homepage,
+                    }
+                table[manager][node.name]["credit"] += node.credit * splitby
+
+        # Add listing of packages and dependencies to parser
+        p.data = table
+        p.round_by = root.round_by
+        return p
 
     def package_managers(self, use_cache=True):
         """
@@ -152,7 +210,11 @@ class Client(base.BaseClient):
         while next_nodes and not stop_looking:
             next_node = next_nodes.pop(0)
             deps = next_node.obj.dependencies(return_data=True)
-            [node_names.add(d["name"]) for d in deps if "name" in d]
+            [
+                node_names.add(d["name"])
+                for d in deps
+                if "name" in d and not d["name"].startswith("__")
+            ]
 
             # Stopping point - exceeded max depth
             if max_depth and next_node.depth > max_depth:
@@ -209,8 +271,9 @@ class Client(base.BaseClient):
 
                 # Haven't seen this case, but just a check
                 dep_name = dep["name"] or dep["project_name"]
-                if not dep_name:
+                if not dep_name or dep_name.startswith("__"):
                     continue
+
                 depnode = package.get_package(
                     manager, dep_name, client=self, use_cache=use_cache
                 )

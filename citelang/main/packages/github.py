@@ -49,7 +49,12 @@ def find_dependencies(repo):
             pagination_a = pagination.find("a")
             if pagination_a:
                 url = pagination_a["href"]
-    return [{"name": x} for x in sorted(list(repos))]
+
+    # Ensure dependencies come with homepage
+    return [
+        {"name": x, "homepage": "https://github.com/%s" % x}
+        for x in sorted(list(repos))
+    ]
 
 
 class GitHubManager(PackageManager):
@@ -63,7 +68,7 @@ class GitHubManager(PackageManager):
     color = "#000000"
     default_language = None
     project_count = None
-    apiroot = "https://api.github.com"
+    default_versions = ["main", "master", "develop"]
 
     def clone(self, name):
         """
@@ -78,15 +83,6 @@ class GitHubManager(PackageManager):
         if res["return_code"] != 0:
             return
         return tmpdir
-
-    def get_or_fail(self, url, headers):
-        """
-        Shared endpoint to get a url or fail.
-        """
-        response = requests.get(url, headers=headers)
-        if response.status_code != 200:
-            logger.exit("Cannot retrieve %s: %s" % (url, response.json()))
-        return response.json()
 
     def package(self, name, **kwargs):
 
