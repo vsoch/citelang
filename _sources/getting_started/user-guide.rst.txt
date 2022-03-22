@@ -462,10 +462,42 @@ This command will support rendering:
 2. a grouping / list of software references
 3. a page with multiple badges?
 
-and create a citation summary, probably in different formats that are useful. This isn't developed yet
-but this dinosaur is excited so it's coming soon!
+and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
+per package. As an example, let's say we start with _`this markdown file <https://github.com/vsoch/citelang/blob/main/examples/paper.md>`_ .
+You'll notice there are software references formatted as follows:
 
-**under development** more coming soon!
+.. code-block:: markdown
+
+    @apt{name=singularity-container, version=3.8.2}
+    @pypi{name=singularity-hpc}
+    @github{name=autamus/registry}
+    @github{name=spack/spack, release=0.17}.
+
+And it ends in a References section, under which we've defined a start and ending tag (in html) for citelang.
+
+.. code-block:: markdown
+
+    <!--citelang start-->
+    <!--citelang end-->
+
+Then to render the citation table into the file:
+
+
+.. code-block:: console
+
+   $ citelang render examples/paper.md
+
+
+This will print the result to the screen! To save to output file (overwrite the same file or write to a different file):
+
+
+.. code-block:: console
+
+   $ citelang render examples/paper.md --outfile examples/paper-render.md
+
+You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/paper-render.md>`_.
+We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
+Let us know if you have ideas!
 
 ******
 Python

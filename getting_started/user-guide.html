@@ -449,9 +449,31 @@ open an issue!</p>
 <li>a grouping / list of software references</li>
 <li>a page with multiple badges?</li>
 </ol>
-<p>and create a citation summary, probably in different formats that are useful. This isn’t developed yet
-but this dinosaur is excited so it’s coming soon!</p>
-<p><strong>under development</strong> more coming soon!</p>
+<p>and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
+per package. As an example, let’s say we start with <a href="#id1"><span class="problematic" id="id2">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper.md">https://github.com/vsoch/citelang/blob/main/examples/paper.md</a>&gt;`_ .
+You’ll notice there are software references formatted as follows:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="ni">@apt</span>{name=singularity-container, version=3.8.2}
+<span class="ni">@pypi</span>{name=singularity-hpc}
+<span class="ni">@github</span>{name=autamus/registry}
+<span class="ni">@github</span>{name=spack/spack, release=0.17}.
+</pre></div>
+</div>
+<p>And it ends in a References section, under which we’ve defined a start and ending tag (in html) for citelang.</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>&lt;!--citelang start--&gt;
+&lt;!--citelang end--&gt;
+</pre></div>
+</div>
+<p>Then to render the citation table into the file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/paper.md
+</pre></div>
+</div>
+<p>This will print the result to the screen! To save to output file (overwrite the same file or write to a different file):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/paper.md --outfile examples/paper-render.md
+</pre></div>
+</div>
+<p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper-render.md">example rendering here</a>.
+We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
+Let us know if you have ideas!</p>
 </div>
 </div>
 <div class="section" id="python">

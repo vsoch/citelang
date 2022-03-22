@@ -128,7 +128,12 @@
             <span class="n">pagination_a</span> <span class="o">=</span> <span class="n">pagination</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">pagination_a</span><span class="p">:</span>
                 <span class="n">url</span> <span class="o">=</span> <span class="n">pagination_a</span><span class="p">[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">repos</span><span class="p">))]</span></div>
+
+    <span class="c1"># Ensure dependencies come with homepage</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;homepage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">x</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">repos</span><span class="p">))</span>
+    <span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="GitHubManager"><a class="viewcode-back" href="../../../../api_reference/internal/citelang.html#citelang.main.packages.github.GitHubManager">[docs]</a><span class="k">class</span> <span class="nc">GitHubManager</span><span class="p">(</span><span class="n">PackageManager</span><span class="p">):</span>
@@ -142,7 +147,7 @@
     <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span>
     <span class="n">default_language</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">project_count</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">apiroot</span> <span class="o">=</span> <span class="s2">&quot;https://api.github.com&quot;</span>
+    <span class="n">default_versions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">,</span> <span class="s2">&quot;develop&quot;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="GitHubManager.clone"><a class="viewcode-back" href="../../../../api_reference/internal/citelang.html#citelang.main.packages.github.GitHubManager.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -157,15 +162,6 @@
         <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">return</span> <span class="n">tmpdir</span></div>
-
-<div class="viewcode-block" id="GitHubManager.get_or_fail"><a class="viewcode-back" href="../../../../api_reference/internal/citelang.html#citelang.main.packages.github.GitHubManager.get_or_fail">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Shared endpoint to get a url or fail.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Cannot retrieve </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GitHubManager.package"><a class="viewcode-back" href="../../../../api_reference/internal/citelang.html#citelang.main.packages.github.GitHubManager.package">[docs]</a>    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 

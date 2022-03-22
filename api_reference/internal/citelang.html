@@ -431,6 +431,12 @@ stop adding.</p>
 <dd><p>Get a listing of package managers supported on libraries.io</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.client.Client.render">
+<code class="sig-name descname"><span class="pre">render</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">max_deps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">min_credit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em><span class="n"><span class="pre">credit_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.render" title="Permalink to this definition"></a></dt>
+<dd><p>Given a filename with references, render the citelang table.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -629,6 +635,11 @@ stop adding.</p>
 <dd><p>Retrieve custom package dependencies</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="citelang.main.package.CustomPackage.homepage">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">homepage</span></code><a class="headerlink" href="#citelang.main.package.CustomPackage.homepage" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.package.CustomPackage.info">
 <code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#CustomPackage.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.CustomPackage.info" title="Permalink to this definition"></a></dt>
@@ -668,6 +679,11 @@ stop adding.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.package.PackageBase.dependencies">
 <code class="sig-name descname"><span class="pre">dependencies</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">return_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#PackageBase.dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.PackageBase.dependencies" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="citelang.main.package.PackageBase.homepage">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">homepage</span></code><a class="headerlink" href="#citelang.main.package.PackageBase.homepage" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1069,6 +1085,11 @@ rm:name:value</p>
 <code class="sig-name descname"><span class="pre">default_language</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#citelang.main.packages.spack.SpackManager.default_language" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="citelang.main.packages.spack.SpackManager.default_versions">
+<code class="sig-name descname"><span class="pre">default_versions</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#citelang.main.packages.spack.SpackManager.default_versions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.packages.spack.SpackManager.dependencies">
 <code class="sig-name descname"><span class="pre">dependencies</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/packages/spack.html#SpackManager.dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.packages.spack.SpackManager.dependencies" title="Permalink to this definition"></a></dt>
@@ -1129,11 +1150,10 @@ the same package endpoint and return that data.</p>
 <code class="sig-name descname"><span class="pre">default_language</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#citelang.main.packages.github.GitHubManager.default_language" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.packages.github.GitHubManager.get_or_fail">
-<code class="sig-name descname"><span class="pre">get_or_fail</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">url</span></span></em>, <em><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/packages/github.html#GitHubManager.get_or_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.packages.github.GitHubManager.get_or_fail" title="Permalink to this definition"></a></dt>
-<dd><p>Shared endpoint to get a url or fail.</p>
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="citelang.main.packages.github.GitHubManager.default_versions">
+<code class="sig-name descname"><span class="pre">default_versions</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['main',</span> <span class="pre">'master',</span> <span class="pre">'develop']</span></em><a class="headerlink" href="#citelang.main.packages.github.GitHubManager.default_versions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="citelang.main.packages.github.GitHubManager.homepage">
