@@ -103,10 +103,14 @@ def get_parser():
     graph.add_argument(
         "--fmt", "-f", help="format of the graph (unset defaults to console print)"
     )
-
     credit = subparsers.add_parser(
         "credit", description="calculate dependency credit for a package."
     )
+    render = subparsers.add_parser(
+        "render", description="render a credit tree into your markdown."
+    )
+    render.add_argument("filename", help="Markdown file to render software table into.")
+    render.add_argument("--outfile", "-o", help="Save to an output json file.")
 
     for command in [pkg, deps, graph, credit, badge]:
         command.add_argument(
@@ -121,7 +125,7 @@ def get_parser():
         )
         command.add_argument("--outfile", "-o", help="Save to an output json file.")
 
-    for command in [graph, credit, badge]:
+    for command in [graph, credit, badge, render]:
         command.add_argument(
             "--max-depth", help="maximum depth to parse tree (default is unset)"
         )
@@ -241,6 +245,8 @@ def run():
         from .deps import main
     elif args.command == "graph":
         from .graph import main
+    elif args.command == "render":
+        from .render import main
     elif args.command == "shell":
         from .shell import main
     elif args.command == "list":

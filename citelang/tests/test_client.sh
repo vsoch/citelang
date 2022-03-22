@@ -68,12 +68,18 @@ runTest 0 $output citelang --settings-file $settings graph pypi requests --fmt g
 runTest 0 $output citelang --settings-file $settings graph pypi requests --fmt dot
 
 echo
-echo "#### Testing graph "
+echo "#### Testing credit "
 runTest 0 $output citelang --settings-file $settings credit --help
 runTest 0 $output citelang --settings-file $settings credit pypi requests
 runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt cypher
 runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt gexf
 runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt dot
+
+echo
+echo "#### Testing render "
+runTest 0 $output citelang --settings-file $settings render ../examples/paper.md
+runTest 0 $output citelang --settings-file $settings render ../examples/paper.md --outfile paper.md
+cat paper.md
 
 echo
 echo "#### Testing cache "

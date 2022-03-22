@@ -21,8 +21,8 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
- - add citelang parse of markdown with references (we need a citation format / summary format)
- - create documentation, settings table
+ - add graphic summary
+ - add GitHub actions
 
 ## Contributors
 
