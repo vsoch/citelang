@@ -271,7 +271,7 @@ class Client(base.BaseClient):
 
                 # Haven't seen this case, but just a check
                 dep_name = dep["name"] or dep["project_name"]
-                if dep_name.startswith("__"):
+                if not dep_name or dep_name.startswith("__"):
                     continue
 
                 depnode = package.get_package(
