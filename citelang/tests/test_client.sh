@@ -77,8 +77,8 @@ runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt 
 
 echo
 echo "#### Testing render "
-runTest 0 $output citelang --settings-file $settings render ../examples/paper.md
-runTest 0 $output citelang --settings-file $settings render ../examples/paper.md --outfile paper.md
+runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md
+runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md --outfile paper.md
 cat paper.md
 
 echo
