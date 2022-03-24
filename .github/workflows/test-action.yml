@@ -1,0 +1,24 @@
+name: test-action
+
+on:
+  pull_request: []
+
+jobs:
+  test-action:
+    name: Test CiteLang
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Test citelang gen
+      
+        # Important! Update to release https://github.com/con/tributors
+        uses: ./action/gen
+        with:        
+          package: citelang
+          manager: pypi
+          outfile: citelang.md
+          branch: 
+
+      - name: View generated file
+        run: cat citelang.md
