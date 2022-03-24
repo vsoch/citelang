@@ -14,6 +14,15 @@ jobs:
       - name: Install CiteLang
         run: pip install -e .
 
+      - name: Test CiteLang Released
+        uses: vsoch/citelang/action/gen@main
+        env:
+          CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+        with:   
+          package: citelang
+          manager: pypi
+          outfile: software-credit.md
+
       - name: Test citelang gen      
         uses: ./action/gen
         env:

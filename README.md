@@ -7,8 +7,9 @@
 Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
 when you use CiteLang to reference software.
 
-1. Generate basic software credit trees
-2. Give credit accounting for dependencies!
+1. Generate basic software credit trees (citelang graph, badge, or credit)
+2. Give credit accounting for dependencies! (see [software-credit.md](software-credit.md))
+3. Actions (automation) for the above!
 
 No - we aren't using DOIs! A manually crafted identifier that a human has to remember to generate,
 in addition to a publication or release, is too much work for people to reasonably do. As research

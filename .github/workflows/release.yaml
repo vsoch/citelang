@@ -20,6 +20,7 @@ jobs:
         source activate citelang
         pip install -e .
         pip install setuptools wheel twine
+
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USER }} 
@@ -29,3 +30,24 @@ jobs:
         source activate citelang
         python setup.py sdist bdist_wheel
         twine upload dist/*
+
+    - name: Generate CiteLang
+      uses: vsoch/citelang/action/gen@main
+      env:
+        CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+      with:   
+        package: citelang
+        manager: pypi
+        outfile: software-credit.md
+        args: "--min-credit 0.001"
+
+    - name: View generated file
+      run: cat software-credit.md
+
+    - name: Push Software Credit
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git add software-credit.md
+        git commit -m "Automated push with new software-credit $(date '+%Y-%m-%d')" || exit 0
+        git push origin main || exit 0
