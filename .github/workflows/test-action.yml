@@ -10,15 +10,17 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Test citelang gen
-      
-        # Important! Update to release https://github.com/con/tributors
+
+      - name: Set Branch Name
+        run: echo branch=${GITHUB_REF##*/} >> $GITHUB_ENV
+
+      - name: Test citelang gen      
         uses: ./action/gen
-        with:        
+        with:   
           package: citelang
           manager: pypi
           outfile: citelang.md
-          branch: 
+          branch: ${{ env.branch }}
 
       - name: View generated file
         run: cat citelang.md
