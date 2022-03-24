@@ -532,8 +532,7 @@ Gen (generate)
 
 If you just want to generate a markdown file for a piece of software, you can do:
 
-
-.. code-block::https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png console
+.. code-block:: console
 
    $ citelang gen pypi requests
    
