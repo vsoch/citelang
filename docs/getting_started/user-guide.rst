@@ -520,6 +520,75 @@ We are thinking about also generating a graphic to embed somewhere, and associat
 Let us know if you have ideas!
 
 
+*************
+GitHub Action
+*************
+
+If you want to generate a software credit markdown for your software (perhaps after a release)
+you can do the following. Here is an example of releasing a Python package.
+
+
+.. code-block:: yaml
+
+    name: Release Python Package
+
+    on:
+      release:
+        types: [created]
+
+    jobs:
+      deploy:
+        runs-on: ubuntu-20.04
+
+        steps:
+        - uses: actions/checkout@v2
+
+        - name: Install
+          run: conda create --quiet --name release-env twine
+
+        - name: Install dependencies
+          env:
+            TWINE_USERNAME: ${{ secrets.PYPI_USER }} 
+            TWINE_PASSWORD: ${{ secrets.PYPI_PASS }}
+          run: |
+            export PATH="/usr/share/miniconda/bin:$PATH"
+            source activate release-env
+            pip install -e .
+            pip install setuptools wheel twine
+            python setup.py sdist bdist_wheel
+            twine upload dist/*
+
+        - name: Generate CiteLang
+          uses: vsoch/citelang/action/gen@main
+          env:
+            CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+          with:   
+            package: citelang
+            manager: pypi
+            outfile: software-credit.md
+
+
+Notice that we have generated a libraries.io key to make the process faster,
+and customized the file to be named software-credit.md. Adding an additional step
+to commit the file and push to main might look like:
+
+.. code-block:: yaml
+
+    - name: View generated file
+      run: cat software-credit.md
+
+    - name: Push Software Credit
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git add software-credit.md
+        git commit -m "Automated push with new software-credit $(date '+%Y-%m-%d')" || exit 0
+        git push origin main || exit 0
+
+You could also open a pull request if you want to review first! Note that we have more planned
+for this action, including actions for the render and badge types, along with a development
+variant that can parse a requirements.txt or similar. Stay tuned!
+
 ******
 Python
 ******
