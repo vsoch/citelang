@@ -24,24 +24,28 @@ class Client(base.BaseClient):
         pkg = package.Package(manager, name, client=self, use_cache=use_cache)
         return pkg.dependencies()
 
-    def render(
-        self,
-        filename,
-        use_cache=True,
-        max_depth=None,
-        max_deps=None,
-        min_credit=0.01,
-        credit_split=0.5,
-    ):
+    def gen(self, name, manager, *args, **kwargs):
+        """
+        Generate a one off credit table for a named library
+        """
+        # Generate a root for our graph
+        root = self._graph(name=name, manager=manager, **kwargs)
+
+        # Prepare a parser that can generate a table
+        p = parser.Parser()
+        p.add_lib(name=name, manager=manager)
+        p.prepare_table({"%s:%s" % (manager, name): root})
+        return p
+
+    def render(self, filename, **kwargs):
         """
         Given a filename with references, render the citelang table.
         """
         p = parser.Parser(filename)
-        libs = p.parse()
+        p.parse()
 
-        # Derive each as a package credit tree
         roots = {}
-        for lib in libs:
+        for lib in p.libs:
             if "name" not in lib or "manager" not in lib:
                 logger.warning("Skipping %s, missing name or manager." % lib)
             uid = "%s:%s" % (lib["manager"], lib["name"])
@@ -49,36 +53,9 @@ class Client(base.BaseClient):
                 version = lib.get("version") or lib.get("release")
                 uid = "%s@%s" % (uid, version)
                 lib["name"] = "%s@%s" % (lib["name"], version)
-            roots[uid] = self._graph(
-                manager=lib["manager"],
-                name=lib["name"],
-                use_cache=use_cache,
-                max_depth=max_depth,
-                max_deps=max_deps,
-                min_credit=min_credit,
-                credit_split=credit_split,
-            )
+            roots[uid] = self._graph(manager=lib["manager"], name=lib["name"], **kwargs)
 
-        # Generate the table with multiple roots - flatten out credit
-        table = {}
-
-        # Multiplier for credit depending on total packages
-        splitby = 1 / len(roots)
-        for lib, root in roots.items():
-            manager = lib.split(":")[0]
-            for node in root.iternodes():
-                if manager not in table:
-                    table[manager] = {}
-                if node.name not in table[manager]:
-                    table[manager][node.name] = {
-                        "credit": 0,
-                        "url": node.obj.homepage,
-                    }
-                table[manager][node.name]["credit"] += node.credit * splitby
-
-        # Add listing of packages and dependencies to parser
-        p.data = table
-        p.round_by = root.round_by
+        p.prepare_table(roots)
         return p
 
     def package_managers(self, use_cache=True):
@@ -114,17 +91,7 @@ class Client(base.BaseClient):
                 managers = "\n".join(managers)
                 logger.exit(f"{name} is not a known manager. Choices are:\n{managers}")
 
-    def graph(
-        self,
-        manager,
-        name,
-        use_cache=True,
-        max_depth=None,
-        max_deps=None,
-        min_credit=0.01,
-        credit_split=0.5,
-        fmt=None,
-    ):
+    def graph(self, fmt=None, *args, **kwargs):
         """
         Generate a graph for a package.
 
@@ -132,40 +99,14 @@ class Client(base.BaseClient):
         the main package gets 80%, and dependencies split 20%. We go up until the min credit 0.05 at which case we
         stop adding.
         """
-        root = self._graph(
-            manager=manager,
-            name=name,
-            use_cache=use_cache,
-            max_depth=max_depth,
-            max_deps=max_deps,
-            min_credit=min_credit,
-            credit_split=credit_split,
-        )
+        root = self._graph(*args, **kwargs)
         return results.Graph(root).graph(fmt=fmt)
 
-    def badge(
-        self,
-        manager,
-        name,
-        use_cache=True,
-        max_depth=None,
-        max_deps=None,
-        min_credit=0.01,
-        credit_split=0.5,
-        fmt=None,
-    ):
+    def badge(self, *args, **kwargs):
         """
         Generate a badge for a package
         """
-        root = self._graph(
-            manager=manager,
-            name=name,
-            use_cache=use_cache,
-            max_depth=max_depth,
-            max_deps=max_deps,
-            min_credit=min_credit,
-            credit_split=credit_split,
-        )
+        root = self._graph(*args, **kwargs)
         return results.Badge(root)
 
     def _graph(
@@ -294,28 +235,11 @@ class Client(base.BaseClient):
         root.children_names = list(node_names)
         return root
 
-    def credit(
-        self,
-        manager,
-        name,
-        use_cache=True,
-        max_depth=None,
-        max_deps=None,
-        min_credit=0.05,
-        credit_split=0.5,
-    ):
+    def credit(self, *args, **kwargs):
         """
         Get the credit root node, then do additional graph parsing.
         """
-        root = self._graph(
-            manager=manager,
-            name=name,
-            use_cache=use_cache,
-            max_depth=max_depth,
-            max_deps=max_deps,
-            min_credit=min_credit,
-            credit_split=credit_split,
-        )
+        root = self._graph(*args, **kwargs)
         return results.Tree(root)
 
     def package(self, manager, name, use_cache=True):

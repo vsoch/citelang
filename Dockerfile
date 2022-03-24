@@ -15,3 +15,4 @@ RUN pip install ipython
 WORKDIR /code
 COPY . /code
 RUN pip install -e .[all]
+ENTRYPOINT ["citelang"]

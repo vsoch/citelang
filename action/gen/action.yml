@@ -1,0 +1,39 @@
+name: "citelang gen action"
+description: "Generate a citelang markdown for your package"
+inputs:
+  manager:
+    description: the name of the package manager
+    required: true
+  package:
+    description: the name of the package
+    required: true
+  outfile:
+    description: the name of the outputfile.
+    required: true
+    default: citelang.md
+  args:
+    description: additional arguments / parameters for citelang.
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Install CiteLang
+      shell: bash
+      run: |
+          which citelang
+          retval=$?
+          if [[ "${retval}" != "0" ]]; then
+              pip install citelang
+          fi
+
+    - name: Generate CiteLang
+      env:
+        manager: ${{ inputs.manager }}
+        package: ${{ inputs.package }}
+        outfile: ${{ inputs.outfile }}
+        args: ${{ inputs.args }}
+      run: citelang gen ${manager} ${package} --outfile ${outfile} ${args}
+      shell: bash

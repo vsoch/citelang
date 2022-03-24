@@ -21,8 +21,10 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
+ - citelang should be able to parse requirements.txt or go.sum, etc.
  - add graphic summary
- - add GitHub actions
+ - finish GitHub actions (render, docs, remember to mention to use token, etc.)
+ - add gha to run here!
 
 ## Contributors
 

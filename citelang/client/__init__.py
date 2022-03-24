@@ -106,16 +106,23 @@ def get_parser():
     credit = subparsers.add_parser(
         "credit", description="calculate dependency credit for a package."
     )
+    gen = subparsers.add_parser(
+        "gen", description="Generate a credit markdown file for a package of choice."
+    )
+    gen.add_argument("--outfile", "-o", help="Save to an output markdown file.")
+
     render = subparsers.add_parser(
         "render", description="render a credit tree into your markdown."
     )
     render.add_argument("filename", help="Markdown file to render software table into.")
     render.add_argument("--outfile", "-o", help="Save to an output json file.")
 
-    for command in [pkg, deps, graph, credit, badge]:
+    for command in [pkg, deps, graph, credit, badge, gen]:
         command.add_argument(
             "package", help="package manager and name to parse", nargs=2
         )
+
+    for command in [pkg, deps, graph, credit, badge]:
         command.add_argument(
             "--json",
             dest="json",
@@ -125,7 +132,7 @@ def get_parser():
         )
         command.add_argument("--outfile", "-o", help="Save to an output json file.")
 
-    for command in [graph, credit, badge, render]:
+    for command in [graph, credit, badge, render, gen]:
         command.add_argument(
             "--max-depth", help="maximum depth to parse tree (default is unset)"
         )
@@ -243,6 +250,8 @@ def run():
         from .credit import main
     elif args.command == "deps":
         from .deps import main
+    elif args.command == "gen":
+        from .gen import main
     elif args.command == "graph":
         from .graph import main
     elif args.command == "render":

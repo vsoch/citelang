@@ -82,6 +82,10 @@ runTest 0 $output citelang --settings-file $settings render ../../examples/paper
 cat paper.md
 
 echo
+echo "#### Testing gen "
+runTest 0 $output citelang --settings-file $settings gen pypi requests
+
+echo
 echo "#### Testing cache "
 runTest 0 $output citelang --settings-file $settings cache --help
 runTest 0 $output citelang --settings-file $settings cache

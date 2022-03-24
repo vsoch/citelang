@@ -496,8 +496,29 @@ This will print the result to the screen! To save to output file (overwrite the 
    $ citelang render examples/paper.md --outfile examples/paper-render.md
 
 You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/paper-render.md>`_.
+
+Gen (generate)
+==============
+
+If you just want to generate a markdown file for a piece of software, you can do:
+
+
+.. code-block:: console
+
+   $ citelang gen pypi requests
+   
+And of course save to an output file:
+
+.. code-block:: console
+
+   $ citelang gen pypi requests --outfile examples/citelang.md
+
+
+And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
+You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/citelandr.md>`_.
 We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
 Let us know if you have ideas!
+
 
 ******
 Python
