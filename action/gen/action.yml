@@ -25,7 +25,7 @@ runs:
       run: |
           which citelang
           retval=$?
-          if [[ retval -neq "0" ]]; then
+          if [[ "${retval}" -neq "0" ]]; then
               pip install citelang
           fi
 
