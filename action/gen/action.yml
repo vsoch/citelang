@@ -30,7 +30,7 @@ runs:
       run: pip install citelang
 
     - name: Install Development CiteLang
-      if: (inputs.branch != "")
+      if: ${{ inputs.branch != ''}}
       shell: bash
       env:
         branch: ${{ inputs.branch }}
