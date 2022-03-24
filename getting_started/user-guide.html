@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.12 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.13 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.12
+                0.0.13
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -72,6 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#gen-generate">Gen (generate)</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#github-action">GitHub Action</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
@@ -489,6 +490,67 @@ You can see an <a class="reference external" href="https://github.com/vsoch/cite
 We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
 Let us know if you have ideas!</p>
 </div>
+</div>
+<div class="section" id="github-action">
+<h2>GitHub Action<a class="headerlink" href="#github-action" title="Permalink to this headline"></a></h2>
+<p>If you want to generate a software credit markdown for your software (perhaps after a release)
+you can do the following. Here is an example of releasing a Python package.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Release Python Package</span><span class="w"></span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">release</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">created</span><span class="p p-Indicator">]</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-20.04</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda create --quiet --name release-env twine</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span><span class="w"></span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">TWINE_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.PYPI_USER }}</span><span class="w"></span>
+<span class="w">        </span><span class="nt">TWINE_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.PYPI_PASS }}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">export PATH=&quot;/usr/share/miniconda/bin:$PATH&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="no">source activate release-env</span><span class="w"></span>
+<span class="w">        </span><span class="no">pip install -e .</span><span class="w"></span>
+<span class="w">        </span><span class="no">pip install setuptools wheel twine</span><span class="w"></span>
+<span class="w">        </span><span class="no">python setup.py sdist bdist_wheel</span><span class="w"></span>
+<span class="w">        </span><span class="no">twine upload dist/*</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang</span><span class="w"></span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch/citelang/action/gen@main</span><span class="w"></span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">CITELANG_LIBRARIES_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.CITELANG_LIBRARIES_KEY }}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">citelang</span><span class="w"></span>
+<span class="w">        </span><span class="nt">manager</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypi</span><span class="w"></span>
+<span class="w">        </span><span class="nt">outfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">software-credit.md</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Notice that we have generated a libraries.io key to make the process faster,
+and customized the file to be named software-credit.md. Adding an additional step
+to commit the file and push to main might look like:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View generated file</span><span class="w"></span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cat software-credit.md</span><span class="w"></span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Software Credit</span><span class="w"></span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">    </span><span class="no">git config --global user.name &quot;github-actions&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="no">git config --global user.email &quot;github-actions@users.noreply.github.com&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="no">git add software-credit.md</span><span class="w"></span>
+<span class="w">    </span><span class="no">git commit -m &quot;Automated push with new software-credit $(date &#39;+%Y-%m-%d&#39;)&quot; || exit 0</span><span class="w"></span>
+<span class="w">    </span><span class="no">git push origin main || exit 0</span><span class="w"></span>
+</pre></div>
+</div>
+<p>You could also open a pull request if you want to review first! Note that we have more planned
+for this action, including actions for the render and badge types, along with a development
+variant that can parse a requirements.txt or similar. Stay tuned!</p>
 </div>
 <div class="section" id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h2>
