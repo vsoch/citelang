@@ -16,6 +16,8 @@ jobs:
 
       - name: Test citelang gen      
         uses: ./action/gen
+        env:
+          CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
         with:   
           package: citelang
           manager: pypi
