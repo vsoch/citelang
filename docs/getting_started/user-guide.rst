@@ -475,7 +475,7 @@ or for more depth in your badge (and to save to a custom output file):
 
 Here is the current example badge - you can click around to explore it!
 
-image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-treemap.png
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png
 
 Or see the `interactive version here <../_static/example/badge/treemap/index.html>`_.
 
