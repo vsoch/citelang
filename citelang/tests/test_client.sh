@@ -86,6 +86,11 @@ echo "#### Testing gen "
 runTest 0 $output citelang --settings-file $settings gen pypi requests
 
 echo
+echo "#### Testing badge "
+runTest 0 $output citelang --settings-file $settings badge pypi requests
+runTest 0 $output citelang --settings-file $settings badge --template treemap pypi requests
+
+echo
 echo "#### Testing cache "
 runTest 0 $output citelang --settings-file $settings cache --help
 runTest 0 $output citelang --settings-file $settings cache

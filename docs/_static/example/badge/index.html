@@ -1,171 +1,148 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>CiteLang Credit Badge</title>
-<link rel="shortcut icon" href="https://vsoch.github.io/citelang/_static/favicon.ico"/>
-<style>:root{--syntax_normal:#1b1e23;--syntax_comment:#a9b0bc;--syntax_number:#20a5ba;--syntax_keyword:#c30771;--syntax_atom:#10a778;--syntax_string:#008ec4;--syntax_error:#ffbedc;--syntax_unknown_variable:#838383;--syntax_known_variable:#005f87;--syntax_matchbracket:#20bbfc;--syntax_key:#6636b4;--mono_fonts:82%/1.5 Menlo,Consolas,monospace}.observablehq--collapsed,.observablehq--expanded,.observablehq--function,.observablehq--gray,.observablehq--import,.observablehq--string:after,.observablehq--string:before{color:var(--syntax_normal)}.observablehq--collapsed,.observablehq--inspect a{cursor:pointer}.observablehq--field{text-indent:-1em;margin-left:1em}.observablehq--empty{color:var(--syntax_comment)}.observablehq--blue,.observablehq--keyword{color:#3182bd}.observablehq--forbidden,.observablehq--pink{color:#e377c2}.observablehq--orange{color:#e6550d}.observablehq--boolean,.observablehq--null,.observablehq--undefined{color:var(--syntax_atom)}.observablehq--bigint,.observablehq--date,.observablehq--green,.observablehq--number,.observablehq--regexp,.observablehq--symbol{color:var(--syntax_number)}.observablehq--index,.observablehq--key{color:var(--syntax_key)}.observablehq--prototype-key{color:#aaa}.observablehq--empty{font-style:oblique}.observablehq--purple,.observablehq--string{color:var(--syntax_string)}.observablehq--error,.observablehq--red{color:#e7040f}.observablehq--inspect{font:var(--mono_fonts);overflow-x:auto;display:block;white-space:pre}.observablehq--error .observablehq--inspect{word-break:break-all;white-space:pre-wrap}.observablehq--inspect {display: none;}#treemap{max-width:800px; margin:auto}
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CiteLang Credit Badge</title>
+  <style>
+body{
+  background-color:#1b1b1b;
+}
+
+text { 
+  pointer-events: none; 
+}
+
+p,
+label {
+    font: 1rem 'Fira Sans', sans-serif;
+    color:white;
+}
+
+input {
+    margin: .4rem;
+}
 </style>
+</head>
 <body>
-<div id="treemap"></div>
-<script type="module">
-function _chart(d3,width,height,treemap,data,name,DOM,letters)
-{
-  const x = d3.scaleLinear().rangeRound([0, width]);
-  const y = d3.scaleLinear().rangeRound([0, height]);
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <h3 style="color:white">requests</h3>
+    <svg></svg>
+</body>
 
-  const svg = d3.create("svg")
-      .attr("viewBox", [0.5, -50.5, width, height + 50])
-      .style("font", "14px sans-serif");
+<script>
+var data = {"name": "requests", "credit": 0.5, "size": 100, "round_by": 3, "credit_rounded": 0.5, "children": [{"name": "win-inet-pton", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#b751b7"}, {"name": "PySocks", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#a961bc"}, {"name": "charset-normalizer", "credit": 0.03571428571428571, "credit_rounded": 0.036, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [{"name": "unicodedata2", "credit": 0.017857142857142856, "credit_rounded": 0.018, "weight": 0.03571428571428571, "size": 100.0, "round_by": 3, "children": [{"name": "pytest-randomly", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#9d9bd2"}, {"name": "pytest-xdist", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#9c81c8"}, {"name": "coverage", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#b148a2"}, {"name": "pytest", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#9c95cf"}], "color": "#b4c0dc"}], "color": "#9b86ca"}, {"name": "idna", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#a171c2"}, {"name": "chardet", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#a36cc0"}, {"name": "certifi", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#ac4697"}, {"name": "urllib3", "credit": 0.03571428571428571, "credit_rounded": 0.036, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [{"name": "PySocks", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#a961bc"}, {"name": "ipaddress", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#b54bae"}, {"name": "certifi", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#ac4697"}, {"name": "idna", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#a171c2"}, {"name": "cryptography", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#a666be"}, {"name": "pyOpenSSL", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#aab1d8"}, {"name": "brotlipy", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#b256b9"}, {"name": "brotli", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#a5a9d6"}, {"name": "brotlicffi", "credit": 0.003968253968253968, "credit_rounded": 0.004, "weight": 0.003968253968253968, "size": 11.11111111111111, "round_by": 3, "children": [], "color": "#9b90cd"}], "color": "#afb9da"}], "color": "#9f76c4", "total": 0.9999999999999997}
+var width = 800; 
+var height = 800;
+var radius = Math.min(width, height) / 2; 
 
-  let group = svg.append("g")
-      .call(render, treemap(data));
+var g = d3.select('svg') 
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');  
 
-  function get_letter_graphic(letter) {
-    var defined = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-    if (defined.includes(letter.toLowerCase())){
-       return letters + "/" + letter + ".png";   
+var partition = d3.partition()  
+    .size([2 * Math.PI, radius]);
+
+var root = d3.hierarchy(data)  
+    .sum(function (d) { return d.weight});
+
+// console.dir(root)
+partition(root);  
+
+var color=d3.scaleLinear()
+  .domain([0, 1])
+  .range(["#96C4FF", "red"]);
+
+arc = d3.arc()
+    .startAngle(function (d) { d.x0s = d.x0; return d.x0; })
+    .endAngle(function (d) { d.x1s = d.x1; return d.x1; })
+    .innerRadius(function (d) { return d.y0; })
+    .outerRadius(function (d) { return d.y1; })
+    .cornerRadius(10);
+
+let slice = g.selectAll('path')
+    .data(root.descendants())  
+    .enter()  
+    .append('g')
+    .attr("class", function (d) { return d.depth ? "node" : "pNode"});
+
+    slice.append('path')  
+    // .attr("display", function (d) { return d.depth ? null : "none"; })  
+    .attr("d", arc)  
+    .style('stroke', '#1b1b1b')
+    .style('stroke-width',10)
+    .style("fill", function (d,i) {return d.data.color})
+    .on('mouseover',function(d){
+      d3.select(this).style('fill','purple');
+      g.append('text').classed('middleText', true).attr('x',-35).attr('y',15).text(d.data.name).style('font-family','helvetica')
+                .style('font-size','40')
+                .style('fill','white');
+    })
+    .on('mouseout',function(d){
+      d3.select(this).style("fill", function (d,i) {return d.data.color})
+      d3.select('.middleText').remove();
+    });  
+
+g.selectAll(".node")
+            .append("text")
+            .attr("transform", function(d) {
+             return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+            .attr("dx", "-8") 
+            .attr("dy", ".5em")
+           // .text(function(d) { return d.parent ? d.data.name : "" })
+            .style('font-family','helvetica')
+            .style('font-size','10')
+            .style('fill','white');
+
+
+
+function computeTextRotation(d) {
+    var angle = (d.x0 + d.x1) / Math.PI * 90;
+    return (angle < 180) ? angle - 90 : angle + 90;  
+}
+
+let b = true;
+d3.selectAll(".pNode").on("click", function(d,i) {
+    b = !b;
+
+    if (b) { 
+      root.sum(function (d) { return d.weight; });
+    } else {
+      root.count();  
     }
-    return ""
-  }
-  function render(group, root) {
-    const node = group
-      .selectAll("g")
-      .data(root.children.concat(root))
-      .join("g");
+    root.sort(function(a, b) { return b.value - a.value; });  
 
-    node.filter(d => d === root ? d.parent : d.children)
-        .attr("cursor", "pointer")
-        .on("click", (event, d) => d === root ? zoomout(root) : zoomin(d));
+    partition(root);  
 
-    node.append("title")
-        .text(d => `${name(d)}\n${d.data.credit_rounded}`);
+    slice.selectAll("path").transition().duration(1750).attrTween("d", arcTweenPath); 
+    slice.selectAll("text").transition().duration(1750).attrTween("transform", arcTweenText); 
 
-    node.append("rect")
-        .attr("id", d => (d.leafUid = DOM.uid("leaf")).id)
-        .attr("fill", d => d === root ? "#fff" : d.data.color)
-        .attr("stroke", "#fff");
+});
 
-    node.append("clipPath")
-        .attr("id", d => (d.clipUid = DOM.uid("clip")).id)
-      .append("use")
-        .attr("xlink:href", d => d.leafUid.href);
-
-    node.append("text")
-        .attr("clip-path", d => d.clipUid)
-        .attr("font-weight", d => d === root ? "bold" : null)
-      .selectAll("tspan")
-      .data(d => (d === root ? name(d) : d.data.name).split(/(?=[A-Z][^A-Z])/g).concat(d.data.credit_rounded))
-      .join("tspan")
-        .attr("x", 3)
-        .attr("y", (d, i, nodes) => `${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`)
-        .attr("fill-opacity", (d, i, nodes) => i === nodes.length - 1 ? 0.7 : null)
-        .attr("font-weight", (d, i, nodes) => i === nodes.length - 1 ? "normal" : null)
-        .text(d => d);
-
-    //node.append("image")
-    //    .attr("width", d => d === root ? width : x(d.x1) - x(d.x0))
-    //    .attr("height", d => d === root ? 50 : y(d.y1) - y(d.y0))
-    //    .attr("xlink:href", d => d === root ? "" : get_letter_graphic(d.data.name[0]));
-
-    group.call(position, root);
-  }
-
-  function position(group, root) {
-    group.selectAll("g")
-        .attr("transform", d => d === root ? `translate(0,-50)` : `translate(${x(d.x0)},${y(d.y0)})`)
-      .select("rect")
-        .attr("width", d => d === root ? width : x(d.x1) - x(d.x0))
-        .attr("height", d => d === root ? 50 : y(d.y1) - y(d.y0));
-  }
-
-  // When zooming in, draw the new nodes on top, and fade them in.
-  function zoomin(d) {
-    const group0 = group.attr("pointer-events", "none");
-    const group1 = group = svg.append("g").call(render, d);
-
-    x.domain([d.x0, d.x1]);
-    y.domain([d.y0, d.y1]);
-
-    svg.transition()
-        .duration(750)
-        .call(t => group0.transition(t).remove()
-          .call(position, d.parent))
-        .call(t => group1.transition(t)
-          .attrTween("opacity", () => d3.interpolate(0, 1))
-          .call(position, d));
-  }
-
-  // When zooming out, draw the old nodes on top, and fade them out.
-  function zoomout(d) {
-    const group0 = group.attr("pointer-events", "none");
-    const group1 = group = svg.insert("g", "*").call(render, d.parent);
-
-    x.domain([d.parent.x0, d.parent.x1]);
-    y.domain([d.parent.y0, d.parent.y1]);
-
-    svg.transition()
-        .duration(750)
-        .call(t => group0.transition(t).remove()
-          .attrTween("opacity", () => d3.interpolate(1, 0))
-          .call(position, d))
-        .call(t => group1.transition(t)
-          .call(position, d.parent));
-  }
-
-  return svg.node();
+function arcTweenPath(a, i) {
+    var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);  
+    function tween(t) {  
+        var b = oi(t);  
+        a.x0s = b.x0;  
+        a.x1s = b.x1;  
+        return arc(b); 
+    }
+    return tween;  
 }
 
-
-function _data(){
-return {"name": "citelang", "size": 100, "children": [{"name": "requests", "credit": 0.5, "weight": 1.0, "size": 100, "round_by": 3, "credit_rounded": 0.5, "children": [{"name": "win-inet-pton", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#50ec81"}, {"name": "PySocks", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#22d233"}, {"name": "charset-normalizer", "credit": 0.03571428571428571, "credit_rounded": 0.036, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [{"name": "unicodedata2", "credit": 0.017857142857142856, "credit_rounded": 0.018, "weight": 0.03571428571428571, "size": 100.0, "round_by": 3, "children": [{"name": "pytest-randomly", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#68f2a0"}, {"name": "pytest-xdist", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#22dc3a"}, {"name": "coverage", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#28a121"}, {"name": "pytest", "credit": 0.004464285714285714, "credit_rounded": 0.004, "weight": 0.004464285714285714, "size": 25.0, "round_by": 3, "children": [], "color": "#60f096"}], "color": "#40e76a"}], "color": "#58ee8c"}, {"name": "idna", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#29e046"}, {"name": "chardet", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#82f7bd"}, {"name": "certifi", "credit": 0.07142857142857142, "credit_rounded": 0.071, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#38e55e"}, {"name": "urllib3", "credit": 0.03571428571428571, "credit_rounded": 0.036, "weight": 0.07142857142857142, "size": 14.285714285714286, "round_by": 3, "children": [{"name": "PySocks", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#22d233"}, {"name": "ipaddress", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#30e252"}, {"name": "certifi", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#38e55e"}, {"name": "idna", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#29e046"}, {"name": "cryptography", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#8bf8c5"}, {"name": "pyOpenSSL", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#22c82d"}, {"name": "brotlipy", "credit": 0.00510204081632653, "credit_rounded": 0.005, "weight": 0.00510204081632653, "size": 14.285714285714286, "round_by": 3, "children": [], "color": "#2b9720"}], "color": "#25aa21"}], "color": "#22be27", "total": 0.9999999999999994}]}
+function arcTweenText(a, i) {
+    let oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
+    function tween(t) {
+        var b = oi(t);
+        return "translate(" + arc.centroid(b) + ")rotate(" + computeTextRotation(b) + ")";
+    }
+    return tween;
 }
-
-function _treemap(d3,tile){return(
-data => d3.treemap()
-    .tile(tile)
-  (d3.hierarchy(data)
-    .sum(d => d.size)
-    .sort((a, b) => b.size - a.size))
-)}
-
-function _tile(d3,width,height){return(
-function tile(node, x0, y0, x1, y1) {
-  d3.treemapBinary(node, 0, 0, width, height);
-  for (const child of node.children) {
-    child.x0 = x0 + child.x0 / width * (x1 - x0);
-    child.x1 = x0 + child.x1 / width * (x1 - x0);
-    child.y0 = y0 + child.y0 / height * (y1 - y0);
-    child.y1 = y0 + child.y1 / height * (y1 - y0);
-  }
-}
-)}
-
-function _name(){return(d => d.ancestors().reverse().map(d => d.data.name).join("/"))}
-
-function _width(){return(954)}
-
-function _height(){return(624)}
-
-function _letters(){
-   return "https://raw.githubusercontent.com/researchapps/citelang-letters/main/black"
-}
-
-function _d3(require){return(require("d3@6"))}
-
-export default function define(runtime, observer) {
-  const main = runtime.module();
-  main.variable(observer("chart")).define("chart", ["d3","width","height","treemap","data","name","DOM","letters"], _chart);
-  main.variable(observer("data")).define("data", _data);
-  main.variable(observer("treemap")).define("treemap", ["d3","tile"], _treemap);
-  main.variable(observer("tile")).define("tile", ["d3","width","height"], _tile);
-  main.variable(observer("name")).define("name", _name);
-  main.variable(observer("width")).define("width", _width);
-  main.variable(observer("height")).define("height", _height);
-  main.variable(observer("d3")).define("d3", ["require"], _d3);
-  main.variable(observer("letters")).define("letters", _letters);
-  return main;
-}
-
-import {Runtime, Library, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-const runtime = new Runtime();
-const main = runtime.module(define, Inspector.into("#treemap"));
 </script>
+
+</body>
+</html>
