@@ -83,7 +83,7 @@ cat paper.md
 
 echo
 echo "#### Testing gen "
-runTest 0 $output citelang --settings-file $settings render gen pypi requests
+runTest 0 $output citelang --settings-file $settings gen pypi requests
 
 echo
 echo "#### Testing cache "
