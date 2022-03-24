@@ -22,12 +22,7 @@ runs:
 
     - name: Install CiteLang
       shell: bash
-      run: |
-          which citelang
-          retval=$?
-          if [[ "${retval}" != "0" ]]; then
-              pip install citelang
-          fi
+      run: which citelang || pip install citelang
 
     - name: Generate CiteLang
       env:
