@@ -11,8 +11,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set Branch Name
-        run: echo branch=${GITHUB_REF##*/} >> $GITHUB_ENV
+      - name: Install CiteLang
+        run: pip install -e .
 
       - name: Test citelang gen      
         uses: ./action/gen
@@ -20,7 +20,6 @@ jobs:
           package: citelang
           manager: pypi
           outfile: citelang.md
-          branch: ${{ env.branch }}
 
       - name: View generated file
         run: cat citelang.md

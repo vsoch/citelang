@@ -1,10 +1,6 @@
 name: "citelang gen action"
 description: "Generate a citelang markdown for your package"
 inputs:
-  branch:
-    description: install citelang from this branch (defaults to install pip)
-    required: false
-    default: ""
   manager:
     description: the name of the package manager
     required: true
@@ -25,18 +21,13 @@ runs:
   steps:
 
     - name: Install CiteLang
-      if: ${{ inputs.branch == ''}}
       shell: bash
-      run: pip install citelang
-
-    - name: Install Development CiteLang
-      if: ${{ inputs.branch != ''}}
-      shell: bash
-      env:
-        branch: ${{ inputs.branch }}
       run: |
-          git clone -b ${branch} https://github.com/vsoch/citelang /tmp/citelang
-          pip install /tmp/citelang
+          which citelang
+          retval=$?
+          if [[ retval -neq "0" ]]; then
+              pip install citelang
+          fi
 
     - name: Generate CiteLang
       env:
