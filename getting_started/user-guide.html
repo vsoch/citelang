@@ -69,6 +69,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#badge">Badge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#render">Render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gen-generate">Gen (generate)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
@@ -471,7 +472,20 @@ You’ll notice there are software references formatted as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/paper.md --outfile examples/paper-render.md
 </pre></div>
 </div>
-<p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper-render.md">example rendering here</a>.
+<p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper-render.md">example rendering here</a>.</p>
+</div>
+<div class="section" id="gen-generate">
+<h3>Gen (generate)<a class="headerlink" href="#gen-generate" title="Permalink to this headline"></a></h3>
+<p>If you just want to generate a markdown file for a piece of software, you can do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen pypi requests
+</pre></div>
+</div>
+<p>And of course save to an output file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen pypi requests --outfile examples/citelang.md
+</pre></div>
+</div>
+<p>And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
+You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/citelandr.md">example rendering here</a>.
 We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
 Let us know if you have ideas!</p>
 </div>
