@@ -34,7 +34,6 @@ class Parser:
     def __init__(self, filename: str = None):
         self.data = {}
         self.libs = []
-        self.roots = {}
         self.round_by = 3
         self.filename = None
         if filename:
