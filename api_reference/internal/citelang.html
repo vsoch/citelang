@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang package &mdash; CiteLang Python 0.0.13 documentation</title>
+  <title>citelang package &mdash; CiteLang Python 0.0.14 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -31,7 +31,7 @@
             <a href="../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.13
+                0.0.14
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -388,7 +388,7 @@ return the json result.</p>
 <p>Interact with a libaries.io or custom package server via CiteLang</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.client.Client.badge">
-<code class="sig-name descname"><span class="pre">badge</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.badge" title="Permalink to this definition"></a></dt>
+<code class="sig-name descname"><span class="pre">badge</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sunburst'</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.badge" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a badge for a package</p>
 </dd></dl>
 
@@ -833,6 +833,25 @@ relative to its siblings.</p>
 <dt class="sig sig-object py" id="citelang.main.result.Tree.print_result">
 <code class="sig-name descname"><span class="pre">print_result</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Tree.print_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Tree.print_result" title="Permalink to this definition"></a></dt>
 <dd><p>Print a tree result (todo redo with color and rich)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="citelang.main.result.Treemap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Treemap</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Treemap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Treemap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#citelang.main.result.Tree" title="citelang.main.result.Tree"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.result.Tree</span></code></a></p>
+<p>A treemap is an interactive tree.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.result.Treemap.print_result">
+<code class="sig-name descname"><span class="pre">print_result</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Treemap.print_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Treemap.print_result" title="Permalink to this definition"></a></dt>
+<dd><p>Print a tree result (todo redo with color and rich)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="citelang.main.result.Treemap.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">outfile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Treemap.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Treemap.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save to output file</p>
 </dd></dl>
 
 </dd></dl>

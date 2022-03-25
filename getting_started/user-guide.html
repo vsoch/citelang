@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.13 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.13
+                0.0.14
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -67,7 +67,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#gexf-networkx">Gexf (NetworkX)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#badge">Badge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#badge">Badge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sunburst">Sunburst</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#treemap">Treemap</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#render">Render</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gen-generate">Gen (generate)</a></li>
 </ul>
@@ -181,7 +185,7 @@ config section. You can disable using or setting the cache for any command as fo
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang package pypi requests
 </pre></div>
 </div>
-<p>image:: img/package-requests.png</p>
+<p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/package-requests.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/package-requests.png</a></p>
 </div>
 <div class="section" id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
@@ -193,7 +197,7 @@ config section. You can disable using or setting the cache for any command as fo
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests@2.27.1
 </pre></div>
 </div>
-<p>image:: img/requests-deps.png</p>
+<p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png</a></p>
 <div class="section" id="config">
 <h4>Config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h4>
 <p>You don’t technically need to do any custom configuration. However, if you want to make
@@ -424,10 +428,29 @@ that has a detectable file.</p>
 <div class="section" id="badge">
 <h3>Badge<a class="headerlink" href="#badge" title="Permalink to this headline"></a></h3>
 <p>A badge is an interactive svg (meaning it will typically output an index.html file for you to include
-somewhere) for a user to interactively explore your dependency tree. We took inspiration from
-the periodic table of elements, meaning that the top layer looks like a single element, and clicking
-allows you to explore the nested inner tables.</p>
+somewhere) for a user to interactively explore your dependency tree. We have a few different versions
+of badges that you can generate for your software!</p>
+<div class="section" id="sunburst">
+<h4>Sunburst<a class="headerlink" href="#sunburst" title="Permalink to this headline"></a></h4>
+<p>The default badge is a sunburst, so it looks most badge like of the set. Since it’s the default
+you don’t need to specify a template:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests
+</pre></div>
+</div>
+<p>To generate:</p>
+<p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png</a></p>
+<p>of course you can lower the credit threshold to see an expanded plot:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests --min-credit <span class="m">0</span>.001
+</pre></div>
+</div>
+<p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png</a></p>
+<p>Or see an  <a class="reference external" href="../_static/example/badge/index.html">interactive version here</a>.</p>
+</div>
+<div class="section" id="treemap">
+<h4>Treemap<a class="headerlink" href="#treemap" title="Permalink to this headline"></a></h4>
+<p>For the treemap we took inspiration from the periodic table of elements, meaning that the top layer looks like a single element, and clicking
+allows you to explore the nested inner tables, and each table is composed of squares.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template treemap pypi requests
 </pre></div>
 </div>
 <p>or for more depth in your badge (and to save to a custom output file):</p>
@@ -437,11 +460,12 @@ allows you to explore the nested inner tables.</p>
 </pre></div>
 </div>
 <p>Here is the current example badge - you can click around to explore it!</p>
-<p>image:: img/badge.png</p>
-<p>Or see the <a class="reference external" href="../_static/example/badge/index.html">interactive version here</a>.</p>
+<p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png</a></p>
+<p>Or see the <a class="reference external" href="../_static/example/badge/treemap/index.html">interactive version here</a>.</p>
 <p>The badge design is still being developed - for example it would be good to have
 a smaller version, or a static one. If you have ideas or inspiration please
 open an issue!</p>
+</div>
 </div>
 <div class="section" id="render">
 <h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
@@ -452,7 +476,7 @@ open an issue!</p>
 <li>a page with multiple badges?</li>
 </ol>
 <p>and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
-per package. As an example, let’s say we start with <a href="#id1"><span class="problematic" id="id2">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper.md">https://github.com/vsoch/citelang/blob/main/examples/paper.md</a>&gt;`_ .
+per package. As an example, let’s say we start with <a href="#id2"><span class="problematic" id="id3">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper.md">https://github.com/vsoch/citelang/blob/main/examples/paper.md</a>&gt;`_ .
 You’ll notice there are software references formatted as follows:</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="ni">@apt</span>{name=singularity-container, version=3.8.2}
 <span class="ni">@pypi</span>{name=singularity-hpc}

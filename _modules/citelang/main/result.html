@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang.main.result &mdash; CiteLang Python 0.0.13 documentation</title>
+  <title>citelang.main.result &mdash; CiteLang Python 0.0.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.13
+                0.0.14
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -376,6 +376,29 @@
         <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span></div></div>
 
 
+<div class="viewcode-block" id="Treemap"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap">[docs]</a><span class="k">class</span> <span class="nc">Treemap</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A treemap is an interactive tree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Treemap.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Treemap.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save to output file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s2">&quot;badge&quot;</span><span class="p">,</span> <span class="s2">&quot;treemap.html&quot;</span><span class="p">))</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{title}}&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># Add an extra parent to the data (root) so the one child is requests</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;citelang&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{data}}&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="Badge"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge">[docs]</a><span class="k">class</span> <span class="nc">Badge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A badge uses tree data with d3 for an interactive visualization</span>
@@ -389,12 +412,14 @@
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s2">&quot;badge&quot;</span><span class="p">,</span> <span class="s2">&quot;template.html&quot;</span><span class="p">))</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s2">&quot;badge&quot;</span><span class="p">,</span> <span class="s2">&quot;sunburst.html&quot;</span><span class="p">))</span>
         <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{title}}&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
+        <span class="c1"># Remove root node weight</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
+
         <span class="c1"># Add an extra parent to the data (root) so the one child is requests</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;citelang&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]}</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{data}}&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{data}}&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
 </pre></div>
