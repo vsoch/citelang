@@ -440,7 +440,7 @@ you don't need to specify a template:
 
 To generate:
 
-image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png
 
 of course you can lower the credit threshold to see an expanded plot:
 
@@ -448,7 +448,7 @@ of course you can lower the credit threshold to see an expanded plot:
 
     $ citelang badge pypi requests --min-credit 0.001
 
-image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png
 
 
 Or see an  `interactive version here <../_static/example/badge/index.html>`_.
@@ -475,7 +475,7 @@ or for more depth in your badge (and to save to a custom output file):
 
 Here is the current example badge - you can click around to explore it!
 
-image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png
 
 Or see the `interactive version here <../_static/example/badge/treemap/index.html>`_.
 
