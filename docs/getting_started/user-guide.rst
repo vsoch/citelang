@@ -96,7 +96,7 @@ To get metadata for a package, or from the command line, to list versions availa
 
     $ citelang package pypi requests
 
-image:: img/package-requests.png
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/package-requests.png
 
 
 Dependencies
@@ -115,7 +115,7 @@ If you don't provide a version, the latest will be used (retrieved from the pack
     
     $ citelang deps pypi requests@2.27.1
 
-image:: img/requests-deps.png
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png
 
 
 Config
@@ -425,14 +425,44 @@ Badge
 =====
 
 A badge is an interactive svg (meaning it will typically output an index.html file for you to include
-somewhere) for a user to interactively explore your dependency tree. We took inspiration from
-the periodic table of elements, meaning that the top layer looks like a single element, and clicking
-allows you to explore the nested inner tables.
+somewhere) for a user to interactively explore your dependency tree. We have a few different versions
+of badges that you can generate for your software!
 
+Sunburst
+--------
+
+The default badge is a sunburst, so it looks most badge like of the set. Since it's the default
+you don't need to specify a template:
 
 .. code-block:: console
 
     $ citelang badge pypi requests
+
+To generate:
+
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png
+
+of course you can lower the credit threshold to see an expanded plot:
+
+.. code-block:: console
+
+    $ citelang badge pypi requests --min-credit 0.001
+
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png
+
+
+Or see an  `interactive version here <../_static/example/badge/index.html>`_.
+
+
+Treemap
+-------
+
+For the treemap we took inspiration from the periodic table of elements, meaning that the top layer looks like a single element, and clicking
+allows you to explore the nested inner tables, and each table is composed of squares.
+
+.. code-block:: console
+
+    $ citelang badge --template treemap pypi requests
 
 or for more depth in your badge (and to save to a custom output file):
 
@@ -445,9 +475,9 @@ or for more depth in your badge (and to save to a custom output file):
 
 Here is the current example badge - you can click around to explore it!
 
-image:: img/badge.png
+image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge.png
 
-Or see the `interactive version here <../_static/example/badge/index.html>`_.
+Or see the `interactive version here <../_static/example/badge/treemap/index.html>`_.
 
 The badge design is still being developed - for example it would be good to have
 a smaller version, or a static one. If you have ideas or inspiration please
@@ -501,7 +531,6 @@ Gen (generate)
 ==============
 
 If you just want to generate a markdown file for a piece of software, you can do:
-
 
 .. code-block:: console
 

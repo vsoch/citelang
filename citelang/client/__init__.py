@@ -97,6 +97,14 @@ def get_parser():
     badge = subparsers.add_parser(
         "badge", description="Generate an html (svg-based) badge."
     )
+    badge.add_argument(
+        "--template",
+        "-t",
+        help="Template to use for badge",
+        choices=["treemap", "sunburst"],
+        default="sunburst",
+    )
+
     graph = subparsers.add_parser(
         "graph", description="generate a graph for some package dependencies."
     )

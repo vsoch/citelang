@@ -18,6 +18,7 @@ def main(args, parser, extra, subparser):
         max_deps=args.max_depth,
         min_credit=args.min_credit,
         credit_split=args.credit_split,
+        template=args.template,
     )
 
     if not args.outfile:

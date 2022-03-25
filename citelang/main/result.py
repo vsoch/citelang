@@ -297,6 +297,29 @@ class Graph(Result):
         return out.generate()
 
 
+class Treemap(Tree):
+    """
+    A treemap is an interactive tree.
+    """
+
+    def print_result(self):
+        pass
+
+    def save(self, outfile):
+        """
+        Save to output file
+        """
+        logger.info("Saving to %s..." % outfile)
+        template = utils.read_file(os.path.join(here, "badge", "treemap.html"))
+        template = template.replace("{{title}}", self.result.name)
+
+        # Add an extra parent to the data (root) so the one child is requests
+        root = {"name": "citelang", "size": 100, "children": [self.data]}
+        template = template.replace("{{data}}", json.dumps(root))
+        utils.write_file(template, outfile)
+        logger.info("Result saved to %s" % outfile)
+
+
 class Badge(Tree):
     """
     A badge uses tree data with d3 for an interactive visualization
@@ -310,11 +333,13 @@ class Badge(Tree):
         Save to output file
         """
         logger.info("Saving to %s..." % outfile)
-        template = utils.read_file(os.path.join(here, "badge", "template.html"))
+        template = utils.read_file(os.path.join(here, "badge", "sunburst.html"))
         template = template.replace("{{title}}", self.result.name)
 
+        # Remove root node weight
+        del self.data["weight"]
+
         # Add an extra parent to the data (root) so the one child is requests
-        root = {"name": "citelang", "size": 100, "children": [self.data]}
-        template = template.replace("{{data}}", json.dumps(root))
+        template = template.replace("{{data}}", json.dumps(self.data))
         utils.write_file(template, outfile)
         logger.info("Result saved to %s" % outfile)
