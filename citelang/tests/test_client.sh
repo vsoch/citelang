@@ -75,20 +75,21 @@ runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt 
 runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt gexf
 runTest 0 $output citelang --settings-file $settings credit pypi requests --fmt dot
 
-echo
-echo "#### Testing render "
-runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md
-runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md --outfile paper.md
-cat paper.md
+# echo
+# echo "#### Testing render "
+# runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md
+# runTest 0 $output citelang --settings-file $settings render ../../examples/paper.md --outfile paper.md
+# cat paper.md
 
-echo
-echo "#### Testing gen "
-runTest 0 $output citelang --settings-file $settings gen pypi requests
+# echo
+# echo "#### Testing gen "
+# runTest 0 $output citelang --settings-file $settings gen pypi requests
 
 echo
 echo "#### Testing badge "
 runTest 0 $output citelang --settings-file $settings badge pypi requests
-runTest 0 $output citelang --settings-file $settings badge --template treemap pypi requests
+# runTest 0 $output citelang --settings-file $settings badge --template sunburst pypi requests
+# runTest 0 $output citelang --settings-file $settings badge --template treemap pypi requests
 
 echo
 echo "#### Testing cache "

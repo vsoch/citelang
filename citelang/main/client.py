@@ -102,13 +102,15 @@ class Client(base.BaseClient):
         root = self._graph(*args, **kwargs)
         return results.Graph(root).graph(fmt=fmt)
 
-    def badge(self, template="sunburst", *args, **kwargs):
+    def badge(self, template="static", *args, **kwargs):
         """
         Generate a badge for a package
         """
         root = self._graph(*args, **kwargs)
         if template == "treemap":
             return results.Treemap(root)
+        elif template == "sunburst":
+            return results.InteractiveBadge(root)
         return results.Badge(root)
 
     def _graph(

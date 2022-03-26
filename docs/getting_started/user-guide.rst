@@ -424,21 +424,61 @@ That should generate `examples/gexf/graph.xml <https://raw.githubusercontent.com
 Badge
 =====
 
-A badge is an interactive svg (meaning it will typically output an index.html file for you to include
+There are two kinds of badges:
+
+ - static png for GitHub README.md or similar
+ - interactive SVG for a web interface
+ 
+
+Static
+------
+
+The static badge requires a few extra dependencies, namely plotly and supporting libraries.
+Either of these install methods will provide that:
+
+.. code-block:: console
+
+    $ pip install citelang[all]
+    $ pip install citelang[badge]
+
+
+Static Sunburst
+^^^^^^^^^^^^^^^
+
+The default badge is a static sunburst, and it will generate a png file named by the package and manager.
+Both of these are the same:
+
+.. code-block:: console
+
+    $ citelang badge --template static pypi requests
+    $ citelang badge pypi requests
+
+Here is an example of a shallow graph:
+
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests.png
+
+
+And a deeper one (setting ``--min-credit`` to 0.001.
+
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png
+
+Interactive
+-----------
+
+An interactive badge is typically an svg in a webpage (meaning citelang will typically output an index.html file for you to include
 somewhere) for a user to interactively explore your dependency tree. We have a few different versions
 of badges that you can generate for your software!
 
 Sunburst
---------
+^^^^^^^^
 
-The default badge is a sunburst, so it looks most badge like of the set. Since it's the default
-you don't need to specify a template:
+To generate a sunburst interactive (html) badge:
 
 .. code-block:: console
 
-    $ citelang badge pypi requests
+    $ citelang badge --template sunburst pypi requests
 
-To generate:
+And this command will generate:
 
 .. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png
 
@@ -455,7 +495,7 @@ Or see an  `interactive version here <../_static/example/badge/index.html>`_.
 
 
 Treemap
--------
+^^^^^^^
 
 For the treemap we took inspiration from the periodic table of elements, meaning that the top layer looks like a single element, and clicking
 allows you to explore the nested inner tables, and each table is composed of squares.
@@ -597,9 +637,22 @@ you can do the following. Here is an example of releasing a Python package.
             outfile: software-credit.md
 
 
-Notice that we have generated a libraries.io key to make the process faster,
-and customized the file to be named software-credit.md. Adding an additional step
-to commit the file and push to main might look like:
+Notice that we have generated a libraries.io key to make the process faster.
+and customized the file to be named software-credit.md. Here is how you would generate
+a png badge for your repository, named custom or by the ``<manager>-<package>.png`` (default).
+
+.. code-block:: yaml
+
+    - name: Generate CiteLang Badge
+      uses: vsoch/citelang/action/badge@main
+      env:
+        CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+      with:   
+        package: citelang
+        manager: pypi
+        outfile: pypi-citelang.png
+        
+Adding an additional step to commit a file and push to main might look like:
 
 .. code-block:: yaml
 

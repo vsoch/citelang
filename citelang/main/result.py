@@ -228,10 +228,11 @@ class Tree(Result):
             "color": color_lookup[self.result.name],
         }
 
-        def add(data, children, total):
+        def add(data, children, total, levels=1):
             total += data.credit
             if data.children:
                 child_size = 100 / len(data.children)
+                levels += 1
             for child in data.children:
                 node = {
                     "name": child.name,
@@ -243,13 +244,15 @@ class Tree(Result):
                     "children": [],
                     "color": color_lookup[child.name],
                 }
-                total = add(child, node["children"], total)
+                total, levels = add(child, node["children"], total, levels)
                 children.append(node)
-            return total
+            return total, levels
 
-        total = add(self.result, data["children"], 0)
+        # Get total and number of levels in the tree
+        total, levels = add(self.result, data["children"], 0)
         self.data = data
         self.data["total"] = total
+        self.data["levels"] = levels
 
     def print_result(self):
         """
@@ -321,6 +324,30 @@ class Treemap(Tree):
 
 
 class Badge(Tree):
+    """
+    This is an static badge that uses plotly.
+    """
+
+    def print_result(self):
+        pass
+
+    def save(self, outfile):
+        """
+        Save to output file
+        """
+        import citelang.main.badge as badge
+
+        logger.info("Saving to %s..." % outfile)
+
+        # Set root weight to 0 for correct render
+        self.data["weight"] = 0
+
+        # Add an extra parent to the data (root) so the one child is requests
+        badge.generate(self.data, outfile)
+        logger.info("Result saved to %s" % outfile)
+
+
+class InteractiveBadge(Tree):
     """
     A badge uses tree data with d3 for an interactive visualization
     """

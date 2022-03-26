@@ -78,12 +78,6 @@ def get_parser():
     # Cache control
     cache = subparsers.add_parser("cache", description="cache control")
     cache.add_argument(
-        "--force",
-        help="do not ask for confirmation",
-        default=False,
-        action="store_true",
-    )
-    cache.add_argument(
         "--clear", help="clear the cache", default=False, action="store_true"
     )
 
@@ -101,9 +95,17 @@ def get_parser():
         "--template",
         "-t",
         help="Template to use for badge",
-        choices=["treemap", "sunburst"],
-        default="sunburst",
+        choices=["treemap", "sunburst", "static"],
+        default="static",
     )
+
+    for command in [cache, badge]:
+        command.add_argument(
+            "--force",
+            help="do not ask for confirmation",
+            default=False,
+            action="store_true",
+        )
 
     graph = subparsers.add_parser(
         "graph", description="generate a graph for some package dependencies."

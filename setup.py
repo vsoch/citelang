@@ -60,6 +60,7 @@ if __name__ == "__main__":
 
     INSTALL_REQUIRES = get_reqs(lookup)
     TESTS_REQUIRES = get_reqs(lookup, "TESTS_REQUIRES")
+    BADGE_REQUIRES = get_reqs(lookup, "BADGE_REQUIRES")
     INSTALL_REQUIRES_ALL = get_reqs(lookup, "INSTALL_REQUIRES_ALL")
 
     setup(
@@ -82,6 +83,7 @@ if __name__ == "__main__":
         tests_require=TESTS_REQUIRES,
         extras_require={
             "all": [INSTALL_REQUIRES_ALL],
+            "badge": [BADGE_REQUIRES],
         },
         classifiers=[
             "Intended Audience :: Science/Research",
