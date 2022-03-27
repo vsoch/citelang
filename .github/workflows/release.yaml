@@ -31,7 +31,7 @@ jobs:
         python setup.py sdist bdist_wheel
         twine upload dist/*
 
-    - name: Generate CiteLang
+    - name: Generate CiteLang Credit Markdown
       uses: vsoch/citelang/action/gen@main
       env:
         CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
@@ -41,13 +41,23 @@ jobs:
         outfile: software-credit.md
         args: "--min-credit 0.001"
 
+    - name: Generate CiteLang Badge
+      uses: vsoch/citelang/action/badge@main
+      env:
+        CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+      with:   
+        package: citelang
+        manager: pypi
+        outfile: docs/assets/img/pypi-citelang.png
+        args: "--min-credit 0.001"
+
     - name: View generated file
       run: cat software-credit.md
 
-    - name: Push Software Credit
+    - name: Push Software Credit and Badge
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@users.noreply.github.com"
-        git add software-credit.md
+        git add software-credit.md docs/assets/img/pypi-citelang.png
         git commit -m "Automated push with new software-credit $(date '+%Y-%m-%d')" || exit 0
         git push origin main || exit 0

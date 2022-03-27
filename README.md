@@ -27,7 +27,6 @@ that when you publish your software, you should publish it to an appropriate pac
 
  - citelang should be able to parse requirements.txt or go.sum, etc.
  - colors should be meaningful
- - add gha to run here!
 
 ## Contributors
 
