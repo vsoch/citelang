@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install CiteLang
-        run: pip install -e .
+        run: pip install -e .[all]
 
       - name: Test CiteLang Released
         uses: vsoch/citelang/action/gen@main
@@ -34,3 +34,11 @@ jobs:
 
       - name: View generated file
         run: cat citelang.md
+        
+      - name: Test citelang badge
+        uses: ./action/badge
+        env:
+          CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
+        with:   
+          package: citelang
+          manager: pypi

@@ -3,6 +3,7 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 from citelang.main import Client
+from citelang.logger import logger
 import tempfile
 import os
 
@@ -21,6 +22,12 @@ def main(args, parser, extra, subparser):
         template=args.template,
     )
 
-    if not args.outfile:
+    if not args.outfile and args.template == "static":
+        args.outfile = os.path.join("%s-%s.png" % (args.package[0], args.package[1]))
+
+    elif not args.outfile:
         args.outfile = os.path.join(tempfile.mkdtemp(), "index.html")
+
+    if os.path.exists(args.outfile) and not args.force:
+        logger.exit(f"{args.outfile} exists, add --force to overwrite.")
     result.save(args.outfile)

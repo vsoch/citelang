@@ -24,9 +24,14 @@ INSTALL_REQUIRES = (
     ("colour", {"min_version": None}),
 )
 
+BADGE_REQUIRES = (
+    ("plotly", {"min_version": None}),
+    ("kaleido", {"min_version": None}),
+)
+
 TESTS_REQUIRES = (("pytest", {"min_version": "4.6.2"}),)
 
 ################################################################################
 # Submodule Requirements (versions that include database)
 
-INSTALL_REQUIRES_ALL = INSTALL_REQUIRES + TESTS_REQUIRES
+INSTALL_REQUIRES_ALL = INSTALL_REQUIRES + TESTS_REQUIRES + BADGE_REQUIRES

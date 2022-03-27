@@ -20,12 +20,13 @@ that when you publish your software, you should publish it to an appropriate pac
 ⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️ 
 
 
+![docs/assets/img/pypi-citelang.png](docs/assets/img/pypi-citelang.png)
+
+
 ## TODO
 
  - citelang should be able to parse requirements.txt or go.sum, etc.
- - add graphic summary (need static version to go into markdown)
  - colors should be meaningful
- - finish GitHub actions (render, docs, remember to mention to use token, etc.)
  - add gha to run here!
 
 ## Contributors

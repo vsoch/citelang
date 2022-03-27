@@ -34,6 +34,7 @@ jobs:
           pyflakes citelang/*.py
           pyflakes citelang/client
           pyflakes citelang/main/*.py
+          pyflakes citelang/main/badge/*.py
           pyflakes citelang/utils/fileio.py
           pyflakes citelang/utils/terminal.py
           pyflakes citelang/main/graph/base.py
@@ -61,7 +62,7 @@ jobs:
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate testing
-          pip install -e .
+          pip install -e .[all]
           pip install bs4
           cd citelang/tests
           /bin/bash test_client.sh
