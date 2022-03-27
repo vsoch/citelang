@@ -49,7 +49,7 @@ jobs:
         package: citelang
         manager: pypi
         outfile: docs/assets/img/pypi-citelang.png
-        args: "--min-credit 0.001"
+        args: "--min-credit 0.001 --force"
 
     - name: View generated file
       run: cat software-credit.md

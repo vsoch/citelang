@@ -14,7 +14,7 @@ except ImportError:
     )
 
 
-def generate(data, outfile=None):
+def generate(data, outfile=None, min_credit=0.01, height=800):
     """
     Generate a static badge
     """
@@ -36,11 +36,15 @@ def generate(data, outfile=None):
     )
 
     layout = go.Layout(
-        title={"text": "Package " + data["name"], "x": 0.5},
+        title={
+            "text": "Credit allocation for %s<br><sup>The total credit graph adds to ~1, and cutoffi is %s</sup>"
+            % (data["name"], min_credit),
+            "x": 0.5,
+        },
         font={"size": 12},
         showlegend=False,
         autosize=False,
-        height=750,
+        height=height,
         xaxis={"visible": False},
         yaxis={"visible": False},
         hovermode="closest",
@@ -77,10 +81,13 @@ def unwrap_tree(tree_dict, labels=None, parents=None, values=None):
     labels = labels or []
     parents = parents or [""]
     values = values or []
-    labels.append(tree_dict["name"])
-    values.append(tree_dict["weight"])
-    last_node = tree_dict["name"]
+    node_name = "%s<br>%s" % (
+        tree_dict["name"],
+        round(tree_dict["credit"], tree_dict["round_by"]),
+    )
+    labels.append(node_name)
+    values.append(tree_dict["size"])
     for child in tree_dict.get("children"):
-        parents.append(last_node)
+        parents.append(node_name)
         unwrap_tree(child, labels, parents, values)
     return labels, parents, values
