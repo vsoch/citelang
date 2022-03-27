@@ -307,10 +307,11 @@
             <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color_lookup</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
         <span class="p">}</span>
 
-        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
             <span class="n">total</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">credit</span>
             <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
                 <span class="n">child_size</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+                <span class="n">levels</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
                 <span class="n">node</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -322,13 +323,15 @@
                     <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[],</span>
                     <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color_lookup</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
                 <span class="p">}</span>
-                <span class="n">total</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">],</span> <span class="n">total</span><span class="p">)</span>
+                <span class="n">total</span><span class="p">,</span> <span class="n">levels</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">],</span> <span class="n">total</span><span class="p">,</span> <span class="n">levels</span><span class="p">)</span>
                 <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">total</span>
+            <span class="k">return</span> <span class="n">total</span><span class="p">,</span> <span class="n">levels</span>
 
-        <span class="n">total</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Get total and number of levels in the tree</span>
+        <span class="n">total</span><span class="p">,</span> <span class="n">levels</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;levels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">levels</span></div>
 
 <div class="viewcode-block" id="Tree.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -401,13 +404,37 @@
 
 <div class="viewcode-block" id="Badge"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge">[docs]</a><span class="k">class</span> <span class="nc">Badge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A badge uses tree data with d3 for an interactive visualization</span>
+<span class="sd">    This is an static badge that uses plotly.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Badge.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="Badge.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save to output file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">citelang.main.badge</span> <span class="k">as</span> <span class="nn">badge</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
+
+        <span class="c1"># Set root weight to 0 for correct render</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Add an extra parent to the data (root) so the one child is requests</span>
+        <span class="n">badge</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="InteractiveBadge"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge">[docs]</a><span class="k">class</span> <span class="nc">InteractiveBadge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A badge uses tree data with d3 for an interactive visualization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="InteractiveBadge.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="InteractiveBadge.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>

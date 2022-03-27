@@ -68,8 +68,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#badge">Badge</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sunburst">Sunburst</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#treemap">Treemap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#static">Static</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interactive">Interactive</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#render">Render</a></li>
@@ -427,17 +427,47 @@ that has a detectable file.</p>
 </div>
 <div class="section" id="badge">
 <h3>Badge<a class="headerlink" href="#badge" title="Permalink to this headline"></a></h3>
-<p>A badge is an interactive svg (meaning it will typically output an index.html file for you to include
+<p>There are two kinds of badges:</p>
+<blockquote>
+<div><ul class="simple">
+<li>static png for GitHub README.md or similar</li>
+<li>interactive SVG for a web interface</li>
+</ul>
+</div></blockquote>
+<div class="section" id="static">
+<h4>Static<a class="headerlink" href="#static" title="Permalink to this headline"></a></h4>
+<p>The static badge requires a few extra dependencies, namely plotly and supporting libraries.
+Either of these install methods will provide that:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install citelang<span class="o">[</span>all<span class="o">]</span>
+<span class="gp">$ </span>pip install citelang<span class="o">[</span>badge<span class="o">]</span>
+</pre></div>
+</div>
+<div class="section" id="static-sunburst">
+<h5>Static Sunburst<a class="headerlink" href="#static-sunburst" title="Permalink to this headline"></a></h5>
+<p>The default badge is a static sunburst, and it will generate a png file named by the package and manager.
+Both of these are the same:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template static pypi requests
+<span class="gp">$ </span>citelang badge pypi requests
+</pre></div>
+</div>
+<p>Here is an example of a shallow graph:</p>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests.png" />
+<p>And a deeper one (setting <code class="docutils literal notranslate"><span class="pre">--min-credit</span></code> to 0.001.</p>
+<img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png" />
+</div>
+</div>
+<div class="section" id="interactive">
+<h4>Interactive<a class="headerlink" href="#interactive" title="Permalink to this headline"></a></h4>
+<p>An interactive badge is typically an svg in a webpage (meaning citelang will typically output an index.html file for you to include
 somewhere) for a user to interactively explore your dependency tree. We have a few different versions
 of badges that you can generate for your software!</p>
 <div class="section" id="sunburst">
-<h4>Sunburst<a class="headerlink" href="#sunburst" title="Permalink to this headline"></a></h4>
-<p>The default badge is a sunburst, so it looks most badge like of the set. Since it’s the default
-you don’t need to specify a template:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests
+<h5>Sunburst<a class="headerlink" href="#sunburst" title="Permalink to this headline"></a></h5>
+<p>To generate a sunburst interactive (html) badge:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template sunburst pypi requests
 </pre></div>
 </div>
-<p>To generate:</p>
+<p>And this command will generate:</p>
 <img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst.png" />
 <p>of course you can lower the credit threshold to see an expanded plot:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge pypi requests --min-credit <span class="m">0</span>.001
@@ -447,7 +477,7 @@ you don’t need to specify a template:</p>
 <p>Or see an  <a class="reference external" href="../_static/example/badge/index.html">interactive version here</a>.</p>
 </div>
 <div class="section" id="treemap">
-<h4>Treemap<a class="headerlink" href="#treemap" title="Permalink to this headline"></a></h4>
+<h5>Treemap<a class="headerlink" href="#treemap" title="Permalink to this headline"></a></h5>
 <p>For the treemap we took inspiration from the periodic table of elements, meaning that the top layer looks like a single element, and clicking
 allows you to explore the nested inner tables, and each table is composed of squares.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template treemap pypi requests
@@ -465,6 +495,7 @@ allows you to explore the nested inner tables, and each table is composed of squ
 <p>The badge design is still being developed - for example it would be good to have
 a smaller version, or a static one. If you have ideas or inspiration please
 open an issue!</p>
+</div>
 </div>
 </div>
 <div class="section" id="render">
@@ -557,9 +588,20 @@ you can do the following. Here is an example of releasing a Python package.</p>
 <span class="w">        </span><span class="nt">outfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">software-credit.md</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Notice that we have generated a libraries.io key to make the process faster,
-and customized the file to be named software-credit.md. Adding an additional step
-to commit the file and push to main might look like:</p>
+<p>Notice that we have generated a libraries.io key to make the process faster.
+and customized the file to be named software-credit.md. Here is how you would generate
+a png badge for your repository, named custom or by the <code class="docutils literal notranslate"><span class="pre">&lt;manager&gt;-&lt;package&gt;.png</span></code> (default).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang Badge</span><span class="w"></span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch/citelang/action/badge@main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">CITELANG_LIBRARIES_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.CITELANG_LIBRARIES_KEY }}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">citelang</span><span class="w"></span>
+<span class="w">    </span><span class="nt">manager</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypi</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypi-citelang.png</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Adding an additional step to commit a file and push to main might look like:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View generated file</span><span class="w"></span>
 <span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cat software-credit.md</span><span class="w"></span>
 
