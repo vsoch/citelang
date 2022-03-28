@@ -18,7 +18,7 @@ jobs:
       run: |
         export PATH="/usr/share/miniconda/bin:$PATH"
         source activate citelang
-        pip install -e .
+        pip install -e .[all]
         pip install setuptools wheel twine
 
     - name: Build and publish
