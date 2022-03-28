@@ -341,9 +341,10 @@ class Badge(Tree):
 
         # Set root weight to 0 for correct render
         self.data["weight"] = 0
+        self.data["size"] = 0
 
         # Add an extra parent to the data (root) so the one child is requests
-        badge.generate(self.data, outfile)
+        badge.generate(self.data, outfile, min_credit=self.result.min_credit)
         logger.info("Result saved to %s" % outfile)
 
 

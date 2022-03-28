@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on GitHub.
 
 ## [0.0.x](https://github.com/vsoch/citelang/tree/main) (0.0.x)
+ - improving layout of citelang graphic (0.0.16)
  - static badge added for software (0.0.15)
  - expanding interactive badge into treemap and sunburst (0.0.14)
  - adding basic citelang gen to create markdown files for repos (and actions) (0.0.13)
