@@ -154,6 +154,7 @@ class Client(base.BaseClient):
 
         while next_nodes and not stop_looking:
             next_node = next_nodes.pop(0)
+
             deps = next_node.obj.dependencies(return_data=True)
             [
                 node_names.add(d["name"])

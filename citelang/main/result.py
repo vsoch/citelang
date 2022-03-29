@@ -339,12 +339,20 @@ class Badge(Tree):
 
         logger.info("Saving to %s..." % outfile)
 
-        # Set root weight to 0 for correct render
-        self.data["weight"] = 0
-        self.data["size"] = 0
+        # Force root credit value to be sum of children in first layer
+        self.data["credit_label"] = self.data["credit"]
+        total_credit = 0
+        for child in self.data.get("children", []):
+            total_credit += child["credit"]
+        self.data["credit"] = total_credit
 
         # Add an extra parent to the data (root) so the one child is requests
-        badge.generate(self.data, outfile, min_credit=self.result.min_credit)
+        badge.generate(
+            self.data,
+            outfile,
+            min_credit=self.result.min_credit,
+            credit_split=self.result.credit_split,
+        )
         logger.info("Result saved to %s" % outfile)
 
 

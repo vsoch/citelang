@@ -14,7 +14,7 @@ except ImportError:
     )
 
 
-def generate(data, outfile=None, min_credit=0.01, height=800):
+def generate(data, outfile=None, min_credit=0.01, credit_split=0.5, height=800):
     """
     Generate a static badge
     """
@@ -33,12 +33,13 @@ def generate(data, outfile=None, min_credit=0.01, height=800):
         parents=parentids,
         values=values,
         marker={"colors": colorset, "line": {"width": 1.5}},
+        branchvalues="total",
     )
 
     layout = go.Layout(
         title={
-            "text": "Credit allocation for %s<br><sup>The total credit graph adds to ~1, and cutoffi is %s</sup>"
-            % (data["name"], min_credit),
+            "text": "Credit allocation for %s<br><sup>The total credit graph adds to ~1, and cutoff is %s</sup><br><sup>All children split %s of the parent credit</sup>"
+            % (data["name"], min_credit, credit_split),
             "x": 0.5,
         },
         font={"size": 12},
@@ -81,12 +82,13 @@ def unwrap_tree(tree_dict, labels=None, parents=None, values=None):
     labels = labels or []
     parents = parents or [""]
     values = values or []
+    credit = tree_dict.get("credit_label") or tree_dict.get("credit")
     node_name = "%s<br>%s" % (
         tree_dict["name"],
-        round(tree_dict["credit"], tree_dict["round_by"]),
+        round(credit, tree_dict["round_by"]),
     )
     labels.append(node_name)
-    values.append(tree_dict["size"])
+    values.append(tree_dict["credit"])
     for child in tree_dict.get("children"):
         parents.append(node_name)
         unwrap_tree(child, labels, parents, values)
