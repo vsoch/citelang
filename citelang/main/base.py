@@ -10,10 +10,7 @@ import citelang.main.graph as graph
 import citelang.main.package as package
 import citelang.main.packages as packages
 
-import time
-
 import os
-import json
 import requests
 
 
@@ -25,7 +22,6 @@ class BaseClient:
     def __init__(self, quiet=False, **kwargs):
         self.quiet = quiet
         self.session = requests.session()
-        self.headers = {"Accept": "application/json", "User-Agent": "citelang-python"}
         self.params = {"per_page": 100}
         self.getenv()
         self.cache = cache.cache
@@ -44,116 +40,6 @@ class BaseClient:
         if self.api_key:
             self.params.update({"api_key": self.api_key})
 
-    def get_endpoint(self, name, data=None, **kwargs):
-        """
-        Get a named endpoint, optionally, using the cache (default)
-        """
-        if name not in endpoints.registry:
-            names = endpoints.registry_names
-            logger.exit(f"{name} is not a known endpoint. Choose from {names}")
-
-        # Create the endpoint with any optional params
-        if not data:
-            endpoint = endpoints.registry[name](**kwargs, require_params=False)
-            return results.Table(self.get(endpoint.url), endpoint)
-        endpoint = endpoints.registry[name](**kwargs)
-        return results.Table(data, endpoint)
-
-    def check_response(self, typ, r, return_json=True, stream=False, retry=True):
-        """
-        Ensure the response status code is 20x
-        """
-        # Rate is 60/minute
-        if r.status_code == 429:
-            logger.info("Exceeded API limit, sleeping 1 minute.")
-            time.sleep(60)
-            r = self.session.send(r.request)
-            return self.check_response(typ, r, return_json, stream, retry=retry)
-
-        if r.status_code == 401:
-            logger.exit("You must set CITELAG_LIBRARIES_KEY in the environment.")
-
-        if r.status_code not in [200, 201]:
-            logger.exit("Unsuccessful response: %s, %s" % (r.status_code, r.reason))
-
-        # All data is typically json
-        if return_json and not stream:
-            return r.json()
-        return r
-
-    def print_response(self, r):
-        """
-        Print the result of a response
-        """
-        response = r.json()
-        logger.info("%s: %s" % (r.url, json.dumps(response, indent=4)))
-
-    def do_request(
-        self,
-        typ,
-        url,
-        data=None,
-        json=None,
-        headers=None,
-        return_json=True,
-        stream=False,
-    ):
-        """
-        Do a request (get, post, etc)
-        """
-        # If we have a cached token, use it!
-        headers = headers or {}
-        headers.update(self.headers)
-
-        if not self.quiet:
-            logger.info("%s %s" % (typ.upper(), url))
-
-        # The first post when you upload the model defines the flavor (regression)
-        if json:
-            r = requests.request(typ, url, json=json, headers=headers, stream=stream)
-        else:
-            r = requests.request(typ, url, data=data, headers=headers, stream=stream)
-        if not self.quiet and not stream and not return_json:
-            self.print_response(r)
-        return self.check_response(typ, r, return_json=return_json, stream=stream)
-
-    def post(self, url, data=None, json=None, headers=None, return_json=True):
-        """
-        Perform a POST request
-        """
-        return self.do_request(
-            "post", url, data=data, json=json, headers=headers, return_json=return_json
-        )
-
-    def delete(self, url, data=None, json=None, headers=None, return_json=True):
-        """
-        Perform a DELETE request
-        """
-        return self.do_request(
-            "delete",
-            url,
-            data=data,
-            json=json,
-            headers=headers,
-            return_json=return_json,
-        )
-
-    def get(
-        self, url, data=None, json=None, headers=None, return_json=True, stream=False
-    ):
-        """
-        Perform a GET request
-        """
-        return self.do_request(
-            "get",
-            url,
-            data=data,
-            json=json,
-            headers=headers,
-            return_json=return_json,
-            stream=stream,
-        )
-
     def dependencies(self, manager, name, use_cache=True):
         """
         Get dependencies for a package. If no version, use latest.
@@ -169,12 +55,12 @@ class BaseClient:
         result = self.cache.get_cache("package_managers")
         if not result or not use_cache:
             logger.info("Retrieving new result for package managers...")
-            result = self.get_endpoint("package_managers")
+            result = endpoints.get_endpoint("package_managers")
 
             # Update custom package managers
             result.data += [p().info() for _, p in packages.managers.items()]
         else:
-            result = self.get_endpoint("package_managers", data=result)
+            result = endpoints.get_endpoint("package_managers", data=result)
 
         # If cache is enabled, we save the result
         self.cache.cache("package_managers", result)

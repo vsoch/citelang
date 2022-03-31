@@ -3,6 +3,7 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 # Parse a requirements.txt file to generate a "package"
+import citelang.main.endpoints as endpoints
 
 import re
 from datetime import datetime
@@ -31,7 +32,6 @@ class RequirementsManager(PackageManager):
         """
         self.version = None
         self.set_name(package_name)
-        self.client = client
         self.data = {}
         self.parse(content)
 
@@ -78,7 +78,7 @@ class RequirementsManager(PackageManager):
                 package_name, _, version = re.split("(==|<=|>=)", package_name)
 
             # First add requirements (names and pypi manager) to deps
-            pkg = self.client.get_endpoint(
+            pkg = endpoints.get_endpoint(
                 "package", package_name=package_name, manager="pypi"
             )
 

@@ -25,6 +25,10 @@ class Cache:
     def __str__(self):
         return "[citelang-cache]"
 
+    @property
+    def cache_name(self):
+        return f"package/{self.manager}/{self.name}"
+
     def clear(self, force=False):
         """
         Clear the cache (with confirmation).
@@ -36,7 +40,7 @@ class Cache:
         if os.path.exists(settings.cfg.cache_dir):
             shutil.rmtree(settings.cfg.cache_dir)
 
-    def cache(self, name, result):
+    def set(self, name, result):
         """
         Given a result, cache if the user has cache enabled.
         """
@@ -73,7 +77,7 @@ class Cache:
         """
         return os.path.join(settings.cfg.cache_dir, "%s.json" % name)
 
-    def get_cache(self, name, endpoint=None):
+    def get(self, name, endpoint=None):
         """
         Given a cache name (typically matching the endpoint) retrieve if exists.
         If provided and endpoint, wrap the result with the endpoint. Otherwise,

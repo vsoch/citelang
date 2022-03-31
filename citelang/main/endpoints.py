@@ -2,13 +2,32 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+from citelang.logger import logger
 import citelang.defaults as defaults
+import citelang.main.http as http
+import citelang.main.result as results
 from datetime import datetime
 import sys
 
 # Registered endpoints (populated on init)
 registry = {}
 registry_names = []
+
+
+def get_endpoint(name, data=None, **kwargs):
+    """
+    Get a named endpoint, optionally, using the cache (default)
+    """
+    if name not in registry:
+        names = registry_names
+        logger.exit(f"{name} is not a known endpoint. Choose from {names}")
+
+    # Create the endpoint with any optional params
+    if not data:
+        endpoint = registry[name](**kwargs, require_params=False)
+        return results.Table(http.get(endpoint.url), endpoint)
+    endpoint = registry[name](**kwargs)
+    return results.Table(data, endpoint)
 
 
 class Endpoint:

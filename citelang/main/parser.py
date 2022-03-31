@@ -136,17 +136,12 @@ class RequirementsParser(FileNameParser):
         basename = os.path.basename(self.filename)
         pkg = None
         if basename == "requirements.txt":
-            manager_kwargs = {
-                "content": self.content,
-                "package_name": name,
-                "client": self,
-            }
+            manager_kwargs = {"content": self.content, "package_name": name}
 
             pkg = package.get_package(
                 manager="requirements.txt",
                 name=name,
                 manager_kwargs=manager_kwargs,
-                client=self,
             )
 
             uid = "requirements.txt:%s" % self.filename
