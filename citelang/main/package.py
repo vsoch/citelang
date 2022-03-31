@@ -67,6 +67,10 @@ class PackageBase:
         return "[citelang-package]"
 
     @property
+    def cache_name(self):
+        return f"package/{self.manager}/{self.name}"
+
+    @property
     def homepage(self):
         url = self.data.get("package", {}).get("homepage")
         if not url and self.manager == "pypi":
@@ -225,19 +229,19 @@ class Package(PackageBase):
         """
         Get info for a libraries.io package
         """
-        result = self.client.get(self.cache_name)
+        result = self.cache.get(self.cache_name)
         if not result or not self.use_cache:
             version = "@%s" % self.version if self.version else ""
             logger.info(
                 "Retrieving new result for package %s%s..." % (self.name, version)
             )
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package",
                 manager=self.manager,
                 package_name=self.name,
             )
         else:
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package", data=result, manager=self.manager, package_name=self.name
             )
 

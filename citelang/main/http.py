@@ -28,7 +28,9 @@ def check_response(typ, r, return_json=True, stream=False, retry=True):
         logger.exit("You must set CITELAG_LIBRARIES_KEY in the environment.")
 
     if r.status_code not in [200, 201]:
-        logger.exit("Unsuccessful response: %s, %s" % (r.status_code, r.reason))
+        logger.exit(
+            "Unsuccessful response: %s, %s %s" % (r.status_code, r.reason, r.text)
+        )
 
     # All data is typically json
     if return_json and not stream:

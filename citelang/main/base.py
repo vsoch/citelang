@@ -45,7 +45,7 @@ class BaseClient:
         Get dependencies for a package. If no version, use latest.
         """
         self.check_manager(manager, use_cache)
-        pkg = package.Package(manager, name, client=self, use_cache=use_cache)
+        pkg = package.Package(manager, name, use_cache=use_cache)
         return pkg.dependencies()
 
     def package_managers(self, use_cache=True):
@@ -121,7 +121,7 @@ class BaseClient:
 
         # Allow the caller to provide a pre-generated (often custom) package
         if not pkg:
-            pkg = package.get_package(manager, name, client=self, use_cache=use_cache)
+            pkg = package.get_package(manager, name, use_cache=use_cache)
 
         # keep track of deps (we only care about name, not version) and names
         seen = set()
@@ -214,9 +214,7 @@ class BaseClient:
                 if not dep_name or dep_name.startswith("__"):
                     continue
 
-                depnode = package.get_package(
-                    manager, dep_name, client=self, use_cache=use_cache
-                )
+                depnode = package.get_package(manager, dep_name, use_cache=use_cache)
                 child = graph.Node(
                     obj=depnode,
                     weight=dep_credit,
@@ -246,5 +244,5 @@ class BaseClient:
         Lookup a package in a specific package manager
         """
         self.check_manager(manager, use_cache)
-        pkg = package.get_package(manager, name, client=self, use_cache=use_cache)
+        pkg = package.get_package(manager, name, use_cache=use_cache)
         return pkg.info()

@@ -24,16 +24,19 @@ class RequirementsManager(PackageManager):
     default_language = "Python"
     default_versions = None
 
-    def __init__(self, package_name, content, client):
+    def __init__(self, package_name=None, content=None):
         """
         A requirements manager, unlike other custom packages, does parsing
         of dependencies that are provided in content (a list read from
         requirements.txt) and ignores the name passed to package or dependencies.
         """
         self.version = None
-        self.set_name(package_name)
+        self.package_name = package_name
+        if package_name:
+            self.set_name(package_name)
         self.data = {}
-        self.parse(content)
+        if content:
+            self.parse(content)
 
     def set_name(self, name):
         if "@" in name:

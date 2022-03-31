@@ -25,10 +25,6 @@ class Cache:
     def __str__(self):
         return "[citelang-cache]"
 
-    @property
-    def cache_name(self):
-        return f"package/{self.manager}/{self.name}"
-
     def clear(self, force=False):
         """
         Clear the cache (with confirmation).
