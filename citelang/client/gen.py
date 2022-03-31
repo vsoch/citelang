@@ -6,6 +6,7 @@ import citelang.main.client as client
 import citelang.utils as utils
 import os
 
+
 def main(args, parser, extra, subparser):
 
     # Case 1: only one thing provided to package, and exists as a file
