@@ -20,9 +20,9 @@ class SettingsBase:
         """
         Create a new settings object, which requires a settings file to load
         """
-        self.load(settings_file)
         self.settings_file = None
         self.user_settings = None
+        self.load(settings_file)
         if validate:
             self.validate()
 
