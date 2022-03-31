@@ -129,7 +129,7 @@ your own user-specific settings file:
     $ citelang config inituser
 
 
-You can also edit the default config in [citelang/settings.yml](citelang/settings.yml)
+You can also edit the default config in ``citelang/settings.yml``
 if you control the install. We will be adding a table of settings when we add official
 documentation. For now, let's talk about specific variables.
 
@@ -526,12 +526,7 @@ open an issue!
 Render
 ======
 
-This command will support rendering:
-
-1. an entire markdown file with software references 
-2. a grouping / list of software references
-3. a page with multiple badges?
-
+This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
 per package. As an example, let's say we start with _`this markdown file <https://github.com/vsoch/citelang/blob/main/examples/paper.md>`_ .
 You'll notice there are software references formatted as follows:
@@ -585,9 +580,16 @@ And of course save to an output file:
 
 And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
 You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/citelandr.md>`_.
-We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
-Let us know if you have ideas!
+If you instead provide a name and filename to render, you can generate the same
+kind of rendering for a custom package (possibly not on pypi or other package managers):
 
+.. code-block:: console
+
+   $ citelang gen mylib requirements.txt --outfile mylib.md
+
+
+This function is also useful to use programatically from within Python, e.g., to parse
+a root and look for requirements files associated with it.
 
 *************
 GitHub Action
@@ -688,7 +690,8 @@ You can optionally provide a custom settings file:
 
 .. code-block:: python
 
-    client = Client(settings_file="settings.yml")
+    os.environ['CITELANG_SETTINGS_FILE'] = "settings.yml"
+    client = Client()
 
 
 Now let's get our list of package managers:

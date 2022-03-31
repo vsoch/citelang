@@ -5,6 +5,7 @@ __license__ = "MPL 2.0"
 import citelang.defaults as defaults
 from citelang.main.client import Client
 from citelang.logger import logger
+import citelang.main.settings as settings
 import sys
 
 
@@ -22,28 +23,29 @@ def main(args, parser, extra, subparser):
     if args.central:
         args.settings_file = defaults.default_settings_file
 
+    # init global settings
     validate = True if not command == "edit" else False
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file, validate=validate)
+    cfg = settings.SettingsBase(settings_file=args.settings_file, validate=validate)
 
     # For each new setting, update and save!
     if command == "inituser":
-        return cli.settings.inituser()
+        return cfg.inituser()
     if command == "edit":
-        return cli.settings.edit()
+        return cfg.edit()
 
     if command in ["set", "add", "remove"]:
 
         # Update each param
         for param in args.params:
-            cli.settings.update_param(command, param)
+            cfg.update_param(command, param)
 
         # Save settings
-        cli.settings.save()
+        cfg.save()
 
     # For each get request, print the param pair
     elif command == "get":
         for key in args.params:
-            value = cli.settings.get(key)
+            value = cfg.get(key)
             value = value or "is unset"
             logger.info("%s %s" % (key.ljust(30), value))
 

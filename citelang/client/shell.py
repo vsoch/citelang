@@ -29,9 +29,7 @@ def main(args, parser, extra, subparser):
 def create_client(args):
     from citelang.main import Client
 
-    return Client(
-        quiet=args.quiet, baseurl=args.baseurl, settings_file=args.settings_file
-    )
+    return Client(quiet=args.quiet)
 
 
 def ipython(args):

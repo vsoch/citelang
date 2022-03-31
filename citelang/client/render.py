@@ -2,15 +2,16 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.main import Client
+from citelang.main.client import get_parser
 import citelang.utils as utils
 
 
 def main(args, parser, extra, subparser):
 
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file)
-    result = cli.render(
-        args.filename,
+    cli = get_parser(
+        filename=args.filename, quiet=args.quiet, settings_file=args.settings_file
+    )
+    result = cli.parse(
         use_cache=not args.no_cache,
         max_depth=args.max_depth,
         max_deps=args.max_depth,

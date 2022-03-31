@@ -101,6 +101,9 @@ class GitHubManager(PackageManager):
 
         repo = self.get_or_fail(f"{self.apiroot}/repos/{name}", headers)
 
+        # Try to provide a default version
+        repo["default_version"] = repo["default_branch"]
+
         # Parse repos dependency page. This includes deps for CI too.
         repo["dependencies"] = find_dependencies(name)
         repo["name"] = repo["full_name"]

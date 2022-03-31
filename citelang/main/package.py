@@ -6,11 +6,22 @@ import citelang.main.packages as packages
 from citelang.logger import logger
 
 
-def get_package(manager, name, version=None, client=None, data=None, use_cache=True):
+def get_package(
+    manager,
+    name,
+    version=None,
+    client=None,
+    data=None,
+    use_cache=True,
+    manager_kwargs=None,
+):
     """
     Return a package handle for a custom package (defined in citelang) or libraries.io
     """
-    # Case 1: a custom manager
+    # Custom kwargs for the manager
+    manager_kwargs = manager_kwargs or {}
+
+    # Case 1: a package manager provided by citelang
     if manager in packages.manager_names:
         return CustomPackage(
             name=name,
@@ -19,6 +30,7 @@ def get_package(manager, name, version=None, client=None, data=None, use_cache=T
             client=client,
             data=data,
             use_cache=use_cache,
+            manager_kwargs=manager_kwargs,
         )
 
     # Case 2: libraries.io
@@ -34,7 +46,14 @@ def get_package(manager, name, version=None, client=None, data=None, use_cache=T
 
 class PackageBase:
     def __init__(
-        self, manager, name, version=None, client=None, data=None, use_cache=True
+        self,
+        manager,
+        name,
+        version=None,
+        client=None,
+        data=None,
+        use_cache=True,
+        manager_kwargs=None,
     ):
         """
         The version can be set explicitly or come from the name.
@@ -46,6 +65,7 @@ class PackageBase:
         self.latest = None
         self.set_client(client)
         self.use_cache = use_cache
+        self.manager_kwargs = manager_kwargs or {}
 
     def __repr__(self):
         return str(self)
@@ -111,7 +131,7 @@ class CustomPackage(PackageBase):
         """
         Retrieve custom package dependencies
         """
-        manager = packages.managers[self.manager]()
+        manager = packages.managers[self.manager](**self.manager_kwargs)
         cache_name = None
         result = None
 
@@ -129,7 +149,7 @@ class CustomPackage(PackageBase):
         if not result and not self.version:
             deps = manager.package(self.name)
             result = self.client.get_endpoint("dependencies", data=deps)
-            self.version = result.data.get("default_branch")
+            self.version = result.data.get("default_version")
             cache_name = f"package/{self.manager}/{self.name}/{self.version}"
 
         # We have a version, either retrieve from cache or anew
@@ -160,7 +180,7 @@ class CustomPackage(PackageBase):
         """
         Get info for a libraries.io or custom package
         """
-        manager = packages.managers[self.manager]()
+        manager = packages.managers[self.manager](**self.manager_kwargs)
 
         # First try retrieving from the cache
         result = self.client.get_cache(self.cache_name)

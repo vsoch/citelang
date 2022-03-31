@@ -43,12 +43,6 @@ def get_parser():
     )
 
     parser.add_argument(
-        "--settings-file",
-        dest="settings_file",
-        help="custom path to settings file.",
-    )
-
-    parser.add_argument(
         "--version",
         dest="version",
         help="show software version.",

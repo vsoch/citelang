@@ -118,12 +118,17 @@ class Package(Endpoint):
         """
         versions = data.get("versions", [])
         if versions and "published_at" in versions[0]:
-            data["versions"] = sorted(
-                versions,
-                key=lambda x: datetime.strptime(
-                    x["published_at"].split("T", 1)[0], "%Y-%m-%d"
-                ),
-            )
+            try:
+                data["versions"] = sorted(
+                    versions,
+                    key=lambda x: datetime.strptime(
+                        x["published_at"].split("T", 1)[0], "%Y-%m-%d"
+                    ),
+                )
+            except:
+                import IPython
+
+                IPython.embed()
         elif versions:
             data["versions"] = sorted(
                 data["versions"], key=lambda x: x["number"], reverse=True

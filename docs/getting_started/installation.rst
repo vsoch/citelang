@@ -8,7 +8,7 @@ Install citelang from pypi:
 
 .. code-block:: console
 
-    pip install citelang
+    $ pip install citelang
 
 
 or development from the code:

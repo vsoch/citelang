@@ -7,7 +7,8 @@ from citelang.main import Client
 
 def main(args, parser, extra, subparser):
 
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file)
+    # init global settings
+    cli = Client(quiet=args.quiet)
 
     if args.clear:
         cli.clear_cache(force=args.force)
