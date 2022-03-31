@@ -3,8 +3,8 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import citelang.defaults as defaults
-from citelang.logger import logger
 import citelang.main.settings as settings
+from citelang.logger import logger
 import sys
 
 
@@ -18,13 +18,14 @@ def main(args, parser, extra, subparser):
     # The first "param" is either set of get
     command = args.params.pop(0)
 
-    # If the user wants the central config file
-    if args.central:
-        args.settings_file = defaults.default_settings_file
-
     # init global settings
     validate = True if not command == "edit" else False
-    cfg = settings.SettingsBase(settings_file=args.settings_file, validate=validate)
+
+    # If the user wants the central config file
+    if args.central:
+        cfg = settings.SettingsBase(settings_file=settings_file, validate=validate)
+    else:
+        cfg = settings.SettingsBase(validate=validate)
 
     # For each new setting, update and save!
     if command == "inituser":
