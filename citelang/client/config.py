@@ -2,7 +2,6 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-import citelang.defaults as defaults
 import citelang.main.settings as settings
 from citelang.logger import logger
 import sys
@@ -23,7 +22,9 @@ def main(args, parser, extra, subparser):
 
     # If the user wants the central config file
     if args.central:
-        cfg = settings.SettingsBase(settings_file=settings_file, validate=validate)
+        cfg = settings.SettingsBase(
+            settings_file=defaults.default_settings_file, validate=validate
+        )
     else:
         cfg = settings.SettingsBase(validate=validate)
 
