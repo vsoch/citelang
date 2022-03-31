@@ -3,7 +3,6 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import citelang.defaults as defaults
-from citelang.main.client import Client
 from citelang.logger import logger
 import citelang.main.settings as settings
 import sys
