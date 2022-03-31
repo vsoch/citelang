@@ -6,11 +6,10 @@ import citelang.main.client as client
 import citelang.utils as utils
 import os
 
-
 def main(args, parser, extra, subparser):
 
     # Case 1: only one thing provided to package, and exists as a file
-    if os.path.exists(args.package[1]):
+    if os.path.isfile(args.package[1]):
         cli = client.get_parser(filename=args.package[1], quiet=args.quiet)
         result = cli.gen(name=args.package[0])
 
