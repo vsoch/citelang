@@ -2,7 +2,10 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+import citelang.main.base as base
 import citelang.main.parser as parser
+
+Client = base.BaseClient
 
 
 def get_parser(filename=None, *args, **kwargs):
