@@ -52,7 +52,7 @@ class BaseClient:
         """
         Get a listing of package managers supported on libraries.io
         """
-        result = self.cache.get_cache("package_managers")
+        result = self.cache.get("package_managers")
         if not result or not use_cache:
             logger.info("Retrieving new result for package managers...")
             result = endpoints.get_endpoint("package_managers")
@@ -63,7 +63,7 @@ class BaseClient:
             result = endpoints.get_endpoint("package_managers", data=result)
 
         # If cache is enabled, we save the result
-        self.cache.cache("package_managers", result)
+        self.cache.set("package_managers", result)
         return result
 
     def check_manager(self, name, use_cache=True):
