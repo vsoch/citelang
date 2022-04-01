@@ -81,13 +81,36 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2022, Vanessa Sochat&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
+<span class="kn">from</span> <span class="nn">citelang.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">import</span> <span class="nn">citelang.defaults</span> <span class="k">as</span> <span class="nn">defaults</span>
+<span class="kn">import</span> <span class="nn">citelang.main.http</span> <span class="k">as</span> <span class="nn">http</span>
+<span class="kn">import</span> <span class="nn">citelang.main.result</span> <span class="k">as</span> <span class="nn">results</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="c1"># Registered endpoints (populated on init)</span>
 <span class="n">registry</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">registry_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="get_endpoint"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.get_endpoint">[docs]</a><span class="k">def</span> <span class="nf">get_endpoint</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a named endpoint, optionally, using the cache (default)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">registry_names</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not a known endpoint. Choose from </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># If we get a manual manager, change to it&#39;s apppropriate package</span>
+    <span class="k">if</span> <span class="s2">&quot;manager&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;requirements.txt&quot;</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pypi&quot;</span>
+
+    <span class="c1"># Create the endpoint with any optional params</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">require_params</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">url</span><span class="p">),</span> <span class="n">endpoint</span><span class="p">)</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Endpoint"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint">[docs]</a><span class="k">class</span> <span class="nc">Endpoint</span><span class="p">:</span>
@@ -124,7 +147,7 @@
 
         <span class="c1"># If we have parameters, format the path</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">format_params</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span></div>
 
 <div class="viewcode-block" id="Endpoint.format_params"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.endpoints.Endpoint.format_params">[docs]</a>    <span class="k">def</span> <span class="nf">format_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
@@ -197,13 +220,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">versions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;versions&quot;</span><span class="p">,</span> <span class="p">[])</span>
         <span class="k">if</span> <span class="n">versions</span> <span class="ow">and</span> <span class="s2">&quot;published_at&quot;</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-                <span class="n">versions</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
-                    <span class="n">x</span><span class="p">[</span><span class="s2">&quot;published_at&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">versions</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="n">versions</span><span class="p">,</span>
+                    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+                        <span class="n">x</span><span class="p">[</span><span class="s2">&quot;published_at&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="s2">&quot;versions&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>

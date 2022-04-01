@@ -82,13 +82,30 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
 
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">STDOUT</span>
+<span class="kn">from</span> <span class="nn">.fileio</span> <span class="kn">import</span> <span class="n">get_tmpdir</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 
 <div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get_installdir returns the installation directory of the application&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="clone"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.terminal.clone">[docs]</a><span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clone a repository by name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">get_tmpdir</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;clone&quot;</span><span class="p">,</span> <span class="s2">&quot;--depth&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;https://github.com/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Don&#39;t fail entire process, just can&#39;t get dependencies</span>
+    <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">return</span> <span class="n">tmpdir</span></div>
 
 
 <div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.terminal.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -119,6 +136,13 @@
         <span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="get_time_now"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.terminal.get_time_now">[docs]</a><span class="k">def</span> <span class="nf">get_time_now</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a timestring for the datetime now.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="confirm_action"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.terminal.confirm_action">[docs]</a><span class="k">def</span> <span class="nf">confirm_action</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

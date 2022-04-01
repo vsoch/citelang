@@ -299,126 +299,36 @@ Prints the output to the console.
 <span id="citelang-main-base-module"></span><h2>citelang.main.base module<a class="headerlink" href="#module-citelang.main.base" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.base.BaseClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.base.</span></code><code class="sig-name descname"><span class="pre">BaseClient</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.base.</span></code><code class="sig-name descname"><span class="pre">BaseClient</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A baseclient controls interactions with endpoints and the cache.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.cache">
-<code class="sig-name descname"><span class="pre">cache</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.cache" title="Permalink to this definition"></a></dt>
-<dd><p>Given a result, cache if the user has cache enabled.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.check_response">
-<code class="sig-name descname"><span class="pre">check_response</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">typ</span></span></em>, <em><span class="n"><span class="pre">r</span></span></em>, <em><span class="n"><span class="pre">return_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.check_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.check_response" title="Permalink to this definition"></a></dt>
-<dd><p>Ensure the response status code is 20x</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.clear_cache">
-<code class="sig-name descname"><span class="pre">clear_cache</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.clear_cache" title="Permalink to this definition"></a></dt>
-<dd><p>Clear the cache (with confirmation).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">url</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">return_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.delete" title="Permalink to this definition"></a></dt>
-<dd><p>Perform a DELETE request</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.do_request">
-<code class="sig-name descname"><span class="pre">do_request</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">typ</span></span></em>, <em><span class="n"><span class="pre">url</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">return_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.do_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.do_request" title="Permalink to this definition"></a></dt>
-<dd><p>Do a request (get, post, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">url</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">return_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.get" title="Permalink to this definition"></a></dt>
-<dd><p>Perform a GET request</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.get_cache">
-<code class="sig-name descname"><span class="pre">get_cache</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.get_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.get_cache" title="Permalink to this definition"></a></dt>
-<dd><p>Given a cache name (typically matching the endpoint) retrieve if exists.
-If provided and endpoint, wrap the result with the endpoint. Otherwise,
-return the json result.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.get_cache_name">
-<code class="sig-name descname"><span class="pre">get_cache_name</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.get_cache_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.get_cache_name" title="Permalink to this definition"></a></dt>
-<dd><p>Return a json cache entry.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.get_endpoint">
-<code class="sig-name descname"><span class="pre">get_endpoint</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.get_endpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.get_endpoint" title="Permalink to this definition"></a></dt>
-<dd><p>Get a named endpoint, optionally, using the cache (default)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.getenv">
-<code class="sig-name descname"><span class="pre">getenv</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.getenv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.getenv" title="Permalink to this definition"></a></dt>
-<dd><p>Get any token / username set in the environment</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">url</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">return_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.post" title="Permalink to this definition"></a></dt>
-<dd><p>Perform a POST request</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.base.BaseClient.print_response">
-<code class="sig-name descname"><span class="pre">print_response</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.print_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.print_response" title="Permalink to this definition"></a></dt>
-<dd><p>Print the result of a response</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-citelang.main.client">
-<span id="citelang-main-client-module"></span><h2>citelang.main.client module<a class="headerlink" href="#module-citelang.main.client" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="citelang.main.client.Client">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.client.</span></code><code class="sig-name descname"><span class="pre">Client</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#citelang.main.base.BaseClient" title="citelang.main.base.BaseClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.base.BaseClient</span></code></a></p>
-<p>Interact with a libaries.io or custom package server via CiteLang</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.badge">
-<code class="sig-name descname"><span class="pre">badge</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'static'</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.badge" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.badge">
+<code class="sig-name descname"><span class="pre">badge</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'static'</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.badge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.badge" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a badge for a package</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.check_manager">
-<code class="sig-name descname"><span class="pre">check_manager</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.check_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.check_manager" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.check_manager">
+<code class="sig-name descname"><span class="pre">check_manager</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.check_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.check_manager" title="Permalink to this definition"></a></dt>
 <dd><p>Check if a package manager is supported</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.credit">
-<code class="sig-name descname"><span class="pre">credit</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.credit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.credit" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.credit">
+<code class="sig-name descname"><span class="pre">credit</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.credit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.credit" title="Permalink to this definition"></a></dt>
 <dd><p>Get the credit root node, then do additional graph parsing.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.dependencies">
-<code class="sig-name descname"><span class="pre">dependencies</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.dependencies" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.dependencies" title="Permalink to this definition"></a></dt>
 <dd><p>Get dependencies for a package. If no version, use latest.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.gen">
-<code class="sig-name descname"><span class="pre">gen</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.gen" title="Permalink to this definition"></a></dt>
-<dd><p>Generate a one off credit table for a named library</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.graph">
-<code class="sig-name descname"><span class="pre">graph</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.graph" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.graph">
+<code class="sig-name descname"><span class="pre">graph</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.graph" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a graph for a package.</p>
 <p>credit_split is how to split credit between some package and its dependents. E.g., 0.5 means 50/50. 0.8 means
 the main package gets 80%, and dependencies split 20%. We go up until the min credit 0.05 at which case we
@@ -426,23 +336,26 @@ stop adding.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.package">
-<code class="sig-name descname"><span class="pre">package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.package" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.package">
+<code class="sig-name descname"><span class="pre">package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.package" title="Permalink to this definition"></a></dt>
 <dd><p>Lookup a package in a specific package manager</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.package_managers">
-<code class="sig-name descname"><span class="pre">package_managers</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.package_managers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.package_managers" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="citelang.main.base.BaseClient.package_managers">
+<code class="sig-name descname"><span class="pre">package_managers</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/base.html#BaseClient.package_managers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.base.BaseClient.package_managers" title="Permalink to this definition"></a></dt>
 <dd><p>Get a listing of package managers supported on libraries.io</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.client.Client.render">
-<code class="sig-name descname"><span class="pre">render</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#Client.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.Client.render" title="Permalink to this definition"></a></dt>
-<dd><p>Given a filename with references, render the citelang table.</p>
 </dd></dl>
 
+</div>
+<div class="section" id="module-citelang.main.client">
+<span id="citelang-main-client-module"></span><h2>citelang.main.client module<a class="headerlink" href="#module-citelang.main.client" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.main.client.get_parser">
+<code class="sig-prename descclassname"><span class="pre">citelang.main.client.</span></code><code class="sig-name descname"><span class="pre">get_parser</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/client.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.client.get_parser" title="Permalink to this definition"></a></dt>
+<dd><p>Get a parser based on a filename. A GraphClient is required.</p>
 </dd></dl>
 
 </div>
@@ -627,12 +540,18 @@ stop adding.</p>
 <dd><p>alias of <a class="reference internal" href="#citelang.main.endpoints.Dependencies" title="citelang.main.endpoints.Dependencies"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.endpoints.Dependencies</span></code></a></p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.main.endpoints.get_endpoint">
+<code class="sig-prename descclassname"><span class="pre">citelang.main.endpoints.</span></code><code class="sig-name descname"><span class="pre">get_endpoint</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/endpoints.html#get_endpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.endpoints.get_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Get a named endpoint, optionally, using the cache (default)</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-citelang.main.package">
 <span id="citelang-main-package-module"></span><h2>citelang.main.package module<a class="headerlink" href="#module-citelang.main.package" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.package.CustomPackage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">CustomPackage</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#CustomPackage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.CustomPackage" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">CustomPackage</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">manager_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#CustomPackage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.CustomPackage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#citelang.main.package.PackageBase" title="citelang.main.package.PackageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.package.PackageBase</span></code></a></p>
 <p>A wrapper for a custom package (provided by citelang)</p>
 <dl class="py method">
@@ -656,7 +575,7 @@ stop adding.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.package.Package">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">Package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#Package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.Package" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">Package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">manager_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#Package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.Package" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#citelang.main.package.PackageBase" title="citelang.main.package.PackageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.package.PackageBase</span></code></a></p>
 <p>A basic wrapper for package parsing functions (libraries.io)</p>
 <dl class="py method">
@@ -675,7 +594,7 @@ stop adding.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.package.PackageBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">PackageBase</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#PackageBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.PackageBase" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">PackageBase</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">manager_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#PackageBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.PackageBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="citelang.main.package.PackageBase.cache_name">
@@ -703,17 +622,11 @@ stop adding.</p>
 <dd><p>Parse a manager and name into the package</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="citelang.main.package.PackageBase.set_client">
-<code class="sig-name descname"><span class="pre">set_client</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#PackageBase.set_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.PackageBase.set_client" title="Permalink to this definition"></a></dt>
-<dd><p>A package needs a client controller to make continued calls.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="citelang.main.package.get_package">
-<code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">get_package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#get_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.get_package" title="Permalink to this definition"></a></dt>
+<code class="sig-prename descclassname"><span class="pre">citelang.main.package.</span></code><code class="sig-name descname"><span class="pre">get_package</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">manager</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">manager_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#get_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.get_package" title="Permalink to this definition"></a></dt>
 <dd><p>Return a package handle for a custom package (defined in citelang) or libraries.io</p>
 </dd></dl>
 
@@ -893,7 +806,7 @@ a dictionary-like class with extra functions.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.settings.SettingsBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.settings.</span></code><code class="sig-name descname"><span class="pre">SettingsBase</span></code><a class="reference internal" href="../../_modules/citelang/main/settings.html#SettingsBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.settings.SettingsBase" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.settings.</span></code><code class="sig-name descname"><span class="pre">SettingsBase</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/settings.html#SettingsBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.settings.SettingsBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.settings.SettingsBase.add">
@@ -996,6 +909,11 @@ rm:name:value</p>
 </dd></dl>
 
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.main.settings.init_settings">
+<code class="sig-prename descclassname"><span class="pre">citelang.main.settings.</span></code><code class="sig-name descname"><span class="pre">init_settings</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/settings.html#init_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.settings.init_settings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-citelang.main.graph">
@@ -1288,6 +1206,12 @@ we are trying to scrape them :)</p>
 <div class="section" id="module-citelang.utils.terminal">
 <span id="citelang-utils-terminal-module"></span><h2>citelang.utils.terminal module<a class="headerlink" href="#module-citelang.utils.terminal" title="Permalink to this headline"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="citelang.utils.terminal.clone">
+<code class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></code><code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.clone" title="Permalink to this definition"></a></dt>
+<dd><p>Clone a repository by name</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="citelang.utils.terminal.confirm_action">
 <code class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></code><code class="sig-name descname"><span class="pre">confirm_action</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">question</span></span></em>, <em><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#confirm_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.confirm_action" title="Permalink to this definition"></a></dt>
 <dd><p>confirm if the user wants to perform a certain action</p>
@@ -1327,6 +1251,12 @@ we are trying to scrape them :)</p>
 <dt class="sig sig-object py" id="citelang.utils.terminal.get_installdir">
 <code class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></code><code class="sig-name descname"><span class="pre">get_installdir</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#get_installdir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.get_installdir" title="Permalink to this definition"></a></dt>
 <dd><p>get_installdir returns the installation directory of the application</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.utils.terminal.get_time_now">
+<code class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></code><code class="sig-name descname"><span class="pre">get_time_now</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#get_time_now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.get_time_now" title="Permalink to this definition"></a></dt>
+<dd><p>Get a timestring for the datetime now.</p>
 </dd></dl>
 
 <dl class="py function">

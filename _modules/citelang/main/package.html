@@ -82,22 +82,29 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
 <span class="kn">import</span> <span class="nn">citelang.main.packages</span> <span class="k">as</span> <span class="nn">packages</span>
+<span class="kn">import</span> <span class="nn">citelang.main.endpoints</span> <span class="k">as</span> <span class="nn">endpoints</span>
+<span class="kn">import</span> <span class="nn">citelang.main.cache</span> <span class="k">as</span> <span class="nn">cache</span>
 <span class="kn">from</span> <span class="nn">citelang.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 
-<div class="viewcode-block" id="get_package"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.package.get_package">[docs]</a><span class="k">def</span> <span class="nf">get_package</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="get_package"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.package.get_package">[docs]</a><span class="k">def</span> <span class="nf">get_package</span><span class="p">(</span>
+    <span class="n">manager</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">manager_kwargs</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a package handle for a custom package (defined in citelang) or libraries.io</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Case 1: a custom manager</span>
+    <span class="c1"># Custom kwargs for the manager</span>
+    <span class="n">manager_kwargs</span> <span class="o">=</span> <span class="n">manager_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="c1"># Case 1: a package manager provided by citelang</span>
     <span class="k">if</span> <span class="n">manager</span> <span class="ow">in</span> <span class="n">packages</span><span class="o">.</span><span class="n">manager_names</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">CustomPackage</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">manager</span><span class="o">=</span><span class="n">manager</span><span class="p">,</span>
             <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
-            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
             <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span>
+            <span class="n">manager_kwargs</span><span class="o">=</span><span class="n">manager_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c1"># Case 2: libraries.io</span>
@@ -105,7 +112,6 @@
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="n">manager</span><span class="o">=</span><span class="n">manager</span><span class="p">,</span>
         <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
-        <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
         <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span>
     <span class="p">)</span></div>
@@ -113,7 +119,13 @@
 
 <div class="viewcode-block" id="PackageBase"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.package.PackageBase">[docs]</a><span class="k">class</span> <span class="nc">PackageBase</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">manager</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">manager_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The version can be set explicitly or come from the name.</span>
@@ -123,8 +135,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">latest</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="n">use_cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manager_kwargs</span> <span class="o">=</span> <span class="n">manager_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -133,25 +147,15 @@
         <span class="k">return</span> <span class="s2">&quot;[citelang-package]&quot;</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cache_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;package/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">homepage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;homepage&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="o">==</span> <span class="s2">&quot;pypi&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://pypi.org/project/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">url</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cache_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;package/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<div class="viewcode-block" id="PackageBase.set_client"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.package.PackageBase.set_client">[docs]</a>    <span class="k">def</span> <span class="nf">set_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A package needs a client controller to make continued calls.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">client</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.client</span> <span class="kn">import</span> <span class="n">Client</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span></div>
 
 <div class="viewcode-block" id="PackageBase.parse"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.package.PackageBase.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -190,7 +194,16 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve custom package dependencies</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">manager</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">managers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">]()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">managers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">](</span>
+                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">manager_kwargs</span>
+            <span class="p">)</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span>
+
+        <span class="c1"># Use manager cache first</span>
+        <span class="k">if</span> <span class="s2">&quot;dependencies&quot;</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">manager</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;dependencies&quot;</span><span class="p">]</span>
+
         <span class="n">cache_name</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -198,34 +211,34 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="ow">and</span> <span class="n">manager</span><span class="o">.</span><span class="n">default_versions</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">default_versions</span><span class="p">:</span>
                 <span class="n">cache_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;package/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
                     <span class="k">break</span>
 
         <span class="c1"># If we don&#39;t have a version, we have to retrieve an update</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
             <span class="n">deps</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">deps</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default_branch&quot;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">deps</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default_version&quot;</span><span class="p">)</span>
             <span class="n">cache_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;package/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="c1"># We have a version, either retrieve from cache or anew</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
             <span class="n">cache_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;package/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
                 <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;@</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving new result for </span><span class="si">%s%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">))</span>
                 <span class="n">deps</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">deps</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">deps</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">result</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
 
         <span class="c1"># If cache is enabled, we save the result</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">cache_name</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 
         <span class="c1"># Return the wrapped result or raw data</span>
         <span class="n">deps</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="p">[])</span>
@@ -239,26 +252,34 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get info for a libraries.io or custom package</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">manager</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">managers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">]()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">managers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">](</span>
+                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">manager_kwargs</span>
+            <span class="p">)</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">underlying_manager</span>
+
+        <span class="c1"># Use manager cache first</span>
+        <span class="k">if</span> <span class="s2">&quot;package&quot;</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">manager</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;package&quot;</span><span class="p">]</span>
 
         <span class="c1"># First try retrieving from the cache</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
             <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;@</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;Retrieving new result for package </span><span class="si">%s%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">pkg</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
                 <span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pkg</span><span class="p">,</span> <span class="n">package_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
                 <span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span> <span class="n">package_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span>
             <span class="p">)</span>
 
         <span class="c1"># If cache is enabled, we save the result</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;package&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span>
         <span class="k">return</span> <span class="n">result</span></div></div>
 
@@ -278,23 +299,23 @@
 
         <span class="c1"># Check for result in cache</span>
         <span class="n">cache_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;dependencies/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;Retrieving new result for </span><span class="si">%s</span><span class="s2">@</span><span class="si">%s</span><span class="s2"> dependencies...&quot;</span>
                 <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
                 <span class="s2">&quot;dependencies&quot;</span><span class="p">,</span>
                 <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">,</span>
                 <span class="n">package_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
 
         <span class="c1"># If cache is enabled, we save the result</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="n">deps</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dependencies&quot;</span><span class="p">,</span> <span class="p">[])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;dependencies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deps</span>
         <span class="k">if</span> <span class="n">return_data</span><span class="p">:</span>
@@ -305,26 +326,26 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get info for a libraries.io package</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
             <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;@</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;Retrieving new result for package </span><span class="si">%s%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
                 <span class="s2">&quot;package&quot;</span><span class="p">,</span>
                 <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">,</span>
                 <span class="n">package_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">get_endpoint</span><span class="p">(</span>
                 <span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="p">,</span> <span class="n">package_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
             <span class="p">)</span>
 
         <span class="c1"># Set a latest version if we find one</span>
         <span class="k">if</span> <span class="s2">&quot;versions&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">latest</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;versions&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;number&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;package&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span>
         <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>

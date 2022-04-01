@@ -84,11 +84,10 @@
 
 <span class="kn">from</span> <span class="nn">citelang.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">import</span> <span class="nn">citelang.defaults</span> <span class="k">as</span> <span class="nn">defaults</span>
-<span class="kn">import</span> <span class="nn">citelang.main.schemas</span>
+<span class="kn">import</span> <span class="nn">citelang.main.schemas</span> <span class="k">as</span> <span class="nn">schemas</span>
 <span class="kn">import</span> <span class="nn">citelang.utils</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">jsonschema</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -96,14 +95,15 @@
 
 
 <div class="viewcode-block" id="SettingsBase"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase">[docs]</a><span class="k">class</span> <span class="nc">SettingsBase</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a new settings object not requiring a settings file.</span>
+<span class="sd">        Create a new settings object, which requires a settings file to load</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Set an updated time, in case it&#39;s written back to file</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_settings</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;[citelang-settings]&quot;</span>
@@ -115,9 +115,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validate the loaded settings with jsonschema</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span>
-            <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">citelang</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">schemas</span><span class="o">.</span><span class="n">settings</span>
-        <span class="p">)</span></div>
+        <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schemas</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SettingsBase.inituser"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.inituser">[docs]</a>    <span class="k">def</span> <span class="nf">inituser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -156,13 +154,18 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the preferred user settings file, set user settings if exists.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Always use environment first</span>
+        <span class="n">env_settings</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">defaults</span><span class="o">.</span><span class="n">env_settings_file</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">env_settings_file</span><span class="p">):</span>
+            <span class="n">env_settings</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">env_settings_file</span>
+
         <span class="c1"># Only consider user settings if the file exists!</span>
         <span class="n">user_settings</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">):</span>
             <span class="n">user_settings</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span>
 
-        <span class="c1"># First preference to command line, then user settings, then default</span>
-        <span class="k">return</span> <span class="n">settings_file</span> <span class="ow">or</span> <span class="n">user_settings</span> <span class="ow">or</span> <span class="n">defaults</span><span class="o">.</span><span class="n">default_settings_file</span></div>
+        <span class="c1"># First preference to env_settings, then user settings, then default</span>
+        <span class="k">return</span> <span class="n">env_settings</span> <span class="ow">or</span> <span class="n">user_settings</span> <span class="ow">or</span> <span class="n">defaults</span><span class="o">.</span><span class="n">default_settings_file</span></div>
 
 <div class="viewcode-block" id="SettingsBase.load"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -403,6 +406,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+
+
+<span class="c1"># Global settings</span>
+<div class="viewcode-block" id="init_settings"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.init_settings">[docs]</a><span class="k">def</span> <span class="nf">init_settings</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">SettingsBase</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span></div>
+
+
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">init_settings</span><span class="p">()</span>
 </pre></div>
 
            </div>

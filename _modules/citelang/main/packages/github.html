@@ -153,15 +153,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clone a repository and sniff for dependency files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span>
-            <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;clone&quot;</span><span class="p">,</span> <span class="s2">&quot;--depth&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;https://github.com/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">]</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Don&#39;t fail entire process, just can&#39;t get dependencies</span>
-        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">return</span> <span class="n">tmpdir</span></div>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GitHubManager.package"><a class="viewcode-back" href="../../../../api_reference/internal/citelang.html#citelang.main.packages.github.GitHubManager.package">[docs]</a>    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -179,6 +171,9 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Your API requests will be limited without GITHUB_TOKEN&quot;</span><span class="p">)</span>
 
         <span class="n">repo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_or_fail</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">apiroot</span><span class="si">}</span><span class="s2">/repos/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+        <span class="c1"># Try to provide a default version</span>
+        <span class="n">repo</span><span class="p">[</span><span class="s2">&quot;default_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">repo</span><span class="p">[</span><span class="s2">&quot;default_branch&quot;</span><span class="p">]</span>
 
         <span class="c1"># Parse repos dependency page. This includes deps for CI too.</span>
         <span class="n">repo</span><span class="p">[</span><span class="s2">&quot;dependencies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">find_dependencies</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>

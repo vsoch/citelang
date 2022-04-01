@@ -205,7 +205,7 @@ your own user-specific settings file:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config inituser
 </pre></div>
 </div>
-<p>You can also edit the default config in [citelang/settings.yml](citelang/settings.yml)
+<p>You can also edit the default config in <code class="docutils literal notranslate"><span class="pre">citelang/settings.yml</span></code>
 if you control the install. We will be adding a table of settings when we add official
 documentation. For now, let’s talk about specific variables.</p>
 </div>
@@ -500,13 +500,8 @@ open an issue!</p>
 </div>
 <div class="section" id="render">
 <h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
-<p>This command will support rendering:</p>
-<ol class="arabic simple">
-<li>an entire markdown file with software references</li>
-<li>a grouping / list of software references</li>
-<li>a page with multiple badges?</li>
-</ol>
-<p>and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
+<p>This command will support rendering an entire markdown file with software references,
+and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
 per package. As an example, let’s say we start with <a href="#id2"><span class="problematic" id="id3">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper.md">https://github.com/vsoch/citelang/blob/main/examples/paper.md</a>&gt;`_ .
 You’ll notice there are software references formatted as follows:</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="ni">@apt</span>{name=singularity-container, version=3.8.2}
@@ -542,8 +537,39 @@ You’ll notice there are software references formatted as follows:</p>
 </div>
 <p>And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
 You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/citelandr.md">example rendering here</a>.
-We are thinking about also generating a graphic to embed somewhere, and associated actions for both.
-Let us know if you have ideas!</p>
+If you instead provide a name and filename to render, you can generate the same
+kind of rendering for a custom package (possibly not on pypi or other package managers):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib requirements.txt --outfile mylib.md
+</pre></div>
+</div>
+<p>Note that when using a custom generation for a requirements file, we cache dependencies but not
+the custom package, as that doesn’t easily fit in the cache namespace and can change.
+This function is also useful to use programatically from within Python, e.g., to parse
+a root and look for requirements files associated with it. Here is an example of parsing
+two requirements.txt files in a repository, and combining the results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">citelang.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">citelang.main.parser</span> <span class="k">as</span> <span class="nn">parser</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># This is an example of using citelang to parse two repos,</span>
+<span class="c1"># and to generate a software citation tree that combines BOTH</span>
+<span class="c1"># Here we choose two projects with overlapping dependencies</span>
+<span class="n">repos</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;vsoch/django-river-ml&quot;</span><span class="p">,</span> <span class="s2">&quot;vsoch/django-oci&quot;</span><span class="p">]:</span>
+    <span class="n">repos</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+<span class="c1"># You can use a find here, but here I know there are requirements.txt!</span>
+<span class="n">cli</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">RequirementsParser</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">repo_dir</span> <span class="ow">in</span> <span class="n">repos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">require_text</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repo_dir</span><span class="p">,</span> <span class="s2">&quot;requirements.txt&quot;</span><span class="p">)</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">gen</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">require_text</span><span class="p">)</span>
+
+<span class="c1"># Summarize across packages!</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">prepare_table</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="github-action">
@@ -628,7 +654,8 @@ For all cases from within Python, after exporing the token, we need to create a 
 </pre></div>
 </div>
 <p>You can optionally provide a custom settings file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">settings_file</span><span class="o">=</span><span class="s2">&quot;settings.yml&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CITELANG_SETTINGS_FILE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;settings.yml&quot;</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Now let’s get our list of package managers:</p>
