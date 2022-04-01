@@ -80,16 +80,15 @@ class Parser(base.BaseClient):
         # Multiplier for credit depending on total packages
         splitby = 1 / len(self.roots)
         for lib, root in self.roots.items():
-            manager = lib.split(":")[0]
             for node in root.iternodes():
-                if manager not in table:
-                    table[manager] = {}
-                if node.name not in table[manager]:
-                    table[manager][node.name] = {
+                if node.obj.manager not in table:
+                    table[node.obj.manager] = {}
+                if node.name not in table[node.obj.manager]:
+                    table[node.obj.manager][node.name] = {
                         "credit": 0,
                         "url": node.obj.homepage,
                     }
-                table[manager][node.name]["credit"] += node.credit * splitby
+                table[node.obj.manager][node.name]["credit"] += node.credit * splitby
 
         # Add listing of packages and dependencies to parser
         self.data = table
@@ -111,56 +110,16 @@ class FileNameParser(Parser):
     def __init__(self, filename: str = None, *args, **kwargs):
         self.filename = None
         self.content = None
+
+        # Are we rendering back into the raw content?
+        self.rendering_content = True
+
         super().__init__(*args, **kwargs)
         if filename:
             self.filename = os.path.abspath(filename)
             if not os.path.exists(self.filename):
                 logger.exit(f"{filename} does not exist")
             self.content = utils.read_file(self.filename)
-
-
-class RequirementsParser(FileNameParser):
-    """
-    Given one or more requirements files, create packages for summary.
-    """
-
-    def gen(self, name, *args, **kwargs):
-        """
-        Add a requirements file. Manager is determined by filename, and name
-        is required to label the package.
-        """
-        if not self.content:
-            logger.exit("no filename provided or filename is empty, nothing to parse.")
-
-        # Do we have a known dependency file?
-        basename = os.path.basename(self.filename)
-        pkg = None
-        if basename == "requirements.txt":
-            manager_kwargs = {"content": self.content, "package_name": name}
-
-            pkg = package.get_package(
-                manager="requirements.txt",
-                name=name,
-                manager_kwargs=manager_kwargs,
-            )
-
-            uid = "requirements.txt:%s" % self.filename
-            self.roots[uid] = self._graph(
-                manager="requirements.txt", name=name, pkg=pkg, **kwargs
-            )
-
-        if not pkg:
-            logger.exit(f"Dependency file type {basename} not known, or none found.")
-
-        self.prepare_table()
-        return self
-
-
-class MarkdownParser(FileNameParser):
-    """
-    A markdown parser reads in a markdown file, finds software references
-    and generates a software graph per the user preferences.
-    """
 
     @property
     def start_block(self):
@@ -243,9 +202,13 @@ class MarkdownParser(FileNameParser):
                 credit,
             )
 
-        self.content = self.content or self.empty_content
+        if not self.rendering_content:
+            content = self.empty_content
+        else:
+            content = self.content or self.empty_content
+
         render = []
-        lines = self.content.split("\n")
+        lines = content.split("\n")
         while lines:
             line = lines.pop(0)
             if self.start_block in line:
@@ -260,3 +223,46 @@ class MarkdownParser(FileNameParser):
             else:
                 render.append(line)
         return "\n".join(render)
+
+
+class RequirementsParser(FileNameParser):
+    """
+    Given one or more requirements files, create packages for summary.
+    """
+
+    def __init__(self, filename: str = None, *args, **kwargs):
+        super().__init__(filename=filename, *args, **kwargs)
+
+        # We don't want to render back into requirements.txt
+        self.rendering_content = False
+
+    def gen(self, name, *args, **kwargs):
+        """
+        Add a requirements file. Manager is determined by filename, and name
+        is required to label the package.
+        """
+        if not self.content:
+            logger.exit("no filename provided or filename is empty, nothing to parse.")
+
+        # Do we have a known dependency file?
+        basename = os.path.basename(self.filename)
+        pkg = None
+        if basename == "requirements.txt":
+            manager_kwargs = {"content": self.content, "package_name": name}
+
+            pkg = package.get_package(
+                manager="requirements.txt",
+                name=name,
+                manager_kwargs=manager_kwargs,
+            )
+            # Populate dependencies and package
+            pkg.info()
+
+            uid = "requirements.txt:%s" % self.filename
+            self.roots[uid] = self._graph(manager="pypi", name=name, pkg=pkg, **kwargs)
+
+        if not pkg:
+            logger.exit(f"Dependency file type {basename} not known, or none found.")
+
+        self.prepare_table()
+        return self

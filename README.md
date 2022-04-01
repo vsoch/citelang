@@ -25,9 +25,7 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
- - add cache support to custom package (e.g. requirements.txt)
- - refactor endpoints to not need get endpoint attached to client?
- - citelang should be able to parse requirements.txt or go.sum, etc.
+ - citelang should be able to parse go.sum, package.json, and others etc.
  - colors should be meaningful
 
 ## Contributors

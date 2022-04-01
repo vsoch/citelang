@@ -13,7 +13,7 @@ def get_parser(filename=None, *args, **kwargs):
     Get a parser based on a filename. A GraphClient is required.
     """
     if not filename:
-        return parser.MarkdownParser(*args, **kwargs)
+        return parser.FileNameParser(*args, **kwargs)
     if filename.endswith(".md"):
-        return parser.MarkdownParser(filename=filename, *args, **kwargs)
+        return parser.FileNameParser(filename=filename, *args, **kwargs)
     return parser.RequirementsParser(filename=filename, *args, **kwargs)

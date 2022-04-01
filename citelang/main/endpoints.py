@@ -22,6 +22,10 @@ def get_endpoint(name, data=None, **kwargs):
         names = registry_names
         logger.exit(f"{name} is not a known endpoint. Choose from {names}")
 
+    # If we get a manual manager, change to it's apppropriate package
+    if "manager" in kwargs and kwargs["manager"] == "requirements.txt":
+        kwargs["manager"] = "pypi"
+
     # Create the endpoint with any optional params
     if not data:
         endpoint = registry[name](**kwargs, require_params=False)
@@ -64,7 +68,7 @@ class Endpoint:
 
         # If we have parameters, format the path
         if params:
-            self.path = self.path.format(**params)
+            self.format_params(**params)
         self.params = params
 
     def format_params(self, **params):
@@ -145,10 +149,9 @@ class Package(Endpoint):
                     ),
                 )
             except:
-                import IPython
+                pass
 
-                IPython.embed()
-        elif versions:
+        if "versions" not in data:
             data["versions"] = sorted(
                 data["versions"], key=lambda x: x["number"], reverse=True
             )

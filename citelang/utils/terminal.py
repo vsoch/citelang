@@ -3,6 +3,7 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
+from datetime import datetime
 from subprocess import Popen, PIPE, STDOUT
 import os
 
@@ -40,6 +41,13 @@ def run_command(cmd, sudo=False, stream=False):
         output["message"] = output["message"].decode("utf-8")
 
     return output
+
+
+def get_time_now():
+    """
+    Get a timestring for the datetime now.
+    """
+    return datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def confirm_action(question, force=False):

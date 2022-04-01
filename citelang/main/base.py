@@ -10,9 +10,6 @@ import citelang.main.graph as graph
 import citelang.main.package as package
 import citelang.main.packages as packages
 
-import os
-import requests
-
 
 class BaseClient:
     """
@@ -21,9 +18,6 @@ class BaseClient:
 
     def __init__(self, quiet=False, **kwargs):
         self.quiet = quiet
-        self.session = requests.session()
-        self.params = {"per_page": 100}
-        self.getenv()
         self.cache = cache.cache
 
     def __repr__(self):
@@ -31,14 +25,6 @@ class BaseClient:
 
     def __str__(self):
         return "[citelang-client]"
-
-    def getenv(self):
-        """
-        Get any token / username set in the environment
-        """
-        self.api_key = os.environ.get("CITELANG_LIBRARIES_KEY")
-        if self.api_key:
-            self.params.update({"api_key": self.api_key})
 
     def dependencies(self, manager, name, use_cache=True):
         """
@@ -122,6 +108,10 @@ class BaseClient:
         # Allow the caller to provide a pre-generated (often custom) package
         if not pkg:
             pkg = package.get_package(manager, name, use_cache=use_cache)
+
+        # E.g., a requirements.txt file underlying manager is pypi
+        if pkg.underlying_manager:
+            manager = pkg.underlying_manager.underlying_manager
 
         # keep track of deps (we only care about name, not version) and names
         seen = set()

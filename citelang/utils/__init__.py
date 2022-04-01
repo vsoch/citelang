@@ -1,6 +1,7 @@
 from .terminal import (
     run_command,
     get_installdir,
+    get_time_now,
     confirm_action,
     confirm_uninstall,
 )

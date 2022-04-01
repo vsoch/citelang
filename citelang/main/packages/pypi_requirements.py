@@ -4,9 +4,9 @@ __license__ = "MPL 2.0"
 
 # Parse a requirements.txt file to generate a "package"
 import citelang.main.endpoints as endpoints
+import citelang.utils as utils
 
 import re
-from datetime import datetime
 
 from .base import PackageManager
 
@@ -17,6 +17,7 @@ class RequirementsManager(PackageManager):
     """
 
     name = "requirements.txt"
+    underlying_manager = "pypi"
     default_language = None
     project_count = None
     homepage = "pypi.org/"
@@ -32,6 +33,7 @@ class RequirementsManager(PackageManager):
         """
         self.version = None
         self.package_name = package_name
+        super().__init__()
         if package_name:
             self.set_name(package_name)
         self.data = {}
@@ -53,11 +55,10 @@ class RequirementsManager(PackageManager):
         """
         Parse the self.content (the requirements.txt file)
         """
-        # TODO need a way to store this in cache
         # The "repo" is the package name, we can't be sure about versions
         versions = [
             {
-                "published_at": str(datetime.now().isoformat()),
+                "published_at": utils.get_time_now(),
                 "number": self.version or "latest",
             }
         ]
@@ -80,18 +81,43 @@ class RequirementsManager(PackageManager):
             if re.search("(==|<=|>=)", package_name):
                 package_name, _, version = re.split("(==|<=|>=)", package_name)
 
+            # We cannot parse a dep without a name
+            if not package_name:
+                continue
+
             # First add requirements (names and pypi manager) to deps
-            pkg = endpoints.get_endpoint(
-                "package", package_name=package_name, manager="pypi"
-            )
+
+            # Try to get from cache - either versioned or not
+            if package_name and version:
+                cache_name = f"package/pypi/{package_name}/{version}"
+                result = self.cache.get(cache_name)
+                if result:
+                    pkg = endpoints.get_endpoint("package", data=result)
+
+            elif package_name and not version:
+                cache_name = f"package/pypi/{package_name}"
+                result = self.cache.get(cache_name)
+                if result:
+                    pkg = endpoints.get_endpoint("package", data=result)
+
+            else:
+                pkg = endpoints.get_endpoint(
+                    "package", package_name=package_name, manager="pypi"
+                )
 
             # Ensure we have version, fallback to latest
             if not version:
                 version = pkg.data["latest_release_number"]
 
+            # Require saving to cache here - many expensive calls
+            cache_name = f"package/pypi/{package_name}/{version}"
+            self.cache.set(cache_name, pkg)
+
             # use latest release version. This will be wrong for an old
             # dependency, but it's not worth it to make a ton of extra API calls
             dep = {
+                "name": package_name,
+                "project_name": package_name,
                 "number": version,
                 "published_at": pkg.data["latest_stable_release_published_at"],
                 "researched_at": None,

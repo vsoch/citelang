@@ -4,11 +4,17 @@ __license__ = "MPL 2.0"
 
 
 from citelang.logger import logger
+import os
 import json
 import requests
 import time
 
 default_headers = {"Accept": "application/json", "User-Agent": "citelang-python"}
+params = {"per_page": 100}
+
+api_key = os.environ.get("CITELANG_LIBRARIES_KEY")
+if api_key:
+    params.update({"api_key": api_key})
 
 
 def check_response(typ, r, return_json=True, stream=False, retry=True):
@@ -65,9 +71,13 @@ def do_request(
 
     # The first post when you upload the model defines the flavor (regression)
     if json:
-        r = requests.request(typ, url, json=json, headers=headers, stream=stream)
+        r = requests.request(
+            typ, url, json=json, headers=headers, stream=stream, params=params
+        )
     else:
-        r = requests.request(typ, url, data=data, headers=headers, stream=stream)
+        r = requests.request(
+            typ, url, data=data, headers=headers, stream=stream, params=params
+        )
     if not stream and not return_json:
         print_response(r)
     return check_response(typ, r, return_json=return_json, stream=stream)

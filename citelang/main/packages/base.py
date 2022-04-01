@@ -6,6 +6,7 @@ __license__ = "MPL 2.0"
 
 import sys
 from citelang.logger import logger
+import citelang.main.cache as cache
 import requests
 
 
@@ -14,7 +15,10 @@ class PackageManager:
     A package manager is a custom class (not supported by libraries io)
     """
 
+    underlying_manager = None
+
     def __init__(self, *args, **kwargs):
+        self.cache = cache.cache
         for attr in [
             "name",
             "project_count",
@@ -32,7 +36,7 @@ class PackageManager:
     # If needed, make sure endpoint data is sorted
     def info(self):
         return {
-            "name": self.name,
+            "name": self.underlying_mangaer or self.name,
             "project_count": self.project_count,
             "homepage": self.homepage,
             "color": self.color,

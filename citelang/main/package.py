@@ -59,6 +59,7 @@ class PackageBase:
         self.use_cache = use_cache
         self.cache = cache.cache
         self.manager_kwargs = manager_kwargs or {}
+        self.underlying_manager = None
 
     def __repr__(self):
         return str(self)
@@ -114,7 +115,16 @@ class CustomPackage(PackageBase):
         """
         Retrieve custom package dependencies
         """
-        manager = packages.managers[self.manager](**self.manager_kwargs)
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+        manager = self.underlying_manager
+
+        # Use manager cache first
+        if "dependencies" in manager.data:
+            return manager.data["dependencies"]
+
         cache_name = None
         result = None
 
@@ -163,7 +173,15 @@ class CustomPackage(PackageBase):
         """
         Get info for a libraries.io or custom package
         """
-        manager = packages.managers[self.manager](**self.manager_kwargs)
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+        manager = self.underlying_manager
+
+        # Use manager cache first
+        if "package" in manager.data:
+            return manager.data["package"]
 
         # First try retrieving from the cache
         result = self.cache.get(self.cache_name)
