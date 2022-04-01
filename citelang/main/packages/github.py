@@ -74,15 +74,7 @@ class GitHubManager(PackageManager):
         """
         Clone a repository and sniff for dependency files.
         """
-        tmpdir = utils.get_tmpdir()
-        res = utils.run_command(
-            ["git", "clone", "--depth", "1", f"https://github.com/{name}", tmpdir]
-        )
-
-        # Don't fail entire process, just can't get dependencies
-        if res["return_code"] != 0:
-            return
-        return tmpdir
+        return utils.clone(name)
 
     def package(self, name, **kwargs):
 
@@ -100,6 +92,9 @@ class GitHubManager(PackageManager):
             logger.warning("Your API requests will be limited without GITHUB_TOKEN")
 
         repo = self.get_or_fail(f"{self.apiroot}/repos/{name}", headers)
+
+        # Try to provide a default version
+        repo["default_version"] = repo["default_branch"]
 
         # Parse repos dependency page. This includes deps for CI too.
         repo["dependencies"] = find_dependencies(name)

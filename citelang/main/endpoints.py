@@ -2,13 +2,36 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+from citelang.logger import logger
 import citelang.defaults as defaults
+import citelang.main.http as http
+import citelang.main.result as results
 from datetime import datetime
 import sys
 
 # Registered endpoints (populated on init)
 registry = {}
 registry_names = []
+
+
+def get_endpoint(name, data=None, **kwargs):
+    """
+    Get a named endpoint, optionally, using the cache (default)
+    """
+    if name not in registry:
+        names = registry_names
+        logger.exit(f"{name} is not a known endpoint. Choose from {names}")
+
+    # If we get a manual manager, change to it's apppropriate package
+    if "manager" in kwargs and kwargs["manager"] == "requirements.txt":
+        kwargs["manager"] = "pypi"
+
+    # Create the endpoint with any optional params
+    if not data:
+        endpoint = registry[name](**kwargs, require_params=False)
+        return results.Table(http.get(endpoint.url), endpoint)
+    endpoint = registry[name](**kwargs)
+    return results.Table(data, endpoint)
 
 
 class Endpoint:
@@ -45,7 +68,7 @@ class Endpoint:
 
         # If we have parameters, format the path
         if params:
-            self.path = self.path.format(**params)
+            self.format_params(**params)
         self.params = params
 
     def format_params(self, **params):
@@ -118,13 +141,17 @@ class Package(Endpoint):
         """
         versions = data.get("versions", [])
         if versions and "published_at" in versions[0]:
-            data["versions"] = sorted(
-                versions,
-                key=lambda x: datetime.strptime(
-                    x["published_at"].split("T", 1)[0], "%Y-%m-%d"
-                ),
-            )
-        elif versions:
+            try:
+                data["versions"] = sorted(
+                    versions,
+                    key=lambda x: datetime.strptime(
+                        x["published_at"].split("T", 1)[0], "%Y-%m-%d"
+                    ),
+                )
+            except:
+                pass
+
+        if "versions" not in data:
             data["versions"] = sorted(
                 data["versions"], key=lambda x: x["number"], reverse=True
             )

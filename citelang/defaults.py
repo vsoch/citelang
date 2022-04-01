@@ -26,6 +26,9 @@ reps = {
 # The default settings file in the install root
 default_settings_file = os.path.join(reps["$install_dir"], "settings.yml")
 
+# Optionally can come from environment
+env_settings_file = os.environ.get("CITELANG_SETTINGS_FILE")
+
 # The user settings file can be created to over-ride default
 user_settings_file = os.path.join(citelang_home, "settings.yml")
 

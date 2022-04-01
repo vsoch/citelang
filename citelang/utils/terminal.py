@@ -3,13 +3,30 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
+from datetime import datetime
 from subprocess import Popen, PIPE, STDOUT
+from .fileio import get_tmpdir
 import os
 
 
 def get_installdir():
     """get_installdir returns the installation directory of the application"""
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+
+def clone(name):
+    """
+    Clone a repository by name
+    """
+    tmpdir = get_tmpdir()
+    res = run_command(
+        ["git", "clone", "--depth", "1", f"https://github.com/{name}", tmpdir]
+    )
+
+    # Don't fail entire process, just can't get dependencies
+    if res["return_code"] != 0:
+        return
+    return tmpdir
 
 
 def run_command(cmd, sudo=False, stream=False):
@@ -40,6 +57,13 @@ def run_command(cmd, sudo=False, stream=False):
         output["message"] = output["message"].decode("utf-8")
 
     return output
+
+
+def get_time_now():
+    """
+    Get a timestring for the datetime now.
+    """
+    return datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def confirm_action(question, force=False):

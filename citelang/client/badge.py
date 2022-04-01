@@ -10,7 +10,8 @@ import os
 
 def main(args, parser, extra, subparser):
 
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file)
+    # init global settings
+    cli = Client(quiet=args.quiet)
     result = cli.badge(
         name=args.package[1],
         manager=args.package[0],

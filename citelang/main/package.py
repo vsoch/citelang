@@ -3,22 +3,29 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import citelang.main.packages as packages
+import citelang.main.endpoints as endpoints
+import citelang.main.cache as cache
 from citelang.logger import logger
 
 
-def get_package(manager, name, version=None, client=None, data=None, use_cache=True):
+def get_package(
+    manager, name, version=None, data=None, use_cache=True, manager_kwargs=None
+):
     """
     Return a package handle for a custom package (defined in citelang) or libraries.io
     """
-    # Case 1: a custom manager
+    # Custom kwargs for the manager
+    manager_kwargs = manager_kwargs or {}
+
+    # Case 1: a package manager provided by citelang
     if manager in packages.manager_names:
         return CustomPackage(
             name=name,
             manager=manager,
             version=version,
-            client=client,
             data=data,
             use_cache=use_cache,
+            manager_kwargs=manager_kwargs,
         )
 
     # Case 2: libraries.io
@@ -26,7 +33,6 @@ def get_package(manager, name, version=None, client=None, data=None, use_cache=T
         name=name,
         manager=manager,
         version=version,
-        client=client,
         data=data,
         use_cache=use_cache,
     )
@@ -34,7 +40,13 @@ def get_package(manager, name, version=None, client=None, data=None, use_cache=T
 
 class PackageBase:
     def __init__(
-        self, manager, name, version=None, client=None, data=None, use_cache=True
+        self,
+        manager,
+        name,
+        version=None,
+        data=None,
+        use_cache=True,
+        manager_kwargs=None,
     ):
         """
         The version can be set explicitly or come from the name.
@@ -44,8 +56,10 @@ class PackageBase:
         self.parse(name)
         self.data = data or {}
         self.latest = None
-        self.set_client(client)
         self.use_cache = use_cache
+        self.cache = cache.cache
+        self.manager_kwargs = manager_kwargs or {}
+        self.underlying_manager = None
 
     def __repr__(self):
         return str(self)
@@ -54,25 +68,15 @@ class PackageBase:
         return "[citelang-package]"
 
     @property
+    def cache_name(self):
+        return f"package/{self.manager}/{self.name}"
+
+    @property
     def homepage(self):
         url = self.data.get("package", {}).get("homepage")
         if not url and self.manager == "pypi":
             return f"https://pypi.org/project/{self.name}"
         return url
-
-    @property
-    def cache_name(self):
-        return f"package/{self.manager}/{self.name}"
-
-    def set_client(self, client=None):
-        """
-        A package needs a client controller to make continued calls.
-        """
-        if not client:
-            from .client import Client
-
-            self.client = Client()
-        self.client = client
 
     def parse(self, name):
         """
@@ -111,7 +115,16 @@ class CustomPackage(PackageBase):
         """
         Retrieve custom package dependencies
         """
-        manager = packages.managers[self.manager]()
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+        manager = self.underlying_manager
+
+        # Use manager cache first
+        if "dependencies" in manager.data:
+            return manager.data["dependencies"]
+
         cache_name = None
         result = None
 
@@ -119,34 +132,34 @@ class CustomPackage(PackageBase):
         if not self.version and manager.default_versions and self.use_cache:
             for version in manager.default_versions:
                 cache_name = f"package/{self.manager}/{self.name}/{version}"
-                result = self.client.get_cache(cache_name)
+                result = self.cache.get(cache_name)
                 if result:
-                    result = self.client.get_endpoint("dependencies", data=result)
+                    result = endpoints.get_endpoint("dependencies", data=result)
                     self.version = version
                     break
 
         # If we don't have a version, we have to retrieve an update
         if not result and not self.version:
             deps = manager.package(self.name)
-            result = self.client.get_endpoint("dependencies", data=deps)
-            self.version = result.data.get("default_branch")
+            result = endpoints.get_endpoint("dependencies", data=deps)
+            self.version = result.data.get("default_version")
             cache_name = f"package/{self.manager}/{self.name}/{self.version}"
 
         # We have a version, either retrieve from cache or anew
         elif not result and self.version:
             cache_name = f"package/{self.manager}/{self.name}/{self.version}"
-            result = self.client.get_cache(cache_name)
+            result = self.cache.get(cache_name)
             if not result or not self.use_cache:
                 version = "@%s" % self.version if self.version else ""
                 logger.info("Retrieving new result for %s%s..." % (self.name, version))
                 deps = manager.package(self.name)
-                result = self.client.get_endpoint("dependencies", data=deps)
+                result = endpoints.get_endpoint("dependencies", data=deps)
             elif result:
-                result = self.client.get_endpoint("dependencies", data=result)
+                result = endpoints.get_endpoint("dependencies", data=result)
 
         # If cache is enabled, we save the result
         if result and cache_name:
-            self.client.cache(cache_name, result)
+            self.cache.set(cache_name, result)
 
         # Return the wrapped result or raw data
         deps = result.data.get("dependencies", [])
@@ -160,26 +173,34 @@ class CustomPackage(PackageBase):
         """
         Get info for a libraries.io or custom package
         """
-        manager = packages.managers[self.manager]()
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+        manager = self.underlying_manager
+
+        # Use manager cache first
+        if "package" in manager.data:
+            return manager.data["package"]
 
         # First try retrieving from the cache
-        result = self.client.get_cache(self.cache_name)
+        result = self.cache.get(self.cache_name)
         if not result or not self.use_cache:
             version = "@%s" % self.version if self.version else ""
             logger.info(
                 "Retrieving new result for package %s%s..." % (self.name, version)
             )
             pkg = manager.package(self.name)
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package", data=pkg, package_name=self.name, manager=self.manager
             )
         else:
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package", data=result, package_name=self.name, manager=self.manager
             )
 
         # If cache is enabled, we save the result
-        self.client.cache(self.cache_name, result)
+        self.cache.set(self.cache_name, result)
         self.data["package"] = result.data
         return result
 
@@ -199,23 +220,23 @@ class Package(PackageBase):
 
         # Check for result in cache
         cache_name = f"dependencies/{self.manager}/{self.name}/{self.version}"
-        result = self.client.get_cache(cache_name)
+        result = self.cache.get(cache_name)
         if not result or not self.use_cache:
             logger.info(
                 "Retrieving new result for %s@%s dependencies..."
                 % (self.name, self.version)
             )
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "dependencies",
                 manager=self.manager,
                 package_name=self.name,
                 version=self.version,
             )
         else:
-            result = self.client.get_endpoint("dependencies", data=result)
+            result = endpoints.get_endpoint("dependencies", data=result)
 
         # If cache is enabled, we save the result
-        self.client.cache(cache_name, result)
+        self.cache.set(cache_name, result)
         deps = result.data.get("dependencies", [])
         self.data["dependencies"] = deps
         if return_data:
@@ -226,25 +247,25 @@ class Package(PackageBase):
         """
         Get info for a libraries.io package
         """
-        result = self.client.get_cache(self.cache_name)
+        result = self.cache.get(self.cache_name)
         if not result or not self.use_cache:
             version = "@%s" % self.version if self.version else ""
             logger.info(
                 "Retrieving new result for package %s%s..." % (self.name, version)
             )
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package",
                 manager=self.manager,
                 package_name=self.name,
             )
         else:
-            result = self.client.get_endpoint(
+            result = endpoints.get_endpoint(
                 "package", data=result, manager=self.manager, package_name=self.name
             )
 
         # Set a latest version if we find one
         if "versions" in result.data and result.data["versions"]:
             self.latest = result.data["versions"][-1]["number"]
-        self.client.cache(self.cache_name, result)
+        self.cache.set(self.cache_name, result)
         self.data["package"] = result.data
         return result

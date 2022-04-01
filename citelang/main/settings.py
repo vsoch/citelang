@@ -5,11 +5,10 @@ __license__ = "MPL 2.0"
 
 from citelang.logger import logger
 import citelang.defaults as defaults
-import citelang.main.schemas
+import citelang.main.schemas as schemas
 import citelang.utils
 import shutil
 
-from datetime import datetime
 import jsonschema
 import os
 import re
@@ -17,14 +16,15 @@ import yaml
 
 
 class SettingsBase:
-    def __init__(self):
+    def __init__(self, settings_file=None, validate=True):
         """
-        Create a new settings object not requiring a settings file.
+        Create a new settings object, which requires a settings file to load
         """
-        # Set an updated time, in case it's written back to file
-        self._settings = {"updated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")}
         self.settings_file = None
         self.user_settings = None
+        self.load(settings_file)
+        if validate:
+            self.validate()
 
     def __str__(self):
         return "[citelang-settings]"
@@ -36,9 +36,7 @@ class SettingsBase:
         """
         Validate the loaded settings with jsonschema
         """
-        jsonschema.validate(
-            instance=self._settings, schema=citelang.main.schemas.settings
-        )
+        jsonschema.validate(instance=self._settings, schema=schemas.settings)
 
     def inituser(self):
         """
@@ -77,13 +75,18 @@ class SettingsBase:
         """
         Get the preferred user settings file, set user settings if exists.
         """
+        # Always use environment first
+        env_settings = None
+        if defaults.env_settings_file and os.path.exists(defaults.env_settings_file):
+            env_settings = defaults.env_settings_file
+
         # Only consider user settings if the file exists!
         user_settings = None
         if os.path.exists(defaults.user_settings_file):
             user_settings = defaults.user_settings_file
 
-        # First preference to command line, then user settings, then default
-        return settings_file or user_settings or defaults.default_settings_file
+        # First preference to env_settings, then user settings, then default
+        return env_settings or user_settings or defaults.default_settings_file
 
     def load(self, settings_file=None):
         """
@@ -324,3 +327,11 @@ class Settings(SettingsBase):
         self.load(settings_file)
         if validate:
             self.validate()
+
+
+# Global settings
+def init_settings(validate=True):
+    return SettingsBase(validate=validate)
+
+
+cfg = init_settings()

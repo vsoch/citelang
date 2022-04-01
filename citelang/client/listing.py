@@ -7,7 +7,7 @@ from citelang.main import Client
 
 def main(args, parser, extra, subparser):
 
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file)
+    cli = Client(quiet=args.quiet)
     result = cli.package_managers(use_cache=not args.no_cache)
 
     if args.json and not args.outfile:

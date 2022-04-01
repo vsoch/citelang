@@ -7,7 +7,7 @@ from citelang.main import Client
 
 def main(args, parser, extra, subparser):
 
-    cli = Client(quiet=args.quiet, settings_file=args.settings_file)
+    cli = Client(quiet=args.quiet)
     cli.graph(
         name=args.package[1],
         manager=args.package[0],

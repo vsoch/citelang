@@ -1,3 +1,3 @@
-from .client import Client
+from .base import BaseClient as Client
 
 assert Client
