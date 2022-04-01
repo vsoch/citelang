@@ -69,6 +69,7 @@ class GitHubManager(PackageManager):
     default_language = None
     project_count = None
     default_versions = ["main", "master", "develop"]
+    underlying_manager = None
 
     def clone(self, name):
         """

@@ -14,7 +14,6 @@ class PackageManager:
     """
     A package manager is a custom class (not supported by libraries io)
     """
-
     underlying_manager = None
 
     def __init__(self, *args, **kwargs):
