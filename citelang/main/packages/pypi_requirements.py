@@ -88,6 +88,7 @@ class RequirementsManager(PackageManager):
             # First add requirements (names and pypi manager) to deps
 
             # Try to get from cache - either versioned or not
+            pkg = None
             if package_name and version:
                 cache_name = f"package/pypi/{package_name}/{version}"
                 result = self.cache.get(cache_name)
@@ -100,7 +101,7 @@ class RequirementsManager(PackageManager):
                 if result:
                     pkg = endpoints.get_endpoint("package", data=result)
 
-            else:
+            if pkg is None:
                 pkg = endpoints.get_endpoint(
                     "package", package_name=package_name, manager="pypi"
                 )

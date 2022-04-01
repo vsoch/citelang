@@ -116,10 +116,13 @@ class FileNameParser(Parser):
 
         super().__init__(*args, **kwargs)
         if filename:
+            self.load(filename)
             self.filename = os.path.abspath(filename)
-            if not os.path.exists(self.filename):
-                logger.exit(f"{filename} does not exist")
-            self.content = utils.read_file(self.filename)
+
+    def load(self, filename):
+        if not os.path.exists(filename):
+            logger.exit(f"{filename} does not exist")
+        self.content = utils.read_file(filename)
 
     @property
     def start_block(self):
@@ -236,16 +239,21 @@ class RequirementsParser(FileNameParser):
         # We don't want to render back into requirements.txt
         self.rendering_content = False
 
-    def gen(self, name, *args, **kwargs):
+    def gen(self, name, filename=None, *args, **kwargs):
         """
         Add a requirements file. Manager is determined by filename, and name
         is required to label the package.
         """
+        if filename is not None:
+            self.load(filename)
+        else:
+            filename = self.filename
+
         if not self.content:
             logger.exit("no filename provided or filename is empty, nothing to parse.")
 
         # Do we have a known dependency file?
-        basename = os.path.basename(self.filename)
+        basename = os.path.basename(filename)
         pkg = None
         if basename == "requirements.txt":
             manager_kwargs = {"content": self.content, "package_name": name}
@@ -258,7 +266,7 @@ class RequirementsParser(FileNameParser):
             # Populate dependencies and package
             pkg.info()
 
-            uid = "requirements.txt:%s" % self.filename
+            uid = "requirements.txt:%s" % filename
             self.roots[uid] = self._graph(manager="pypi", name=name, pkg=pkg, **kwargs)
 
         if not pkg:

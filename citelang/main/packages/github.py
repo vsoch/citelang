@@ -74,15 +74,7 @@ class GitHubManager(PackageManager):
         """
         Clone a repository and sniff for dependency files.
         """
-        tmpdir = utils.get_tmpdir()
-        res = utils.run_command(
-            ["git", "clone", "--depth", "1", f"https://github.com/{name}", tmpdir]
-        )
-
-        # Don't fail entire process, just can't get dependencies
-        if res["return_code"] != 0:
-            return
-        return tmpdir
+        return utils.clone(name)
 
     def package(self, name, **kwargs):
 

@@ -1,4 +1,5 @@
 from .terminal import (
+    clone,
     run_command,
     get_installdir,
     get_time_now,
