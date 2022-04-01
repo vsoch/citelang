@@ -35,7 +35,7 @@ class PackageManager:
     # If needed, make sure endpoint data is sorted
     def info(self):
         return {
-            "name": self.underlying_mangaer or self.name,
+            "name": self.underlying_manager or self.name,
             "project_count": self.project_count,
             "homepage": self.homepage,
             "color": self.color,
