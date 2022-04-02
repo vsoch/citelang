@@ -22,7 +22,7 @@ runs:
 
     - name: Install CiteLang
       shell: bash
-      run: which citelang || pip install citelang
+      run: which citelang || pip install citelang[all]
 
     - name: Generate CiteLang
       env:
