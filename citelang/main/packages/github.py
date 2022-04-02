@@ -79,7 +79,7 @@ class GitHubManager(PackageManager):
     def package(self, name, **kwargs):
 
         # Ensure name in right format
-        if not re.search("([a-z0-9]+)[/]([a-z0-9]+)", name):
+        if not name.count("/") == 1:
             logger.exit("Please provide a repository in the format <org>/<name")
 
         headers = {

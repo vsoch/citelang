@@ -24,7 +24,9 @@ def main(args, parser, extra, subparser):
     )
 
     if not args.outfile and args.template == "static":
-        args.outfile = os.path.join("%s-%s.png" % (args.package[0], args.package[1]))
+        args.outfile = os.path.join(
+            "%s-%s.png" % (args.package[0], args.package[1])
+        ).replace(os.sep, "-")
 
     elif not args.outfile:
         args.outfile = os.path.join(tempfile.mkdtemp(), "index.html")
