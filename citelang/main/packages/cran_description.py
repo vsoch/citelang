@@ -10,38 +10,47 @@ import re
 from .base import PackagesFromFile
 
 
-class RequirementsManager(PackagesFromFile):
+class RPackageManager(PackagesFromFile):
     """
-    Packages parsed from a requirements.txt file (so from cran)
+    Packages from an R DESCRIPTION file, meaning an R package
     """
 
-    name = "requirements.txt"
-    underlying_manager = "pypi"
+    name = "R-Package"
+    underlying_manager = "cran"
+    default_language = "R"
     project_count = None
-    homepage = "pypi.org/"
+    homepage = "https://cran.r-project.org/"
     color = "#006dad"
-    default_language = "Python"
     default_versions = None
 
     def parse(self, content):
         """
-        Parse the self.content (the requirements.txt file)
+        Parse the self.content (the DESCRIPTION file)
         """
         repo = self.get_repo()
 
-        # Dependencies we parse as pypi packages
-        # This should also update the cache and make it easier to retrieve later
-        deps = []
+        libs = []
+        parsing = False
         for line in content.split("\n"):
+            # If we are parsing, but hit the end of the list
+            if parsing and not line.startswith(" "):
+                break
+            elif parsing:
+                libs.append(line.replace(",", "").strip())
+            elif "Imports:" in line:
+                parsing = True
 
-            # We can't easily add github pypi references
-            if not line or "git@" in line:
-                continue
-
+        deps = []
+        for line in libs:
             version = None
-            package_name = line.strip()
-            if re.search("(==|<=|>=)", package_name):
-                package_name, _, version = re.split("(==|<=|>=)", package_name)
+            package_name = None
+            if re.search("(==|<=|>=)", line):
+                line = line.replace(")", "").replace("(", "")
+                package_name, _, version = re.split("(==|<=|>=)", line)
+                package_name = package_name.strip()
+                version = version.strip()
+            else:
+                package_name = line
 
             # We cannot parse a dep without a name
             if not package_name:
@@ -52,20 +61,22 @@ class RequirementsManager(PackagesFromFile):
             # Try to get from cache - either versioned or not
             pkg = None
             if package_name and version:
-                cache_name = f"package/pypi/{package_name}/{version}"
+                cache_name = f"package/cran/{package_name}/{version}"
                 result = self.cache.get(cache_name)
                 if result:
                     pkg = endpoints.get_endpoint("package", data=result)
 
             elif package_name and not version:
-                cache_name = f"package/pypi/{package_name}"
+                cache_name = f"package/cran/{package_name}"
                 result = self.cache.get(cache_name)
                 if result:
                     pkg = endpoints.get_endpoint("package", data=result)
 
             if pkg is None:
                 pkg = endpoints.get_endpoint(
-                    "package", package_name=package_name, manager="pypi"
+                    "package",
+                    package_name=package_name,
+                    manager=self.underlying_manager,
                 )
 
             # Ensure we have version, fallback to latest
@@ -73,7 +84,7 @@ class RequirementsManager(PackagesFromFile):
                 version = pkg.data["latest_release_number"]
 
             # Require saving to cache here - many expensive calls
-            cache_name = f"package/pypi/{package_name}/{version}"
+            cache_name = f"package/cran/{package_name}/{version}"
             self.cache.set(cache_name, pkg)
 
             # use latest release version. This will be wrong for an old
@@ -86,7 +97,7 @@ class RequirementsManager(PackagesFromFile):
                 "researched_at": None,
                 "spdx_expression": "NOASSERTION",
                 "original_license": pkg.data["licenses"],
-                "repository_sources": ["Pypi"],
+                "repository_sources": ["Cran"],
             }
             deps.append(dep)
 

@@ -7,6 +7,7 @@ __license__ = "MPL 2.0"
 import sys
 from citelang.logger import logger
 import citelang.main.cache as cache
+import citelang.utils as utils
 import requests
 
 
@@ -56,4 +57,65 @@ class PackageManager:
         return response.json()
 
     def package(self, name, **kwargs):
+        raise NotImplementedError
+
+
+class PackagesFromFile(PackageManager):
+    """
+    Load packages from file. The class requires a parse function to parse
+    the content provided.
+    """
+
+    def __init__(self, package_name=None, content=None):
+        """
+        An R package manager parses packages from a DESCRIPTION
+        """
+        self.version = None
+        self.package_name = package_name
+        super().__init__()
+        if package_name:
+            self.set_name(package_name)
+        self.data = {}
+        if content:
+            self.parse(content)
+
+    def set_name(self, name):
+        if "@" in name:
+            name, version = name.split("@", 1)
+            self.version = version
+        if "[" in name and "]" in name:
+            name = name.split("[", 1)[0]
+
+        # invalid characters found!
+        name = name.replace(";", "")
+        self.package_name = name
+
+    def get_repo(self):
+        """
+        Helper function to return start of repo metadata. Intended to be used
+        in the self.parse() function.
+        """
+        # The "repo" is the package name, we can't be sure about versions
+        versions = [
+            {
+                "published_at": utils.get_time_now(),
+                "number": self.version or "latest",
+            }
+        ]
+        repo = {"name": self.package_name, "versions": versions}
+
+        # Try to provide a default version
+        repo["default_version"] = self.version or "latest"
+        return repo
+
+    def package(self, name, **kwargs):
+        """
+        The package endpoint ignores the name and just returns parsed data
+        """
+        return self.data.get("package")
+
+    def parse(self, content):
+        """
+        Parse the self.content
+        """
         raise NotImplementedError

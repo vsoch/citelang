@@ -7,12 +7,13 @@ __license__ = "MPL 2.0"
 from .github import GitHubManager
 from .spack import SpackManager
 from .pypi_requirements import RequirementsManager
+from .cran_description import RPackageManager
 
 # Registered endpoints (populated on init)
 managers = {}
 manager_names = []
 
-for manager in [GitHubManager, SpackManager, RequirementsManager]:
+for manager in [GitHubManager, SpackManager, RequirementsManager, RPackageManager]:
     manager_names.append(manager.name)
     managers[manager.name] = manager
 
