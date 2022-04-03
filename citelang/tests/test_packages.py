@@ -44,7 +44,7 @@ here = os.path.dirname(os.path.abspath(__file__))
         ),
     ],
 )
-def test_package_files(name, filename, deps, tmp_path):
+def test_package_files(name, filename, deps):
     """
     Test loading custom package files
     """
@@ -54,11 +54,6 @@ def test_package_files(name, filename, deps, tmp_path):
     content = result.render()
     for string in ["Software Credit", name, filename] + deps:
         assert string in content
-
-    outfile = os.path.join(str(tmp_path), "%s.md" % os.path.basename(name))
-    result.save(outfile)
-    loaded = utils.read_json(outfile)
-    assert loaded == content
     print(content)
 
 
