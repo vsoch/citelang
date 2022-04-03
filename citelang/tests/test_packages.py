@@ -7,6 +7,56 @@ import citelang.utils as utils
 import citelang.main.client as client
 import citelang.main.schemas as schemas
 
+here = os.path.dirname(os.path.abspath(__file__))
+
+
+@pytest.mark.parametrize(
+    "name,filename,deps",
+    [
+        (
+            "python-lib",
+            "requirements.txt",
+            [
+                "pypi",
+                "pytest",
+                "types",
+                "requests",
+                "sphinx",
+                "babel",
+                "docutils",
+                "Pygments",
+                "pypi",
+                "requirements.txt",
+            ],
+        ),
+        (
+            "r-lib",
+            "DESCRIPTION",
+            [
+                "cran",
+                "rmarkdown",
+                "knitr",
+                "callr",
+                "methods",
+                "R",
+                "shiny",
+                "R-Package",
+            ],
+        ),
+    ],
+)
+def test_package_files(name, filename, deps):
+    """
+    Test loading custom package files
+    """
+    cli = client.get_parser(filename=os.path.join(here, "testdata", filename))
+    result = cli.gen(name=name)
+
+    content = result.render()
+    for string in ["Software Credit", name] + deps:
+        assert string in content
+    print(content)
+
 
 @pytest.mark.parametrize(
     "manager,name",

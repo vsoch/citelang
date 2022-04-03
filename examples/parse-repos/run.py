@@ -22,3 +22,12 @@ for name, repo_dir in repos.items():
 table = cli.prepare_table()
 
 print(table.render())
+with open("requirements-example.md", 'w') as fd:
+    fd.write(table.render())
+    
+# Run for the Description file here
+cli = parser.RequirementsParser()
+result = cli.gen("r-lib", filename="DESCRIPTION")   
+with open("description-example.md", 'w') as fd:
+    fd.write(result.render())
+

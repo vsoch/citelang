@@ -255,19 +255,29 @@ class RequirementsParser(FileNameParser):
         # Do we have a known dependency file?
         basename = os.path.basename(filename)
         pkg = None
-        if basename == "requirements.txt":
+        if basename in ["requirements.txt", "DESCRIPTION"]:
             manager_kwargs = {"content": self.content, "package_name": name}
 
+            # Custom set the name of the manager
+            manager = (
+                "requirements.txt" if basename == "requirements.txt" else "R-Package"
+            )
+
             pkg = package.get_package(
-                manager="requirements.txt",
+                manager=manager,
                 name=name,
                 manager_kwargs=manager_kwargs,
             )
             # Populate dependencies and package
             pkg.info()
 
-            uid = "requirements.txt:%s" % filename
-            self.roots[uid] = self._graph(manager="pypi", name=name, pkg=pkg, **kwargs)
+            uid = "%s:%s" % (manager, filename)
+            self.roots[uid] = self._graph(
+                manager=pkg.underlying_manager.underlying_manager,
+                name=name,
+                pkg=pkg,
+                **kwargs,
+            )
 
         if not pkg:
             logger.exit(f"Dependency file type {basename} not known, or none found.")
