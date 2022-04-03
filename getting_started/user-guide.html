@@ -542,6 +542,11 @@ kind of rendering for a custom package (possibly not on pypi or other package ma
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib requirements.txt --outfile mylib.md
 </pre></div>
 </div>
+<p>Here is an example with a DESCRIPTION file, which goes alongside an R package and includes
+dependencies.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib DESCRIPTION --outfile mylib.md
+</pre></div>
+</div>
 <p>Note that when using a custom generation for a requirements file, we cache dependencies but not
 the custom package, as that doesn’t easily fit in the cache namespace and can change.
 This function is also useful to use programatically from within Python, e.g., to parse
