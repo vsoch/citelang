@@ -26,6 +26,7 @@ here = os.path.dirname(os.path.abspath(__file__))
                 "docutils",
                 "Pygments",
                 "pypi",
+                "requirements.txt",
             ],
         ),
         (
@@ -52,7 +53,7 @@ def test_package_files(name, filename, deps):
     result = cli.gen(name=name)
 
     content = result.render()
-    for string in ["Software Credit", name, filename] + deps:
+    for string in ["Software Credit", name] + deps:
         assert string in content
     print(content)
 
