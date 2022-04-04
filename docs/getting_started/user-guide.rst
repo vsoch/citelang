@@ -462,6 +462,17 @@ And a deeper one (setting ``--min-credit`` to 0.001.
 
 .. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png
 
+Note that (as of version 0.0.2) you can also generate badges from requirements file:
+
+
+.. code-block:: console
+
+    $ citelang badge usrse.github.io Gemfile --outfile usrse-gem-deps.png
+
+The above would generate a badge from the local Gemfile in the usrse.github.io repository, which
+is an arbitrary name we are assigning for the badge.
+
+
 Interactive
 -----------
 
@@ -577,18 +588,45 @@ And of course save to an output file:
 
    $ citelang gen pypi requests --outfile examples/citelang.md
 
-
 And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
-You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/citelandr.md>`_.
+You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/citelang.md>`_.
+
+Requirements Files
+^^^^^^^^^^^^^^^^^^
+
 If you instead provide a name and filename to render, you can generate the same
-kind of rendering for a custom package (possibly not on pypi or other package managers):
+kind of rendering for a custom package (possibly not on pypi or other package managers):s
 
 .. code-block:: console
 
-   $ citelang gen mylib requirements.txt --outfile mylib.md
+   $ citelang gen python-lib requirements.txt --outfile mylib.md
+
+Here is a setup.py, harder to parse but we try!
+
+.. code-block:: console
+
+   $ citelang gen python-lib setup.py --outfile mylib.md
+
+And a Gemfile:
+
+.. code-block:: console
+
+   $ citelang gen ruby-lib Gemfile --outfile mylib.md
+
+And a go.mod:
+
+.. code-block:: console
+
+   $ citelang gen go-lib go.mod --outfile mylib.md
+
+or npm package.json:
+
+.. code-block:: console
+
+   $ citelang gen npm-lib package.json --outfile mylib.md
 
 
-Here is an example with a DESCRIPTION file, which goes alongside an R package and includes
+And here is an example with a DESCRIPTION file, which goes alongside an R package and includes
 dependencies.
 
 .. code-block:: console

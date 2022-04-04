@@ -147,7 +147,6 @@ class Table(Result):
 
         # An endpoint that returns structured json can choose to flatten
         data = self.endpoint.table_data(self.data)
-
         for i, row in enumerate(data):
 
             # have we gone over the limit?

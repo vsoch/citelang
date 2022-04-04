@@ -25,7 +25,6 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
- - citelang should be able to parse go.sum, package.json, and R requirements file, others etc.
  - colors should be meaningful
 
 ## Contributors

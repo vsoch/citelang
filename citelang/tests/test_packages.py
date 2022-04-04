@@ -43,6 +43,26 @@ here = os.path.dirname(os.path.abspath(__file__))
                 "R-Package",
             ],
         ),
+        (
+            "python-lib",
+            "setup.py",
+            ["pypi", "pybind11", "types", "sphinx", "black", "setup.py"],
+        ),
+        (
+            "go-lib",
+            "go.mod",
+            ["go-lib"],
+        ),
+        (
+            "npm-lib",
+            "package.json",
+            ["gulp", "markdown", "mixin", "tape", "readable", "object", "package.json"],
+        ),
+        (
+            "gemfile-lib",
+            "Gemfile",
+            ["bundler", "rake", "jekyll", "rouge", "rpsec", "Gemfile"],
+        ),
     ],
 )
 def test_package_files(name, filename, deps):

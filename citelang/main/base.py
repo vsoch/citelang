@@ -44,7 +44,12 @@ class BaseClient:
             result = endpoints.get_endpoint("package_managers")
 
             # Update custom package managers
-            result.data += [p().info() for _, p in packages.managers.items()]
+            names = [x["name"] for x in result.data]
+            result.data += [
+                p().info()
+                for _, p in packages.managers.items()
+                if p.info()["name"] not in names
+            ]
         else:
             result = endpoints.get_endpoint("package_managers", data=result)
 
@@ -139,7 +144,11 @@ class BaseClient:
         while next_nodes and not stop_looking:
             next_node = next_nodes.pop(0)
 
-            deps = next_node.obj.dependencies(return_data=True)
+            # Sometimes we know a package name / version but cannot get deps
+            try:
+                deps = next_node.obj.dependencies(return_data=True)
+            except:
+                deps = []
             [
                 node_names.add(d["name"])
                 for d in deps

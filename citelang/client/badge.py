@@ -2,7 +2,7 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.main import Client
+import citelang.main.client as client
 from citelang.logger import logger
 import tempfile
 import os
@@ -10,18 +10,31 @@ import os
 
 def main(args, parser, extra, subparser):
 
-    # init global settings
-    cli = Client(quiet=args.quiet)
-    result = cli.badge(
-        name=args.package[1],
-        manager=args.package[0],
-        use_cache=not args.no_cache,
-        max_depth=args.max_depth,
-        max_deps=args.max_depth,
-        min_credit=args.min_credit,
-        credit_split=args.credit_split,
-        template=args.template,
-    )
+    if os.path.isfile(args.package[1]):
+        cli = client.get_parser(filename=args.package[1], quiet=args.quiet)
+        result = cli.badge(
+            name=args.package[0],
+            use_cache=not args.no_cache,
+            max_depth=args.max_depth,
+            max_deps=args.max_depth,
+            min_credit=args.min_credit,
+            credit_split=args.credit_split,
+            template=args.template,
+        )
+
+    # Case 2: named package and manager
+    else:
+        cli = client.Client(quiet=args.quiet)
+        result = cli.badge(
+            name=args.package[1],
+            manager=args.package[0],
+            use_cache=not args.no_cache,
+            max_depth=args.max_depth,
+            max_deps=args.max_depth,
+            min_credit=args.min_credit,
+            credit_split=args.credit_split,
+            template=args.template,
+        )
 
     if not args.outfile and args.template == "static":
         args.outfile = os.path.join(

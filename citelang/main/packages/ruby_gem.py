@@ -2,58 +2,45 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-import re
-
 from .base import PackagesFromFile
 
 
-class RPackageManager(PackagesFromFile):
+class GemfileManager(PackagesFromFile):
     """
-    Packages from an R DESCRIPTION file, meaning an R package
+    Packages from a ruby Gemfile
     """
 
-    name = "R-Package"
-    underlying_manager = "cran"
-    default_language = "R"
+    name = "Gemfile"
+    underlying_manager = "rubygems"
+    default_language = "ruby"
     project_count = None
-    homepage = "https://cran.r-project.org/"
-    color = "#006dad"
+    homepage = "https://rubygems.org/"
+    color = "#e9573f"
     default_versions = None
 
     def parse(self, content):
         """
-        Parse the self.content (the DESCRIPTION file)
+        Parse the self.content (the Gemfile)
         """
         repo = self.get_repo()
-
         libs = []
-        parsing = False
+
         for line in content.split("\n"):
-            # If we are parsing, but hit the end of the list
-            if parsing and not line.startswith(" "):
-                break
-            elif parsing:
-                libs.append(line.replace(",", "").strip())
-            elif "Imports:" in line:
-                parsing = True
+            if "gem" in line and "source" not in line:
+                for sub in ["gem", "'", '"', ","]:
+                    line = line.replace(sub, "").strip()
+                # Do we have a version?
+                if "~>" in line:
+                    line, version = line.split("~>", 1)
+                    line = "%s@%s" % (line.strip(), version.strip())
+                libs.append(line)
 
         deps = []
-        for line in libs:
+        for package_name in libs:
             version = None
-            package_name = None
-            if re.search("(==|<=|>=)", line):
-                line = line.replace(")", "").replace("(", "")
-                package_name, _, version = re.split("(==|<=|>=)", line)
-                package_name = package_name.strip()
-                version = version.strip()
-            else:
-                package_name = line
+            if "@" in package_name:
+                package_name, version = package_name.split("@", 1)
 
-            # We cannot parse a dep without a name
-            if not package_name:
-                continue
-
-            # Try to get from cache - either versioned or not
             pkg = self.get_package(package_name, version)
 
             # Ensure we have version, fallback to latest
@@ -61,7 +48,7 @@ class RPackageManager(PackagesFromFile):
                 version = pkg.data["latest_release_number"]
 
             # Require saving to cache here - many expensive calls
-            cache_name = f"package/cran/{package_name}/{version}"
+            cache_name = f"package/rubygems/{package_name}/{version}"
             self.cache.set(cache_name, pkg)
 
             # use latest release version. This will be wrong for an old
@@ -74,7 +61,7 @@ class RPackageManager(PackagesFromFile):
                 "researched_at": None,
                 "spdx_expression": "NOASSERTION",
                 "original_license": pkg.data["licenses"],
-                "repository_sources": ["Cran"],
+                "repository_sources": ["Rubygems"],
             }
             deps.append(dep)
 

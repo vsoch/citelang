@@ -5,7 +5,9 @@ __license__ = "MPL 2.0"
 from citelang.logger import logger
 import citelang.utils as utils
 import citelang.main.base as base
+import citelang.main.result as results
 import citelang.main.package as package
+import citelang.main.packages as packages
 from operator import itemgetter
 
 import re
@@ -39,7 +41,7 @@ class Parser(base.BaseClient):
         """
         # Prepare a parser that can generate a table
         self.add_lib(name=name, manager=manager)
-        self._update_roots()
+        self._update_roots(**kwargs)
         self.prepare_table()
         return self
 
@@ -239,6 +241,18 @@ class RequirementsParser(FileNameParser):
         # We don't want to render back into requirements.txt
         self.rendering_content = False
 
+    def badge(self, name, template="static", filename=None, *args, **kwargs):
+        """
+        Generate a badge for a requirements file.
+        """
+        self.gen(filename=filename, name=name, *args, **kwargs)
+        root = list(self.roots.values())[0]
+        if template == "treemap":
+            return results.Treemap(root)
+        elif template == "sunburst":
+            return results.InteractiveBadge(root)
+        return results.Badge(root)
+
     def gen(self, name, filename=None, *args, **kwargs):
         """
         Add a requirements file. Manager is determined by filename, and name
@@ -255,13 +269,14 @@ class RequirementsParser(FileNameParser):
         # Do we have a known dependency file?
         basename = os.path.basename(filename)
         pkg = None
-        if basename in ["requirements.txt", "DESCRIPTION"]:
+
+        if basename in packages.filesystem_manager_names:
             manager_kwargs = {"content": self.content, "package_name": name}
 
             # Custom set the name of the manager
-            manager = (
-                "requirements.txt" if basename == "requirements.txt" else "R-Package"
-            )
+            manager = basename
+            if basename == "DESCRIPTION":
+                manager = "R-Package"
 
             pkg = package.get_package(
                 manager=manager,
