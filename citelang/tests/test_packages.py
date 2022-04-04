@@ -58,7 +58,7 @@ here = os.path.dirname(os.path.abspath(__file__))
         (
             "gemfile-lib",
             "Gemfile",
-            ["bundler", "rake", "jekyll", "rouge", "rpsec"],
+            ["bundler", "rake", "jekyll", "rouge"],
         ),
     ],
 )
