@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.19 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.19
+                0.0.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -454,6 +454,12 @@ Both of these are the same:</p>
 <img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests.png" />
 <p>And a deeper one (setting <code class="docutils literal notranslate"><span class="pre">--min-credit</span></code> to 0.001.</p>
 <img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-pypi-requests-deeper.png" />
+<p>Note that (as of version 0.0.2) you can also generate badges from requirements file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge usrse.github.io Gemfile --outfile usrse-gem-deps.png
+</pre></div>
+</div>
+<p>The above would generate a badge from the local Gemfile in the usrse.github.io repository, which
+is an arbitrary name we are assigning for the badge.</p>
 </div>
 </div>
 <div class="section" id="interactive">
@@ -536,13 +542,29 @@ You’ll notice there are software references formatted as follows:</p>
 </pre></div>
 </div>
 <p>And akin to credit or graph, you can change the credit threshold to introduce more dependencies.
-You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/citelandr.md">example rendering here</a>.
-If you instead provide a name and filename to render, you can generate the same
-kind of rendering for a custom package (possibly not on pypi or other package managers):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib requirements.txt --outfile mylib.md
+You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/citelang.md">example rendering here</a>.</p>
+<p>If you instead provide a name and filename to render, you can generate the same
+kind of rendering for a custom package (possibly not on pypi or other package managers):s</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen python-lib requirements.txt --outfile mylib.md
 </pre></div>
 </div>
-<p>Here is an example with a DESCRIPTION file, which goes alongside an R package and includes
+<p>Here is a setup.py, harder to parse but we try!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen python-lib setup.py --outfile mylib.md
+</pre></div>
+</div>
+<p>And a Gemfile:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen ruby-lib Gemfile --outfile mylib.md
+</pre></div>
+</div>
+<p>And a go.mod:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen go-lib go.mod --outfile mylib.md
+</pre></div>
+</div>
+<p>or npm package.json:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen npm-lib package.json --outfile mylib.md
+</pre></div>
+</div>
+<p>And here is an example with a DESCRIPTION file, which goes alongside an R package and includes
 dependencies.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib DESCRIPTION --outfile mylib.md
 </pre></div>
