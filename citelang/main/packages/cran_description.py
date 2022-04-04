@@ -12,7 +12,7 @@ class RPackageManager(PackagesFromFile):
     Packages from an R DESCRIPTION file, meaning an R package
     """
 
-    name = "R-Package"
+    name = "DESCRIPTION"
     underlying_manager = "cran"
     default_language = "R"
     project_count = None

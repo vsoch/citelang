@@ -189,8 +189,8 @@ class FileNameParser(Parser):
 
         # Sort from least to greatest
         listing = []
-        for manager, packages in self.data.items():
-            for pkg, meta in packages.items():
+        for manager, pkgs in self.data.items():
+            for pkg, meta in pkgs.items():
                 listing.append((manager, pkg, meta["credit"], meta["url"]))
 
         listing = sorted(listing, key=itemgetter(2), reverse=True)
@@ -274,19 +274,15 @@ class RequirementsParser(FileNameParser):
             manager_kwargs = {"content": self.content, "package_name": name}
 
             # Custom set the name of the manager
-            manager = basename
-            if basename == "DESCRIPTION":
-                manager = "R-Package"
-
             pkg = package.get_package(
-                manager=manager,
+                manager=basename,
                 name=name,
                 manager_kwargs=manager_kwargs,
             )
             # Populate dependencies and package
             pkg.info()
 
-            uid = "%s:%s" % (manager, filename)
+            uid = "%s:%s" % (basename, filename)
             self.roots[uid] = self._graph(
                 manager=pkg.underlying_manager.underlying_manager,
                 name=name,
