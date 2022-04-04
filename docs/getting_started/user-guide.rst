@@ -588,6 +588,13 @@ kind of rendering for a custom package (possibly not on pypi or other package ma
    $ citelang gen mylib requirements.txt --outfile mylib.md
 
 
+Here is an example with a DESCRIPTION file, which goes alongside an R package and includes
+dependencies.
+
+.. code-block:: console
+
+   $ citelang gen mylib DESCRIPTION --outfile mylib.md
+
 Note that when using a custom generation for a requirements file, we cache dependencies but not
 the custom package, as that doesn't easily fit in the cache namespace and can change.
 This function is also useful to use programatically from within Python, e.g., to parse
