@@ -110,6 +110,22 @@ class PackageManagers(Endpoint):
     emoji = "box"
     skips = ["color"]
 
+    def table_data(self, data):
+        """
+        Ensure we don't include any repeats
+        """
+        seen = set()
+        final_set = []
+        for item in data:
+            if item["name"].lower() in seen:
+                continue
+
+            # Ensure custom managers are capitalized for display
+            item["name"] = item["name"].capitalize()
+            final_set.append(item)
+            seen.add(item["name"].lower())
+        return final_set
+
 
 class Dependencies(Endpoint):
     name = "dependencies"

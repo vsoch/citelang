@@ -25,9 +25,32 @@ print(table.render())
 with open("requirements-example.md", 'w') as fd:
     fd.write(table.render())
     
-# Run for the Description file here
+# Run for the Description file in testdata
 cli = parser.RequirementsParser()
-result = cli.gen("r-lib", filename="DESCRIPTION")   
+result = cli.gen("r-lib", filename="../../citelang/tests/testdata/DESCRIPTION")   
 with open("description-example.md", 'w') as fd:
     fd.write(result.render())
 
+# Run for the setup.py in testdata
+cli = parser.RequirementsParser()
+result = cli.gen("python-lib", filename="../../citelang/tests/testdata/setup.py")   
+with open("setup-py-example.md", 'w') as fd:
+    fd.write(result.render())
+
+# Run for Gemfile in testdata
+cli = parser.RequirementsParser()
+result = cli.gen("ruby-lib", filename="../../citelang/tests/testdata/Gemfile")   
+with open("gemfile-example.md", 'w') as fd:
+    fd.write(result.render())
+    
+# Parse go mod file
+cli = parser.RequirementsParser()
+result = cli.gen("go-lib", filename="../../citelang/tests/testdata/go.mod")   
+with open("go-mod-example.md", 'w') as fd:
+    fd.write(result.render())
+        
+# Parse an npm package.json
+cli = parser.RequirementsParser()
+result = cli.gen("npm-lib", filename="../../citelang/tests/testdata/package.json")   
+with open("npm-example.md", 'w') as fd:
+    fd.write(result.render())

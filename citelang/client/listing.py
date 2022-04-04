@@ -17,4 +17,7 @@ def main(args, parser, extra, subparser):
         result.save(args.outfile)
 
     else:
-        result.table()
+        limit = 25
+        if args.all:
+            limit = None
+        result.table(limit=limit)

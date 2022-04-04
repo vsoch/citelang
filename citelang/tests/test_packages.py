@@ -25,8 +25,6 @@ here = os.path.dirname(os.path.abspath(__file__))
                 "babel",
                 "docutils",
                 "Pygments",
-                "pypi",
-                "requirements.txt",
             ],
         ),
         (
@@ -40,8 +38,27 @@ here = os.path.dirname(os.path.abspath(__file__))
                 "methods",
                 "R",
                 "shiny",
-                "R-Package",
             ],
+        ),
+        (
+            "python-lib",
+            "setup.py",
+            ["pypi", "pybind11", "types", "sphinx", "black"],
+        ),
+        (
+            "go-lib",
+            "go.mod",
+            ["go-lib"],
+        ),
+        (
+            "npm-lib",
+            "package.json",
+            ["gulp", "markdown", "mixin", "tape", "readable", "object"],
+        ),
+        (
+            "gemfile-lib",
+            "Gemfile",
+            ["bundler", "rake", "jekyll", "rouge"],
         ),
     ],
 )
@@ -53,7 +70,7 @@ def test_package_files(name, filename, deps):
     result = cli.gen(name=name)
 
     content = result.render()
-    for string in ["Software Credit", name] + deps:
+    for string in ["Software Credit", name, filename] + deps:
         assert string in content
     print(content)
 

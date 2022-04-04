@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on GitHub.
 
 ## [0.0.x](https://github.com/vsoch/citelang/tree/main) (0.0.x)
+ - support for citelang gen/badge from requirements files (0.0.2)
  - bug fixes for badge generator github (0.0.19)
  - refactor of library structure for global cache and settings (0.0.18)
  - fixing display of child->parent credit in graph (0.0.17)

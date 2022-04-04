@@ -12,7 +12,14 @@ def main(args, parser, extra, subparser):
     # Case 1: only one thing provided to package, and exists as a file
     if os.path.isfile(args.package[1]):
         cli = client.get_parser(filename=args.package[1], quiet=args.quiet)
-        result = cli.gen(name=args.package[0])
+        result = cli.gen(
+            name=args.package[0],
+            use_cache=not args.no_cache,
+            max_depth=args.max_depth,
+            max_deps=args.max_depth,
+            min_credit=args.min_credit,
+            credit_split=args.credit_split,
+        )
 
     # Case 2: named package and manager
     else:

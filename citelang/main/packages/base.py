@@ -7,6 +7,7 @@ __license__ = "MPL 2.0"
 import sys
 from citelang.logger import logger
 import citelang.main.cache as cache
+import citelang.main.endpoints as endpoints
 import citelang.utils as utils
 import requests
 
@@ -17,6 +18,7 @@ class PackageManager:
     """
 
     underlying_manager = None
+    filesystem_manager = False
 
     def __init__(self, *args, **kwargs):
         self.cache = cache.cache
@@ -66,6 +68,8 @@ class PackagesFromFile(PackageManager):
     the content provided.
     """
 
+    filesystem_manager = True
+
     def __init__(self, package_name=None, content=None):
         """
         An R package manager parses packages from a DESCRIPTION
@@ -89,6 +93,32 @@ class PackagesFromFile(PackageManager):
         # invalid characters found!
         name = name.replace(";", "")
         self.package_name = name
+
+    def get_package(self, package_name, version=None):
+        """
+        Shared function to get a package based on name, version
+        """
+        # Try to get from cache - either versioned or not
+        pkg = None
+        if package_name and version:
+            cache_name = f"package/{self.underlying_manager}/{package_name}/{version}"
+            result = self.cache.get(cache_name)
+            if result:
+                pkg = endpoints.get_endpoint("package", data=result)
+
+        elif package_name and not version:
+            cache_name = f"package/cran/{package_name}"
+            result = self.cache.get(cache_name)
+            if result:
+                pkg = endpoints.get_endpoint("package", data=result)
+
+        if pkg is None:
+            pkg = endpoints.get_endpoint(
+                "package",
+                package_name=package_name,
+                manager=self.underlying_manager,
+            )
+        return pkg
 
     def get_repo(self):
         """
