@@ -48,7 +48,7 @@ class BaseClient:
             result.data += [
                 p().info()
                 for _, p in packages.managers.items()
-                if p.info()["name"] not in names
+                if p().info()["name"] not in names
             ]
         else:
             result = endpoints.get_endpoint("package_managers", data=result)
