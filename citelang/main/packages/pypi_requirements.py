@@ -2,6 +2,7 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+from citelang.logger import logger
 import re
 
 from .base import PackagesFromFile
@@ -23,8 +24,12 @@ class PythonManager(PackagesFromFile):
 
             version = None
             package_name = line.strip()
-            if re.search("(==|<=|>=)", package_name):
-                package_name, _, version = re.split("(==|<=|>=)", package_name)
+            if re.search("(==|~=|<=|>=|<|>|!=)", package_name):
+                package_name, _, version = re.split(
+                    "(==|~=|<=|>=|<|>|!=)", package_name
+                )
+                version = version.strip()
+            package_name = package_name.strip()
 
             # We cannot parse a dep without a name
             if not package_name:
@@ -32,6 +37,12 @@ class PythonManager(PackagesFromFile):
 
             # First add requirements (names and pypi manager) to deps
             pkg = self.get_package(package_name, version)
+            if not pkg:
+                logger.warning("Issue getting package %s, skipping" % package_name)
+                import IPython
+
+                IPython.embed()
+                continue
 
             # Ensure we have version, fallback to latest
             if not version:
@@ -60,7 +71,7 @@ class PythonManager(PackagesFromFile):
 class RequirementsManager(PythonManager):
 
     """
-    Packages parsed from a requirements.txt file (so from cran)
+    Packages parsed from a requirements.txt file (so from pypi)
     """
 
     name = "requirements.txt"
@@ -87,7 +98,7 @@ class RequirementsManager(PythonManager):
 class SetupManager(PythonManager):
 
     """
-    Packages parsed from a requirements.txt file (so from cran)
+    Packages parsed from a requirements.txt file (so from pypi)
     """
 
     name = "setup.py"
@@ -108,31 +119,65 @@ class SetupManager(PythonManager):
         parsing = False
         for line in content.split("\n"):
 
-            if "setup_requires" in line:
-                parsing = True
+            if "setup_requires" in line or "install_requires" in line:
+                line = line.replace(" ", "")
+
+                # It MUST be a list
+                if "=[" in line:
+                    parsing = True
 
             # We found the start and end
             if parsing and "[" in line and "]" in line:
                 lines.append(line)
-                break
+                parsing = False
+
             elif parsing and "[" in line:
                 lines.append(line)
 
             elif parsing and "]" in line:
                 lines.append(line)
-                break
+                parsing = False
+
             elif parsing:
                 lines.append(line)
+
+        # Always skip these, try to avoid Python iterations
+        skips = ["@git+", "strip()", "^#", ".git" " else ", ".format", ".startswith"]
+        skip_regex = "(%s)" % "|".join(skips)
 
         # Clean up lines
         cleaned = []
         for line in lines:
-            terms = ["setup_requires" + x for x in [":", " :", "=", " =", ""]]
-            for term in terms + ["[", "]", '"', "'"]:
-                line = line.replace(term, "")
-            parts = line.split(",")
-            cleaned += [x.strip() for x in parts if x.strip()]
 
+            # Remove line immediately if starts with comment
+            if line.strip().startswith("#"):
+                continue
+
+            # Get rid of comments off the bat
+            line = line.split("#", 1)[0]
+            terms = ["setup_requires" + x for x in [":", " :", "=", " =", ""]]
+            terms += ["install_requires" + x for x in [":", " :", "=", " =", ""]]
+            for term in terms + ["f'", 'f"', "[", "]", '"', "'", "+", "{", "}"]:
+                line = line.replace(term, "")
+
+            # Get rid of any sys_platform, etc.
+            line = line.split(";")[0]
+            parts = line.split(",")
+
+            # Don't add any git pip installs
+            cleaned += [
+                x.strip()
+                for x in parts
+                if x.strip() and not re.search(skip_regex, x.strip())
+            ]
+
+        # Don't include any that don't have letters
+        cleaned = [x for x in cleaned if re.search("[a-zA-Z]", x)]
+
+        # Remove any variants (e.g., [all])
+        cleaned = [re.sub("\[.+\]", "", x) for x in cleaned]
+
+        print(cleaned)
         deps = self.parse_python_deps(cleaned)
         repo["dependencies"] = deps
         self.data["package"] = repo

@@ -24,6 +24,10 @@ palettes = {
 }
 
 
+def get_random_color():
+    return "#" + "".join([random.choice("ABCDEF0123456789") for i in range(6)])
+
+
 def get_rich_color():
     """
     Return a random color
@@ -57,7 +61,6 @@ def get_color_range(N=100):
     """
     Get a color range, size N
     """
-    palette = get_random_palette()
-    start_color = colour.Color("#" + palette.pop(random.choice(range(len(palette)))))
-    end_color = colour.Color("#" + palette.pop(random.choice(range(len(palette)))))
+    start_color = colour.Color(get_random_color())
+    end_color = colour.Color(get_random_color())
     return list(start_color.range_to(end_color, N))

@@ -107,17 +107,20 @@ class PackagesFromFile(PackageManager):
                 pkg = endpoints.get_endpoint("package", data=result)
 
         elif package_name and not version:
-            cache_name = f"package/cran/{package_name}"
+            cache_name = f"package/{self.underlying_manager}/{package_name}"
             result = self.cache.get(cache_name)
             if result:
                 pkg = endpoints.get_endpoint("package", data=result)
 
         if pkg is None:
-            pkg = endpoints.get_endpoint(
-                "package",
-                package_name=package_name,
-                manager=self.underlying_manager,
-            )
+            try:
+                pkg = endpoints.get_endpoint(
+                    "package",
+                    package_name=package_name,
+                    manager=self.underlying_manager,
+                )
+            except:
+                pass
         return pkg
 
     def get_repo(self):

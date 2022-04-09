@@ -22,7 +22,7 @@ def generate(data, outfile=None, min_credit=0.01, credit_split=0.5, height=800):
     ids, parentids = get_ids(labels, parents)
 
     # colors for subtrees
-    colorset = colors.get_color_range(N=data["levels"] - 1)
+    colorset = colors.get_color_range(N=max(data["levels"] - 1, 0))
 
     # add color for root (white)
     colorset = ["#ffffff"] + [str(x) for x in colorset]

@@ -664,6 +664,57 @@ two requirements.txt files in a repository, and combining the results:
     print(table.render())
 
 
+Contrib
+=======
+
+Contrib will allow you to look at a different kind of credit - git commits!
+Note that since we want find grained contributions, we count lines with git blame,
+so this method will be a little bit slower than other means to assess credit.
+You can sit in the root of a repository and then run this to generate data
+for all contributions:
+
+.. code-block:: console
+
+    $ citelang contrib 
+    
+Or specify a different root with a .git repo:
+
+
+.. code-block:: console
+
+    $ citelang contrib --root /path/to/repo
+
+Or look for data between two git tags or commits:
+
+.. code-block:: console
+
+    $ citelang contrib --start 0.0.17 --end 0.0.19
+
+
+By default, the results are printed to a table, and by author, and without detail. 
+To add detail (e.g., specific files to authors, and authors to paths):
+
+.. code-block:: console
+
+    $ citelang contrib --start 0.0.17 --end 0.0.19 --detail
+
+To change the "by" field:
+
+.. code-block:: console
+
+    $ citelang contrib --start 0.0.17 --end 0.0.19 --by author
+    $ citelang contrib --start 0.0.17 --end 0.0.19 --by path
+
+or to instead save to an output file (complete json)
+
+.. code-block:: console
+
+    $ citelang contrib --start 0.0.17 --end 0.0.19 --outfile author-lines.json
+
+This currently prints a table and saves data. We have plans to provide an associated
+action that can use this data and generate a contributors panel for each release (or some other
+range based on commits or tags).
+
 *************
 GitHub Action
 *************

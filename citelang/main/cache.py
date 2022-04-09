@@ -45,8 +45,14 @@ class Cache:
 
         # If we are using the memory cache, return from there.
         if not settings.cfg.disable_memory_cache:
-            if name in self._cache:
-                return self._cache[name]
+            if name not in self._cache:
+                self._cache[name] = result.data
+
+            # If we end in a version, add to cache too
+            # E.g., package/pypi/numpy/1.22.3
+            if name.count("/") == 3:
+                without_version = name.rsplit("/", 1)[0]
+                self._cache[without_version] = result.data
 
         # Ensure cache directory exists
         utils.mkdir_p(settings.cfg.cache_dir)
@@ -79,6 +85,11 @@ class Cache:
         If provided and endpoint, wrap the result with the endpoint. Otherwise,
         return the json result.
         """
+        # First effort - get from memory
+        if name in self._cache:
+            return self._cache[name]
+
+        # Now look for filesystem
         path = self.get_cache_name(name)
         if not os.path.exists(path):
             return

@@ -82,6 +82,47 @@ def get_parser():
     )
     deps = subparsers.add_parser("deps", description="list dependencies for a package.")
 
+    # Extract contributions from a GitHub repo
+    contrib = subparsers.add_parser(
+        "contrib", description="Extract data for git contributions."
+    )
+    contrib.add_argument(
+        "--outdir",
+        "-d",
+        help="output directory for data (defaults to .contrib)",
+        default=os.path.join(os.getcwd(), ".contrib"),
+    )
+    contrib.add_argument("--outfile", "-o", help="Save to an output markdown file.")
+    contrib.add_argument(
+        "--start",
+        "-s",
+        help="start commit or tag to parse (defaults to start of history)",
+    )
+    contrib.add_argument(
+        "--end",
+        "-e",
+        help="end commit or tag to parse (defaults to end of history)",
+    )
+    contrib.add_argument(
+        "--root",
+        "-r",
+        help="Location where .git directory resides (defaults to PWD)",
+        default=os.getcwd(),
+    )
+    contrib.add_argument(
+        "--by",
+        "-b",
+        help="Organize results BY this attribute (author, path)",
+        default="author",
+        choices=["author", "path"],
+    )
+    contrib.add_argument(
+        "--detail",
+        help="include contribution details",
+        default=False,
+        action="store_true",
+    )
+
     badge = subparsers.add_parser(
         "badge", description="Generate an html (svg-based) badge."
     )
@@ -250,6 +291,8 @@ def run():
         from .cache import main
     elif args.command == "config":
         from .config import main
+    elif args.command == "contrib":
+        from .contrib import main
     elif args.command == "credit":
         from .credit import main
     elif args.command == "deps":
