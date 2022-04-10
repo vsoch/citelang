@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.21 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.22 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.21
+                0.0.22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -628,6 +628,52 @@ To add detail (e.g., specific files to authors, and authors to paths):</p>
 <p>This currently prints a table and saves data. We have plans to provide an associated
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).</p>
+<p>It may be that you want to disambiguate different aliases, or ignore contributions by
+bots or just particular authors (e.g., there was a single commit from “root” in a repository
+I was parsing, and I can’t do much with that). To support this, we allow an optional filters file,
+which might look like the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">authors</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Vanessa Sochat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Cedric Clerget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cédric Clerget</span><span class="w"></span>
+<span class="w">  </span><span class="nt">cclerget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cédric Clerget</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ArangoGutierrez</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Eduardo Arango</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Marcelo E. Magallon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Marcelo Magallon</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Ian</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ian Kaneshiro</span><span class="w"></span>
+<span class="w">  </span><span class="nt">sashayakovtseva</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sasha Yakovtseva</span><span class="w"></span>
+<span class="w">  </span><span class="nt">jscook2345</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Justin Cook</span><span class="w"></span>
+<span class="w">  </span><span class="nt">GodloveD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">David Godlove</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Dave Trudgian</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">David Trudgian</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Gregory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gregory M. Kurtzer</span><span class="w"></span>
+<span class="nt">ignore_bots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">ignore</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The above first has a list of authors that we want to match to a particular alias. For example,
+any mention of my full name should be associated to “vsoch.” The <code class="docutils literal notranslate"><span class="pre">ignore_bots</span></code> is a boolean
+flag that will skip over a username with <code class="docutils literal notranslate"><span class="pre">[bot]</span></code>, and finally, the list of <code class="docutils literal notranslate"><span class="pre">ignore</span></code> should
+be used sparingly. You generally don’t want to ignore anyone unless it’s obviously a weird mistake
+(e.g., someone commit as root, and I could never figure out who that was if I tried. But I could
+probably guess :O) Then we can run the command with this file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang contrib --start v3.9.7 --end v3.9.8 --all-time --filters singularity-filters.yaml
+</pre></div>
+</div>
+<p>And then we get a much cleaner and organized table because authors are not represented twice.
+You could also get creative here and provide groups that are named based on an organization or group. For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">authors</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">vsoch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dinosaur</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Vanessa Sochat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dinosaur</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Cédric Clerget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Superhero</span><span class="w"></span>
+<span class="w">  </span><span class="nt">Cedric Clerget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Superhero</span><span class="w"></span>
+<span class="w">  </span><span class="nt">cclerget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Superhero</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ArangoGutierrez</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Avocado</span><span class="w"></span>
+<span class="nt">ignore_bots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">ignore</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span><span class="w"></span>
+</pre></div>
+</div>
+<p>It’s up to you how you want to use that functionality! If you need further filter functionality,
+please let us know.</p>
 <p>Since we want find-grained contributions, we count lines with git blame,
 so this method will be a little bit slower than other means to assess credit, because
 when we run git blame on a file we get the last commit and timestamp that every line

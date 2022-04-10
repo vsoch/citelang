@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang.utils.fileio &mdash; CiteLang Python 0.0.21 documentation</title>
+  <title>citelang.utils.fileio &mdash; CiteLang Python 0.0.22 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.21
+                0.0.22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -88,6 +88,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">errno</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
 
 
 <div class="viewcode-block" id="mkdir_p"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.fileio.mkdir_p">[docs]</a><span class="k">def</span> <span class="nf">mkdir_p</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -156,6 +157,15 @@
 <span class="sd">    Read a json file to a dictionary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="read_yaml"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.fileio.read_yaml">[docs]</a><span class="k">def</span> <span class="nf">read_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read yaml from file using the safe loader.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">content</span></div>
 
 
 <div class="viewcode-block" id="get_tmpfile"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.fileio.get_tmpfile">[docs]</a><span class="k">def</span> <span class="nf">get_tmpfile</span><span class="p">(</span><span class="n">tmpdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
