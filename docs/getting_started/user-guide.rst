@@ -668,29 +668,23 @@ Contrib
 =======
 
 Contrib will allow you to look at a different kind of credit - git commits!
-Note that since we want find grained contributions, we count lines with git blame,
-so this method will be a little bit slower than other means to assess credit.
-However, once you parse a file for a specific commit, you won't need to parse
-it again as it will be cached in (default) ``.contrib`` in the present working
-directory. You can sit in the root of a repository and then run this to generate data
-for all contributions:
 
-.. code-block:: console
+Getting Contributions
+^^^^^^^^^^^^^^^^^^^^^
 
-    $ citelang contrib 
-    
-Or specify a different root with a .git repo:
-
-
-.. code-block:: console
-
-    $ citelang contrib --root /path/to/repo
-
-Or look for data between two git tags or commits:
+It's recommended to look for data between two git tags or commits:
 
 .. code-block:: console
 
     $ citelang contrib --start 0.0.17 --end 0.0.19
+
+
+The above assumes a .git repository in the present working directory. You can
+change that path:
+
+.. code-block:: console
+
+    $ citelang contrib --start 0.0.17 --end 0.0.19 --root /path/to/repo
 
 
 By default, the results are printed to a table, and by author, and without detail. 
@@ -699,6 +693,7 @@ To add detail (e.g., specific files to authors, and authors to paths):
 .. code-block:: console
 
     $ citelang contrib --start 0.0.17 --end 0.0.19 --detail
+
 
 To change the "by" field:
 
@@ -716,6 +711,79 @@ or to instead save to an output file (complete json)
 This currently prints a table and saves data. We have plans to provide an associated
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).
+
+
+How Contrib Works
+^^^^^^^^^^^^^^^^^
+
+Since we want find-grained contributions, we count lines with git blame,
+so this method will be a little bit slower than other means to assess credit, because
+when we run git blame on a file we get the last commit and timestamp that every line
+was modified. This gives us the ability to have two modes - being able to see contributions
+for all time, or limiting to a specific range. The way contrib works is to:
+
+1. Take a start and end tag or commit to parse
+2. Find the range of commits relevant to that range
+3. For each commit, find all relevant changed files 
+4. Run git blame for the commit and file, and save a cached result
+5. The result includes authors, paths, commits, timestamps, and counts (lines) per timestamp
+6. Each multiprocessing worker returns the complete blame result
+7. We combine results across workers
+8. Unless the ``--all-time`` flag is provided, we then filter down to timestamps within the range
+9. We organized based on author or path, and with or without detail
+10. The result is printed or saved to the filesystem as json
+
+For the fourth step, we run jobs with multiprocessing, and we store the result in the ``.contrib`` 
+cache, which is organized equivalently to the repository. For example, here is Singularity after a run, and we can
+see there are files from both the golang history and the previous bash/C++ and python
+history:
+
+.. code-block:: console
+
+    $ ls .contrib/cache/
+    alpinelinux  bin                 configure.ac     debian  examples  INSTALL.md  ...
+    AUTHORS      CHANGELOG.md        CONTRIBUTING.md  docs    go.mod    internal    ...
+    AUTHORS.md   cmd                 COPYING          e2e     go.sum    libexec     ...
+    autogen.sh   CODE_OF_CONDUCT.md  COPYRIGHT.md     etc     INSTALL   LICENSE     ...
+
+This happened because I ran contrib for an older version range and a newer version range.
+If we look in any particular file "directory" we find json files named by commit that had blame run.
+We can look in each json file and see the blame:
+
+.. code-block:: json
+
+    {
+        "Vanessa Sochat": {
+            "libexec/cli/inspect.exec": {
+                "be6c7a85391e79e1273acc659410fbd17ced6d5f": {
+                    "1495390269": 28
+                },
+                "cf8bbc36e1a97be04e779c5d0ab2f9a4a407cfdb": {
+                    "1495597759": 5
+                }
+            }
+        },
+        "Gregory M. Kurtzer": {
+            "libexec/cli/inspect.exec": {
+                "3a9f9cf1e6369080c4676a8919e2cb09d8116e6e": {
+                    "1496258562": 2
+                },
+                "2ad9d5862b7d1cea937044a23997bf66cd06695c": {
+                    "1483468664": 2
+                },
+
+What we see above are authors, file paths, and commits, timestamps, and then
+changed lines for each timestamp. The reason we have different commits for one
+blame (run for a commit) is because this represents the git blame for every line
+of the file at that timepoint. This is also why we keep the timestamps, because we can
+then filter this set down to include only commits that were within a desired range.
+But it also gives us the ability to see "all time credit" at any particular timestamp,
+which is pretty cool!
+
+Once you parse a blame for a specific commit and file, you won't need to parse
+it again as it will be cached in (default) ``.contrib`` in the present working
+directory. We can load that file and filter it for different contexts.
+
 
 *************
 GitHub Action

@@ -18,6 +18,7 @@ patterns = {
     "commit": "^([0-9a-f]{40})",
     "author": "^author (.*)$",
     "text": "^\t(.*)$",
+    "time": "^committer-time (.*)$",
 }
 
 
@@ -91,15 +92,20 @@ def parse_blame_output(output, path):
             if match:
                 item[pattern_type] = match.group(1)
 
-        # We've parsed a single item
-        if "commit" in item and "author" in item and "text" in item:
+        # We've parsed a single item - save complete time information etc
+        if all(key in item for key in ("commit", "author", "text", "time")):
             item.update({"path": path})
 
-            if item["author"] not in items:
-                items[item["author"]] = {}
-            if item["path"] not in items[item["author"]]:
-                items[item["author"]][item["path"]] = 0
-            items[item["author"]][item["path"]] += 1
+            # We don't convert time to int here because it gets loaded as str
+            current = items
+            for key in ["author", "path", "commit"]:
+                if item[key] not in current:
+                    current[item[key]] = {}
+                current = current[item[key]]
+
+            if item["time"] not in current:
+                current[item["time"]] = 0
+            current[item["time"]] += 1
             item = {}
 
     return items
@@ -185,7 +191,7 @@ class CommitStats(GitParser):
         seen = set()
         results = pool.imap_unordered(blame_task, self.tasks)
         for result in results:
-            pad = max(os.get_terminal_size().columns - 25, 0)
+            pad = utils.get_terminal_pad(25)
             print("Done {:.2f} %".format(complete / total * 100).ljust(pad), end="\r")
             complete += 1
 
@@ -199,8 +205,9 @@ class CommitStats(GitParser):
             path = result["path"]
 
             if path not in seen and not result["exist"]:
-                pad = max(os.get_terminal_size().columns - len(path) - 10, 0)
                 seen.add(path)
+
+            # This includes all commits found in the blame over time
             self.items = utils.update_nested(self.items, output)
 
         # Save empties to file
@@ -212,24 +219,55 @@ class ContributionSummary:
     A summary of contributions by author, line, file, etc.
     """
 
-    def __init__(self, history):
+    def __init__(self, history, start_timestamp=None, end_timestamp=None):
         self.history = history
+
+        # If we are filtering git blame to within a range
+        self.start_timestamp = start_timestamp
+        self.end_timestamp = end_timestamp
 
     def iter_items(self):
         """
-        Yield authors and paths from the history
+        Yield authors and paths from the history, ensuring that a duplicate
+        result from a git blame (a commit persisting across time) does not get
+        counted twice.
         """
+        seen = set()
         for commit, items in self.history.items():
             for author, paths in items.items():
-                for path, count in paths.items():
-                    yield commit, author, path, count
+                for path, commits in paths.items():
+                    for commit, times in commits.items():
+                        for timestamp, count in times.items():
+
+                            # **important** do not count a contribution more than once
+                            timestamp = int(timestamp)
+                            uid = (commit, author, path, timestamp)
+                            if uid in seen:
+                                continue
+                            seen.add(uid)
+
+                            # Don't include this commit, too early
+                            if (
+                                self.start_timestamp
+                                and int(timestamp) < self.start_timestamp
+                            ):
+                                continue
+
+                            # Or too late!
+                            if (
+                                self.end_timestamp
+                                and int(timestamp) > self.end_timestamp
+                            ):
+                                continue
+
+                            yield commit, author, path, int(timestamp), count
 
     def by_file(self, detail=True):
         """
         Return summary of contributions by path
         """
         paths = {}
-        for _, author, path, count in self.iter_items():
+        for _, author, path, _, count in self.iter_items():
 
             # Detailed returns results by author
             if detail:
@@ -250,7 +288,7 @@ class ContributionSummary:
         Return summary of contributions by author
         """
         authors = {}
-        for _, author, path, count in self.iter_items():
+        for _, author, path, _, count in self.iter_items():
 
             # Detailed returns results by filename
             if detail:
@@ -344,9 +382,10 @@ class ContributionParser(GitParser):
 
         self.paths = list(paths)
 
-    def parse(self, return_summary=True):
+    def parse(self, return_summary=True, within_range=True):
         """
-        Parse the contributions
+        Parse the contributions. If within_range is True, don't include git
+        blame that goes outside of the range provided.
         """
         # We must be in a git repository
         if not os.path.exists(self.git_root):
@@ -358,10 +397,24 @@ class ContributionParser(GitParser):
         # Retrieve items of history
         history = self.index_history(commits)
 
+        # Do we want to only include within a range?
+        start_timestamp = (
+            None if not within_range else self.get_commit_timestamp(commits[0])
+        )
+        end_timestamp = (
+            None if not within_range else self.get_commit_timestamp(commits[-1])
+        )
+
         # Summarize lines by author
         if return_summary:
-            return ContributionSummary(history)
+            return ContributionSummary(history, start_timestamp, end_timestamp)
         return history
+
+    def get_commit_timestamp(self, commit):
+        """
+        Return the timestamp of a commit.
+        """
+        return int(self.git("git", "show", "-s", "--format=%ct", commit))
 
     def index_history(self, commits):
         """

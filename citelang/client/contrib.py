@@ -12,7 +12,9 @@ def main(args, parser, extra, subparser):
     parser = client.ContributionParser(
         root=args.root, start=args.start, end=args.end, outdir=args.outdir
     )
-    summary = parser.parse()
+
+    # All time true means we include git blames done before the range
+    summary = parser.parse(within_range=not args.all_time)
 
     if args.by == "author":
         data = summary.by_author(args.detail)
@@ -36,4 +38,4 @@ def main(args, parser, extra, subparser):
         table = results.Table(data)
     else:
         table = results.Table(data)
-    table.table()
+    table.table(limit=None)

@@ -92,7 +92,7 @@ def get_parser():
         help="output directory for data (defaults to .contrib)",
         default=os.path.join(os.getcwd(), ".contrib"),
     )
-    contrib.add_argument("--outfile", "-o", help="Save to an output markdown file.")
+    contrib.add_argument("--outfile", "-o", help="Save to an output json file.")
     contrib.add_argument(
         "--start",
         "-s",
@@ -119,6 +119,12 @@ def get_parser():
     contrib.add_argument(
         "--detail",
         help="include contribution details",
+        default=False,
+        action="store_true",
+    )
+    contrib.add_argument(
+        "--all-time",
+        help="include blame from all time, not just within range.",
         default=False,
         action="store_true",
     )

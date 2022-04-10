@@ -1,4 +1,4 @@
-from .string import update_nested
+from .string import update_nested, get_terminal_pad
 from .terminal import (
     clone,
     run_command,
