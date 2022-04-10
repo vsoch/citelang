@@ -17,9 +17,9 @@ def main(args, parser, extra, subparser):
     summary = parser.parse(within_range=not args.all_time)
 
     if args.by == "author":
-        data = summary.by_author(args.detail)
+        data = summary.by_author(args.detail, filters=args.filters)
     else:
-        data = summary.by_file(args.detail)
+        data = summary.by_file(args.detail, filters=args.filters)
 
     # Do we want to save data to file?
     if args.outfile:

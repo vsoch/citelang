@@ -226,12 +226,17 @@ class ContributionSummary:
         self.start_timestamp = start_timestamp
         self.end_timestamp = end_timestamp
 
-    def iter_items(self):
+    def iter_items(self, filters=None):
         """
         Yield authors and paths from the history, ensuring that a duplicate
         result from a git blame (a commit persisting across time) does not get
         counted twice.
         """
+        filters = utils.read_yaml(filters) if filters else {}
+        authors = filters.get("authors", {})
+        ignore = filters.get("ignore", [])
+        ignore_bots = filters.get("ignore_bots", False)
+
         seen = set()
         for commit, items in self.history.items():
             for author, paths in items.items():
@@ -260,14 +265,28 @@ class ContributionSummary:
                             ):
                                 continue
 
+                            # Apply filters here
+                            original_author = author
+                            if author in authors:
+                                author = authors[author]
+
+                            # Is it a bot or do we choose to ignore?
+                            if (
+                                ignore_bots
+                                and "[bot]" in author
+                                or author in ignore
+                                or original_author in ignore
+                            ):
+                                continue
+
                             yield commit, author, path, int(timestamp), count
 
-    def by_file(self, detail=True):
+    def by_file(self, detail=True, filters=None):
         """
         Return summary of contributions by path
         """
         paths = {}
-        for _, author, path, _, count in self.iter_items():
+        for _, author, path, _, count in self.iter_items(filters):
 
             # Detailed returns results by author
             if detail:
@@ -283,27 +302,27 @@ class ContributionSummary:
 
         return self._to_list(paths, detail)
 
-    def by_author(self, detail=True):
+    def by_author(self, detail=True, filters=None):
         """
         Return summary of contributions by author
         """
-        authors = {}
-        for _, author, path, _, count in self.iter_items():
+        results = {}
+        for _, author, path, _, count in self.iter_items(filters):
 
             # Detailed returns results by filename
             if detail:
-                if author not in authors:
-                    authors[author] = {}
-                authors[author][path] = count
+                if author not in results:
+                    results[author] = {}
+                results[author][path] = count
 
                 # Or just total lines per author
             else:
-                if author not in authors:
-                    authors[author] = 0
-                authors[author] += count
+                if author not in results:
+                    results[author] = 0
+                results[author] += count
 
         # Ensure we are sorted, and parse into list
-        return self._to_list(authors, detail)
+        return self._to_list(results, detail)
 
     def _to_list(self, original, detail):
         """

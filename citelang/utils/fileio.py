@@ -9,6 +9,7 @@ import json
 import sys
 import errno
 import tempfile
+import yaml
 
 
 def mkdir_p(path):
@@ -77,6 +78,15 @@ def read_json(filename, mode="r"):
     Read a json file to a dictionary.
     """
     return json.loads(read_file(filename))
+
+
+def read_yaml(filename):
+    """
+    Read yaml from file using the safe loader.
+    """
+    with open(filename, "r") as fd:
+        content = yaml.load(fd.read(), Loader=yaml.SafeLoader)
+    return content
 
 
 def get_tmpfile(tmpdir=None, prefix=""):
