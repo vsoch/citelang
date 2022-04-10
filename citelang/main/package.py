@@ -171,7 +171,7 @@ class CustomPackage(PackageBase):
 
     def info(self):
         """
-        Get info for a libraries.io or custom package
+        Get info for a custom package
         """
         if not self.underlying_manager:
             self.underlying_manager = packages.managers[self.manager](

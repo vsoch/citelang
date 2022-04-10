@@ -21,12 +21,15 @@ class Result:
     A result holds the request result and can parse or return in different formats.
     """
 
-    def __init__(self, data, endpoint):
+    def __init__(self, data, endpoint=None):
         self.endpoint = endpoint
 
         # Does the endpoint want to sort or otherwise order?
         data = data or {}
-        self.data = self.endpoint.order(data)
+        if endpoint:
+            self.data = self.endpoint.order(data)
+        else:
+            self.data = data
 
     def print_json(self):
         print(utils.print_json(self.data))
@@ -47,7 +50,7 @@ class Table(Result):
     A table is a result formatted as a table for the client.
     """
 
-    def __init__(self, data, endpoint):
+    def __init__(self, data, endpoint=None):
         super().__init__(data, endpoint)
 
         # Keep track of the max length for each field not truncated
@@ -98,6 +101,7 @@ class Table(Result):
             [fields.add(x) for x in entry.keys()]
 
         # Ensure fields are present
+        truncate_list = self.endpoint.truncate_list if self.endpoint else []
         for entry in self.data:
             for field in fields:
 
@@ -105,7 +109,7 @@ class Table(Result):
                     entry[field] = ""
 
                 # We can't truncate this field!
-                if field in self.endpoint.truncate_list:
+                if field in truncate_list:
 
                     # We haven't seen it before
                     if field not in self.max_widths:
@@ -118,7 +122,7 @@ class Table(Result):
         Shared function to return consistent table columns
         """
         # An endpoint that returns structured json can choose to flatten
-        data = self.endpoint.table_data(self.data)
+        data = self.endpoint.table_data(self.data) if self.endpoint else self.data
 
         # Plan to remove empty columns with count 0
         column_counts = {x: 0 for x, _ in data[0].items()}
@@ -131,9 +135,10 @@ class Table(Result):
 
         # Get column titles
         columns = []
+        skip_list = self.endpoint.skip_list if self.endpoint else []
         contenders = list(data[0].keys())
         for column in contenders:
-            if column in self.endpoint.skip_list or column_counts[column] == 0:
+            if column in skip_list or column_counts[column] == 0:
                 continue
             columns.append(column)
         return columns
@@ -146,7 +151,7 @@ class Table(Result):
         column_width = self.available_width(columns)
 
         # An endpoint that returns structured json can choose to flatten
-        data = self.endpoint.table_data(self.data)
+        data = self.endpoint.table_data(self.data) if self.endpoint else self.data
         for i, row in enumerate(data):
 
             # have we gone over the limit?
@@ -154,12 +159,13 @@ class Table(Result):
                 return
 
             parsed = []
+            truncate_list = self.endpoint.truncate_list if self.endpoint else []
             for column in columns:
                 content = str(row[column]) if row[column] else ""
                 if (
                     content
                     and len(content) > column_width
-                    and column not in self.endpoint.truncate_list
+                    and column not in truncate_list
                 ):
                     content = content[:column_width] + "..."
                 parsed.append(content)
@@ -172,13 +178,16 @@ class Table(Result):
         table_title = ""
         if isinstance(self.data, dict) and "name" in self.data:
             table_title = " " + self.data["name"]
-        table = RichTable(
-            title="%s%s"
-            % (self.endpoint.name.capitalize().replace("_", " "), table_title)
+
+        endpoint_name = (
+            ""
+            if not self.endpoint
+            else self.endpoint.name.capitalize().replace("_", " ")
         )
+        table = RichTable(title="%s%s" % (endpoint_name, table_title))
 
         # No dependencies!
-        data = self.endpoint.table_data(self.data)
+        data = self.endpoint.table_data(self.data) if self.endpoint else self.data
         if not data:
             print("This package does not have any dependencies.")
             return
@@ -233,6 +242,8 @@ class Tree(Result):
                 child_size = 100 / len(data.children)
                 levels += 1
             for child in data.children:
+                if child.name not in color_lookup:
+                    color_lookup[child.name] = colors.get_random_color()
                 node = {
                     "name": child.name,
                     "credit": child.credit,

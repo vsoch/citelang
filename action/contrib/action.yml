@@ -1,0 +1,66 @@
+name: "citelang contrib action"
+description: "Generate citelang repository contribution data"
+inputs:
+  root:
+    description: location where .git directory resides (defaults to PWD)
+    required: true
+  outdir:
+    description: output directory cache for data (defaults to .contrib in pwd)
+    required: false
+  outfile:
+    description: save to an output json file
+    required: false
+  start:
+    description: starting commit or tag
+    required: true
+  end:
+    description: ending commit or tag
+    required: true
+  by:
+    description: organize results BY this attribute
+    required: false
+  detail:
+    description: include detailed file paths
+    required: false
+    default: true
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Install CiteLang
+      shell: bash
+      run: which citelang || pip install citelang[all]
+
+    - name: CiteLang Contrib
+      env:
+        root: ${{ inputs.root }}
+        outdir: ${{ inputs.outdir }}
+        outfile: ${{ inputs.outfile }}
+        start: ${{ inputs.start }}
+        end: ${{ inputs.end }}
+        by: ${{ inputs.by }}
+        detail: ${{ inputs.detail }}
+      run: |
+          cmd="citelang contrib"
+          if [[ "${root}" != "" ]]; then
+              cmd="$cmd --root ${root}"
+          fi
+          if [[ "${outdir}" != "" ]]; then
+              cmd="$cmd --outdir ${outdir}"
+          fi
+          if [[ "${start}" != "" ]]; then
+              cmd="$cmd --start ${start}"
+          fi
+          if [[ "${end}" != "" ]]; then
+              cmd="$cmd --end ${start}"
+          fi
+          if [[ "${by}" != "" ]]; then
+              cmd="$cmd --by ${by}"
+          fi
+          if [[ "${detail}" == "true" ]]; then
+              cmd="$cmd --detail"
+          fi
+          echo "$cmd"
+          $cmd
+      shell: bash

@@ -9,7 +9,6 @@ import os
 
 
 def main(args, parser, extra, subparser):
-
     if os.path.isfile(args.package[1]):
         cli = client.get_parser(filename=args.package[1], quiet=args.quiet)
         result = cli.badge(

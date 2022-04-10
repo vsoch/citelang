@@ -10,6 +10,13 @@ import threading
 import inspect
 
 
+def spinner():
+    """Simple function to yield a spinner character"""
+    while True:
+        for char in "|/-\\":
+            yield char
+
+
 class ColorizingStreamHandler(_logging.StreamHandler):
 
     BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)

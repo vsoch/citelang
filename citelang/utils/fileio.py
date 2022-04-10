@@ -2,6 +2,7 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+import contextlib
 import os
 import stat
 import json
@@ -21,6 +22,17 @@ def mkdir_p(path):
             pass
         else:
             sys.exit("Error creating path %s, exiting." % path)
+
+
+@contextlib.contextmanager
+def workdir(dirname):
+    """
+    Do something in the context of a directory, and then change back
+    """
+    here = os.getcwd()
+    os.chdir(dirname)
+    yield here
+    os.chdir(here)
 
 
 def write_file(content, filename, mode="w", exec=False):

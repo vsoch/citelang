@@ -4,8 +4,10 @@ __license__ = "MPL 2.0"
 
 import citelang.main.base as base
 import citelang.main.parser as parser
+from citelang.main.contrib import ContributionParser
 
 Client = base.BaseClient
+assert ContributionParser
 
 
 def get_parser(filename=None, *args, **kwargs):
