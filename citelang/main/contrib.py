@@ -66,7 +66,7 @@ def blame_task(args):
         return {"empty": "%s-%s" % (commit, path)}
 
     # This is the raw git blame
-    items = parse_blame_output(res["message"].strip(), path, commit)
+    items = parse_blame_output(res["message"].strip(), path)
     if not items:
         return {"empty": "%s-%s" % (commit, path)}
 
@@ -77,7 +77,7 @@ def blame_task(args):
     return {"output": items, "path": path, "exist": False, "empty": ""}
 
 
-def parse_blame_output(output, path, commit):
+def parse_blame_output(output, path):
     """
     Helper function to parse blame output and return list.
     """
@@ -94,10 +94,6 @@ def parse_blame_output(output, path, commit):
         # We've parsed a single item
         if "commit" in item and "author" in item and "text" in item:
             item.update({"path": path})
-
-            if item["commit"] != commit:
-                item = {}
-                continue
 
             if item["author"] not in items:
                 items[item["author"]] = {}
@@ -190,7 +186,7 @@ class CommitStats(GitParser):
         results = pool.imap_unordered(blame_task, self.tasks)
         for result in results:
             pad = max(os.get_terminal_size().columns - 25, 0)
-            print("Done {:.2f} %".format(complete / total * 100).rjust(pad), end="\r")
+            print("Done {:.2f} %".format(complete / total * 100).ljust(pad), end="\r")
             complete += 1
 
             # No result - record to empty so we don't try again
@@ -232,7 +228,6 @@ class ContributionSummary:
         """
         Return summary of contributions by path
         """
-        ## TODO stopped here - but in detail that wrong numbers output?
         paths = {}
         for _, author, path, count in self.iter_items():
 
@@ -333,7 +328,7 @@ class ContributionParser(GitParser):
         """
         paths = set()
         prefixes = prefixes or []
-        regex = "(%s)" % "|".join(prefixes)
+        regex = "(%s)" % "|".join(prefixes) if prefixes else ""
 
         # Get all files in the commit history
         for path in self.git(

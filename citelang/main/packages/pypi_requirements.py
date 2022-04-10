@@ -154,7 +154,7 @@ class SetupManager(PythonManager):
             line = line.split("#", 1)[0]
             terms = ["setup_requires" + x for x in [":", " :", "=", " =", ""]]
             terms += ["install_requires" + x for x in [":", " :", "=", " =", ""]]
-            for term in terms + ["[", "]", '"', "'", "+", "{", "}"]:
+            for term in terms + ["[", "]", '"', "'", "+", "{", "}", "(", ")"]:
                 line = line.replace(term, "")
 
             # Get rid of any sys_platform, etc.
