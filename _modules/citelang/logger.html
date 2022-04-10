@@ -89,6 +89,13 @@
 <span class="kn">import</span> <span class="nn">inspect</span>
 
 
+<div class="viewcode-block" id="spinner"><a class="viewcode-back" href="../../api_reference/internal/citelang.html#citelang.logger.spinner">[docs]</a><span class="k">def</span> <span class="nf">spinner</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Simple function to yield a spinner character&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="s2">&quot;|/-</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">char</span></div>
+
+
 <div class="viewcode-block" id="ColorizingStreamHandler"><a class="viewcode-back" href="../../api_reference/internal/citelang.html#citelang.logger.ColorizingStreamHandler">[docs]</a><span class="k">class</span> <span class="nc">ColorizingStreamHandler</span><span class="p">(</span><span class="n">_logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">):</span>
 
     <span class="n">BLACK</span><span class="p">,</span> <span class="n">RED</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">YELLOW</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">,</span> <span class="n">MAGENTA</span><span class="p">,</span> <span class="n">CYAN</span><span class="p">,</span> <span class="n">WHITE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>

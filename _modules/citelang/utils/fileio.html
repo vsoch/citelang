@@ -81,6 +81,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2022, Vanessa Sochat&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
+<span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">stat</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -100,6 +101,17 @@
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Error creating path </span><span class="si">%s</span><span class="s2">, exiting.&quot;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="workdir"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.fileio.workdir">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">workdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Do something in the context of a directory, and then change back</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">here</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">here</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">here</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="write_file"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.utils.fileio.write_file">[docs]</a><span class="k">def</span> <span class="nf">write_file</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">exec</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

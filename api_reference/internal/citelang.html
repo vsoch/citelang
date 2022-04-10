@@ -291,6 +291,12 @@ Prints the output to the console.
 <code class="sig-prename descclassname"><span class="pre">citelang.logger.</span></code><code class="sig-name descname"><span class="pre">setup_logger</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">printshellcmds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">nocolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">use_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">wms_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/logger.html#setup_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.logger.setup_logger" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.logger.spinner">
+<code class="sig-prename descclassname"><span class="pre">citelang.logger.</span></code><code class="sig-name descname"><span class="pre">spinner</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/logger.html#spinner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.logger.spinner" title="Permalink to this definition"></a></dt>
+<dd><p>Simple function to yield a spinner character</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-citelang.main">
 <span id="citelang-main-module"></span><h2>citelang.main module<a class="headerlink" href="#module-citelang.main" title="Permalink to this headline"></a></h2>
@@ -574,7 +580,7 @@ stop adding.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="citelang.main.package.CustomPackage.info">
 <code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/package.html#CustomPackage.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.package.CustomPackage.info" title="Permalink to this definition"></a></dt>
-<dd><p>Get info for a libraries.io or custom package</p>
+<dd><p>Get info for a custom package</p>
 </dd></dl>
 
 </dd></dl>
@@ -692,7 +698,7 @@ stop adding.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.result.Result">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Result</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">data</span></span></em>, <em><span class="n"><span class="pre">endpoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Result" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Result</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">data</span></span></em>, <em><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Result" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A result holds the request result and can parse or return in different formats.</p>
 <dl class="py method">
@@ -715,7 +721,7 @@ stop adding.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="citelang.main.result.Table">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Table</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">data</span></span></em>, <em><span class="n"><span class="pre">endpoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Table" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">citelang.main.result.</span></code><code class="sig-name descname"><span class="pre">Table</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">data</span></span></em>, <em><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/main/result.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.main.result.Table" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#citelang.main.result.Result" title="citelang.main.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">citelang.main.result.Result</span></code></a></p>
 <p>A table is a result formatted as a table for the client.</p>
 <dl class="py method">
@@ -1194,6 +1200,12 @@ we are trying to scrape them :)</p>
 <dt class="sig sig-object py" id="citelang.utils.fileio.read_json">
 <code class="sig-prename descclassname"><span class="pre">citelang.utils.fileio.</span></code><code class="sig-name descname"><span class="pre">read_json</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename</span></span></em>, <em><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/fileio.html#read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.fileio.read_json" title="Permalink to this definition"></a></dt>
 <dd><p>Read a json file to a dictionary.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="citelang.utils.fileio.workdir">
+<code class="sig-prename descclassname"><span class="pre">citelang.utils.fileio.</span></code><code class="sig-name descname"><span class="pre">workdir</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">dirname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/fileio.html#workdir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.fileio.workdir" title="Permalink to this definition"></a></dt>
+<dd><p>Do something in the context of a directory, and then change back</p>
 </dd></dl>
 
 <dl class="py function">
