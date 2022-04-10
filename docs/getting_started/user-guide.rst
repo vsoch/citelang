@@ -716,7 +716,7 @@ Filtering
 ^^^^^^^^^
 
 It may be that you want to disambiguate different aliases, or ignore contributions by
-bots or just particular authors (e.g., there was a single commit from "root" in a repository
+bots or just particular files or authors (e.g., there was a single commit from "root" in a repository
 I was parsing, and I can't do much with that). To support this, we allow an optional filters file,
 which might look like the following:
 
@@ -735,9 +735,19 @@ which might look like the following:
        Dave Trudgian: David Trudgian
        Gregory: Gregory M. Kurtzer
      ignore_bots: true
-     ignore:
-       - root
 
+     # Ignore these files across the repository
+     ignore_basename:
+       - go.mod
+       - go.sum
+       
+     # Ignore these specific files
+     ignore_files:
+       - full/path/to/README.md
+
+     # Ignore these specific users
+     ignore_users:
+       - root
 
 The above first has a list of authors that we want to match to a particular alias. For example,
 any mention of my full name should be associated to "vsoch." The ``ignore_bots`` is a boolean

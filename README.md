@@ -22,6 +22,8 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
+ - add filters for either commit messages or specific files to not include
+ - don't include empty lines!
  - colors should be meaningful
 
 ## Contributors
