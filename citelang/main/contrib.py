@@ -460,6 +460,7 @@ class ContributionParser(GitParser):
         if not start_commit:
             start_commit = commits[0]
 
-        commits = commits[commits.index(start_commit) : commits.index(end_commit)]
+        # +1 ensures we include the end commit in the range
+        commits = commits[commits.index(start_commit) : commits.index(end_commit) + 1]
         logger.info("Found %s commits." % len(commits))
         return commits

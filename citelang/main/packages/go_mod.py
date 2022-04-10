@@ -7,7 +7,7 @@ from .base import PackagesFromFile
 
 class GoModuleManager(PackagesFromFile):
     """
-    Packages from a ruby Gemfile
+    Packages from a go module file
     """
 
     name = "go.mod"
@@ -45,11 +45,14 @@ class GoModuleManager(PackagesFromFile):
             if " " in package_name:
                 package_name, version = package_name.split(" ", 1)
 
+            # Many go packages are not known
+            pkg = None
             try:
                 pkg = self.get_package(package_name, version)
-
-            # Many go packages are not known
             except:
+                pass
+
+            if pkg is None:
                 dep = {
                     "name": package_name,
                     "project_name": package_name,
@@ -65,10 +68,10 @@ class GoModuleManager(PackagesFromFile):
 
             # Ensure we have version, fallback to latest
             if not version:
-                version = pkg.data["latest_release_number"]
+                version = dep.data["latest_release_number"]
 
             # Require saving to cache here - many expensive calls
-            cache_name = f"package/rubygems/{package_name}/{version}"
+            cache_name = f"package/go/{package_name}/{version}"
             self.cache.set(cache_name, pkg)
 
             # use latest release version. This will be wrong for an old
@@ -77,11 +80,11 @@ class GoModuleManager(PackagesFromFile):
                 "name": package_name,
                 "project_name": package_name,
                 "number": version,
-                "published_at": pkg.data["latest_stable_release_published_at"],
+                "published_at": dep.data["latest_stable_release_published_at"],
                 "researched_at": None,
                 "spdx_expression": "NOASSERTION",
                 "original_license": pkg.data["licenses"],
-                "repository_sources": ["Rubygems"],
+                "repository_sources": ["Go"],
             }
             deps.append(dep)
 
