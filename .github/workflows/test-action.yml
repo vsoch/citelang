@@ -14,6 +14,21 @@ jobs:
       - name: Install CiteLang
         run: pip install -e .[all]
 
+      - name: Clone Repository
+        run: git clone https://github.com/singularityhub/singularit-hpc /tmp/shpc
+
+      - name: Test CiteLang Contrib
+        uses: ./action/contrib
+        with:   
+          root: /tmp/shpc
+          outdir: /tmp/shpc/.contrib
+          start: 0.0.52
+          end: 0.0.53
+          detail: true
+
+      - name: Ensure cache is populated
+        run: tree .contrib/cache
+
       - name: Test CiteLang Released
         uses: vsoch/citelang/action/gen@main
         env:

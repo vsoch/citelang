@@ -1,3 +1,4 @@
+from .string import update_nested
 from .terminal import (
     clone,
     run_command,

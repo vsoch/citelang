@@ -39,9 +39,6 @@ class PythonManager(PackagesFromFile):
             pkg = self.get_package(package_name, version)
             if not pkg:
                 logger.warning("Issue getting package %s, skipping" % package_name)
-                import IPython
-
-                IPython.embed()
                 continue
 
             # Ensure we have version, fallback to latest
@@ -157,7 +154,7 @@ class SetupManager(PythonManager):
             line = line.split("#", 1)[0]
             terms = ["setup_requires" + x for x in [":", " :", "=", " =", ""]]
             terms += ["install_requires" + x for x in [":", " :", "=", " =", ""]]
-            for term in terms + ["f'", 'f"', "[", "]", '"', "'", "+", "{", "}"]:
+            for term in terms + ["[", "]", '"', "'", "+", "{", "}"]:
                 line = line.replace(term, "")
 
             # Get rid of any sys_platform, etc.
@@ -172,7 +169,11 @@ class SetupManager(PythonManager):
             ]
 
         # Don't include any that don't have letters
-        cleaned = [x for x in cleaned if re.search("[a-zA-Z]", x)]
+        cleaned = [
+            x
+            for x in cleaned
+            if re.search("[a-zA-Z]", x) and not re.search("^f('|\")", x)
+        ]
 
         # Remove any variants (e.g., [all])
         cleaned = [re.sub("\[.+\]", "", x) for x in cleaned]

@@ -670,7 +670,9 @@ Contrib
 Contrib will allow you to look at a different kind of credit - git commits!
 Note that since we want find grained contributions, we count lines with git blame,
 so this method will be a little bit slower than other means to assess credit.
-You can sit in the root of a repository and then run this to generate data
+However, once you parse a file for a specific commit, you won't need to parse
+it again as it will be cached in (default) ``.contrib`` in the present working
+directory. You can sit in the root of a repository and then run this to generate data
 for all contributions:
 
 .. code-block:: console
