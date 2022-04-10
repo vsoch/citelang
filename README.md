@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/citelang.svg)](https://badge.fury.io/py/citelang)
 
-![https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/citelang-tree.png](https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/citelang-tree.png)
+![https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/pypi-citelang.png](https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/pypi-citelang.png)
 
 Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
 when you use CiteLang to reference software.
@@ -18,9 +18,6 @@ We are getting software metadata and a reference to an identifier via a package 
 that when you publish your software, you should publish it to an appropriate package manager.
 
 ⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️ 
-
-
-![docs/assets/img/pypi-citelang.png](docs/assets/img/pypi-citelang.png)
 
 
 ## TODO

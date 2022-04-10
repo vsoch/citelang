@@ -128,6 +128,10 @@ def get_parser():
         default=False,
         action="store_true",
     )
+    contrib.add_argument(
+        "--filters",
+        help="A filters yaml file, optionally with an authors key (key value pairs of an author name, and the alias to use) and an ignore key (list of author names to not include).",
+    )
 
     badge = subparsers.add_parser(
         "badge", description="Generate an html (svg-based) badge."

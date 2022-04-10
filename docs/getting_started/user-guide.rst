@@ -712,6 +712,64 @@ This currently prints a table and saves data. We have plans to provide an associ
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).
 
+Filtering
+^^^^^^^^^
+
+It may be that you want to disambiguate different aliases, or ignore contributions by
+bots or just particular authors (e.g., there was a single commit from "root" in a repository
+I was parsing, and I can't do much with that). To support this, we allow an optional filters file,
+which might look like the following:
+
+.. code-block:: yaml
+
+     authors:
+       Vanessa Sochat: vsoch
+       Cedric Clerget: Cédric Clerget
+       cclerget: Cédric Clerget
+       ArangoGutierrez: Eduardo Arango
+       Marcelo E. Magallon: Marcelo Magallon
+       Ian: Ian Kaneshiro
+       sashayakovtseva: Sasha Yakovtseva
+       jscook2345: Justin Cook
+       GodloveD: David Godlove
+       Dave Trudgian: David Trudgian
+       Gregory: Gregory M. Kurtzer
+     ignore_bots: true
+     ignore:
+       - root
+
+
+The above first has a list of authors that we want to match to a particular alias. For example,
+any mention of my full name should be associated to "vsoch." The ``ignore_bots`` is a boolean
+flag that will skip over a username with ``[bot]``, and finally, the list of ``ignore`` should
+be used sparingly. You generally don't want to ignore anyone unless it's obviously a weird mistake
+(e.g., someone commit as root, and I could never figure out who that was if I tried. But I could
+probably guess :O) Then we can run the command with this file:
+
+
+.. code-block:: console
+
+    $ citelang contrib --start v3.9.7 --end v3.9.8 --all-time --filters singularity-filters.yaml 
+
+And then we get a much cleaner and organized table because authors are not represented twice.
+You could also get creative here and provide groups that are named based on an organization or group. For example:
+
+.. code-block:: yaml
+
+     authors:
+       vsoch: Dinosaur
+       Vanessa Sochat: Dinosaur
+       Cédric Clerget: Superhero
+       Cedric Clerget: Superhero
+       cclerget: Superhero
+       ArangoGutierrez: Avocado
+     ignore_bots: true
+     ignore:
+       - root
+
+
+It's up to you how you want to use that functionality! If you need further filter functionality,
+please let us know.
 
 How Contrib Works
 ^^^^^^^^^^^^^^^^^
