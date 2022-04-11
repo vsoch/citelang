@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.22 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.23 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.22
+                0.0.23
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -629,7 +629,7 @@ To add detail (e.g., specific files to authors, and authors to paths):</p>
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).</p>
 <p>It may be that you want to disambiguate different aliases, or ignore contributions by
-bots or just particular authors (e.g., there was a single commit from “root” in a repository
+bots or just particular files or authors (e.g., there was a single commit from “root” in a repository
 I was parsing, and I can’t do much with that). To support this, we allow an optional filters file,
 which might look like the following:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">authors</span><span class="p">:</span><span class="w"></span>
@@ -645,7 +645,18 @@ which might look like the following:</p>
 <span class="w">  </span><span class="nt">Dave Trudgian</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">David Trudgian</span><span class="w"></span>
 <span class="w">  </span><span class="nt">Gregory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gregory M. Kurtzer</span><span class="w"></span>
 <span class="nt">ignore_bots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">ignore</span><span class="p">:</span><span class="w"></span>
+
+<span class="c1"># Ignore these files across the repository</span><span class="w"></span>
+<span class="nt">ignore_basename</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go.mod</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go.sum</span><span class="w"></span>
+
+<span class="c1"># Ignore these specific files</span><span class="w"></span>
+<span class="nt">ignore_files</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full/path/to/README.md</span><span class="w"></span>
+
+<span class="c1"># Ignore these specific users</span><span class="w"></span>
+<span class="nt">ignore_users</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span><span class="w"></span>
 </pre></div>
 </div>
