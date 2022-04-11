@@ -94,6 +94,11 @@ def parse_blame_output(output, path):
 
         # We've parsed a single item - save complete time information etc
         if all(key in item for key in ("commit", "author", "text", "time")):
+
+            # Don't include empty lines
+            if item["text"].strip() == "":
+                item = {}
+                continue
             item.update({"path": path})
 
             # We don't convert time to int here because it gets loaded as str
@@ -234,13 +239,23 @@ class ContributionSummary:
         """
         filters = utils.read_yaml(filters) if filters else {}
         authors = filters.get("authors", {})
-        ignore = filters.get("ignore", [])
+        ignore_files = filters.get("ignore_files", [])
+        ignore_basename = filters.get("ignore_basename", [])
+        ignore_users = filters.get("ignore_users", [])
         ignore_bots = filters.get("ignore_bots", False)
 
         seen = set()
         for commit, items in self.history.items():
             for author, paths in items.items():
                 for path, commits in paths.items():
+
+                    # ignore specific paths
+                    if (
+                        os.path.basename(path) in ignore_basename
+                        or path in ignore_files
+                    ):
+                        continue
+
                     for commit, times in commits.items():
                         for timestamp, count in times.items():
 
@@ -274,8 +289,8 @@ class ContributionSummary:
                             if (
                                 ignore_bots
                                 and "[bot]" in author
-                                or author in ignore
-                                or original_author in ignore
+                                or author in ignore_users
+                                or original_author in ignore_users
                             ):
                                 continue
 
