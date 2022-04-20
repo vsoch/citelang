@@ -24,6 +24,14 @@ palettes = {
 }
 
 
+# Generally safe colors for light or black backgrounds in the 16 color palette.
+# See also https://robotmoon.com/256-colors/
+termColors = [
+    1, 2, 3, 4, 5, 6, 
+    9, 10, 11, 12, 13, 14,
+]
+
+
 def get_random_color():
     return "#" + "".join([random.choice("ABCDEF0123456789") for i in range(6)])
 
@@ -32,7 +40,7 @@ def get_rich_color():
     """
     Return a random color
     """
-    return "color(" + str(random.choice(range(255))) + ")"
+    return "color(" + str(random.choice(termColors)) + ")"
 
 
 def get_rich_colors(N):
