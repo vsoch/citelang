@@ -37,7 +37,17 @@ class NPMPackageManager(PackagesFromFile):
         for package_name, version in meta.get("dependencies", {}).items():
 
             version = re.sub("(\^|<|>|=)", "", version)
+
+            # Always get rid of @ - doesn't seem to get hits
+            package_name = package_name.replace("@", "", 1)
             pkg = self.get_package(package_name, version)
+
+            # If we don't have a package, try using start of name
+            if not pkg:
+                package_name = package_name.split("/")[0]
+                pkg = self.get_package(package_name, version)
+                if not pkg:
+                    continue
 
             # Ensure we have version, fallback to latest
             if not version:

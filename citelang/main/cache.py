@@ -95,7 +95,14 @@ class Cache:
             return
 
         # Load the cache, return as a result if it exists.
-        data = utils.read_json(path)
+        # If there is an error loading it, assume corrupt (and regnerate)
+        data = None
+        try:
+            data = utils.read_json(path)
+        except:
+            logger.warning(f"Cache entry {path} has corrupt json, removing.")
+            os.remove(path)
+
         if data and endpoint:
             return results.Table(data, endpoint)
         elif data:

@@ -4,6 +4,7 @@ __license__ = "MPL 2.0"
 
 import re
 
+from citelang.logger import logger
 from .base import PackagesFromFile
 
 
@@ -55,6 +56,9 @@ class RPackageManager(PackagesFromFile):
 
             # Try to get from cache - either versioned or not
             pkg = self.get_package(package_name, version)
+            if not pkg:
+                logger.warning(f"Cannot find package {package_name}")
+                continue
 
             # Ensure we have version, fallback to latest
             if not version:
