@@ -49,6 +49,9 @@ class NPMPackageManager(PackagesFromFile):
                 if not pkg:
                     continue
 
+            if not pkg or not package_name:
+                continue
+
             # Ensure we have version, fallback to latest
             if not version:
                 version = pkg.data["latest_release_number"]

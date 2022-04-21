@@ -79,6 +79,22 @@ class Cache:
         """
         return os.path.join(settings.cfg.cache_dir, "%s.json" % name)
 
+    def is_empty(self, name):
+        """
+        Given a package name, determine if it's empty (the endpoint tried and
+        no result) so we don't try again.
+        """
+        empty_name = os.path.join(settings.cfg.cache_dir, "%s.empty" % name)
+        return os.path.exists(empty_name)
+
+    def mark_empty(self, name):
+        """
+        Given a package name, mark it empty to indicate the manager doesn't
+        have it.
+        """
+        empty_name = os.path.join(settings.cfg.cache_dir, "%s.empty" % name)
+        utils.write_file("", empty_name)
+
     def get(self, name, endpoint=None):
         """
         Given a cache name (typically matching the endpoint) retrieve if exists.
