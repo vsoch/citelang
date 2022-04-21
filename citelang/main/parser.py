@@ -77,11 +77,22 @@ class Parser(base.BaseClient):
         Given a package name and manager, generate roots and a table
         """
         # Generate the table with multiple roots - flatten out credit
+        table, round_by = self._prepare_table(self.roots)
+
+        # Add listing of packages and dependencies to parser
+        self.data = table
+        self.round_by = round_by
+        return self
+
+    def _prepare_table(self, roots):
+        """
+        Helper function to prepare the average credit summary table.
+        """
         table = {}
 
         # Multiplier for credit depending on total packages
-        splitby = 1 / len(self.roots)
-        for lib, root in self.roots.items():
+        splitby = 1 / len(roots)
+        for lib, root in roots.items():
             for node in root.iternodes():
                 if node.obj.manager not in table:
                     table[node.obj.manager] = {}
@@ -91,11 +102,21 @@ class Parser(base.BaseClient):
                         "url": node.obj.homepage,
                     }
                 table[node.obj.manager][node.name]["credit"] += node.credit * splitby
+        return table, root.round_by
 
-        # Add listing of packages and dependencies to parser
-        self.data = table
-        self.round_by = root.round_by
-        return self
+    def prepare_custom_table(self, includes):
+        """
+        Prepare (and return) a table filtered to a specific kind of root.
+        """
+        # Multiplier for credit depending on total packages
+        roots = {}
+        for lib, root in self.roots.items():
+            reqfile = lib.split(":")[0]
+            if reqfile in includes:
+                roots[lib] = root
+
+        table, _ = self._prepare_table(roots)
+        return table
 
     def add_lib(self, manager, name, **args):
         """
@@ -181,7 +202,7 @@ class FileNameParser(Parser):
         self._update_roots(**kwargs)
         return self.prepare_table()
 
-    def render(self):
+    def render(self, start_end_blocks=True):
         """
         Render final file!
         """
@@ -220,11 +241,16 @@ class FileNameParser(Parser):
                 while self.end_block not in line:
                     line = lines.pop(0)
                 # When we get here we have the end block
-                render += (
-                    [self.start_block]
-                    + markdown.split("\n")
-                    + [template_suffix, self.end_block]
-                )
+
+                if start_end_blocks:
+                    render += (
+                        [self.start_block]
+                        + markdown.split("\n")
+                        + [template_suffix, self.end_block]
+                    )
+                else:
+                    render += markdown.split("\n") + [template_suffix]
+
             else:
                 render.append(line)
         return "\n".join(render)

@@ -3,6 +3,7 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 from .base import PackagesFromFile
+import re
 
 
 class GemfileManager(PackagesFromFile):
@@ -26,12 +27,17 @@ class GemfileManager(PackagesFromFile):
         libs = []
 
         for line in content.split("\n"):
-            if "gem" in line and "source" not in line:
+            line = line.strip()
+            if line.startswith("gem") and "source" not in line:
                 for sub in ["gem", "'", '"', ","]:
                     line = line.replace(sub, "").strip()
+
+                for sep in [" if ", ":platforms", ":require"]:
+                    line = line.split(sep)[0]
+
                 # Do we have a version?
-                if "~>" in line:
-                    line, version = line.split("~>", 1)
+                if re.search("(~>|@|<=|>=)", line):
+                    line, _, version = re.split("(~>|@|<=|>=)", line)
                     line = "%s@%s" % (line.strip(), version.strip())
                 libs.append(line)
 
@@ -40,8 +46,12 @@ class GemfileManager(PackagesFromFile):
             version = None
             if "@" in package_name:
                 package_name, version = package_name.split("@", 1)
+            elif " " in package_name:
+                package_name, version = package_name.split(" ", 1)
 
             pkg = self.get_package(package_name, version)
+            if not pkg:
+                continue
 
             # Ensure we have version, fallback to latest
             if not version:

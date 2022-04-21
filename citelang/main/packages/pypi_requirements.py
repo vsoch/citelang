@@ -18,6 +18,12 @@ class PythonManager(PackagesFromFile):
         deps = []
         for line in lines:
 
+            line = line.split("#", 1)[0]
+
+            # skip comments
+            if line.strip().startswith("#"):
+                continue
+
             # We can't easily add github pypi references
             if not line or "git@" in line:
                 continue
@@ -34,6 +40,9 @@ class PythonManager(PackagesFromFile):
             # We cannot parse a dep without a name
             if not package_name:
                 continue
+
+            # Remove variants
+            package_name = re.sub("\[.+\]", "", package_name)
 
             # First add requirements (names and pypi manager) to deps
             pkg = self.get_package(package_name, version)
@@ -174,6 +183,9 @@ class SetupManager(PythonManager):
             for x in cleaned
             if re.search("[a-zA-Z]", x) and not re.search("^f('|\")", x)
         ]
+
+        # Anything that starts with a comment
+        cleaned = [x.strip() for x in cleaned if not x.strip().startswith("#")]
 
         # Remove any variants (e.g., [all])
         cleaned = [re.sub("\[.+\]", "", x) for x in cleaned]

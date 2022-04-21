@@ -113,6 +113,10 @@ class PackagesFromFile(PackageManager):
                 pkg = endpoints.get_endpoint("package", data=result)
 
         if pkg is None:
+
+            # Don't try again if this package is flagged as empty (not existing)
+            if self.cache.is_empty(f"package/{self.underlying_manager}/{package_name}"):
+                return pkg
             try:
                 pkg = endpoints.get_endpoint(
                     "package",
@@ -121,6 +125,10 @@ class PackagesFromFile(PackageManager):
                 )
             except:
                 pass
+
+        # If we get down here and no package, mark empty
+        if not pkg:
+            self.cache.mark_empty(f"package/{self.underlying_manager}/{package_name}")
         return pkg
 
     def get_repo(self):

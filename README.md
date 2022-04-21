@@ -22,6 +22,7 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## TODO
 
+ - save commit content and message for further filtering
  - colors should be meaningful
 
 ## Contributors
