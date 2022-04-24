@@ -82,7 +82,7 @@ class PackageBase:
         if not url and self.manager == "pypi":
             return f"https://pypi.org/project/{self.name}"
         # Some R urls have TWO and they are wonky
-        if " " in url:
+        if url and " " in url:
             url = url.strip().split(" ")[0]
         return url
 
@@ -132,7 +132,7 @@ class CustomPackage(PackageBase):
         url = self.data.get("homepage") or self.data.get("package", {}).get("homepage")
         if not url and self.manager == "github":
             return f"https://github.com/{self.name}"
-        if " " in url:
+        if url and " " in url:
             url = url.strip().split(" ")[0]
         return url
 
