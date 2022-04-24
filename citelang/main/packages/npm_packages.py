@@ -22,7 +22,7 @@ class NPMPackageManager(PackagesFromFile):
     color = "#d54d25"
     default_versions = None
 
-    def parse(self, content):
+    def parse(self, content, **kwargs):
         """
         Parse the self.content (the packages.json)
         """

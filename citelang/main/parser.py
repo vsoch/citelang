@@ -271,7 +271,7 @@ class RequirementsParser(FileNameParser):
         """
         Generate a badge for a requirements file.
         """
-        self.gen(filename=filename, name=name, *args, **kwargs)
+        self.gen(filename=filename or self.filename, name=name, *args, **kwargs)
         root = list(self.roots.values())[0]
         if template == "treemap":
             return results.Treemap(root)
@@ -297,7 +297,11 @@ class RequirementsParser(FileNameParser):
         pkg = None
 
         if basename in packages.filesystem_manager_names:
-            manager_kwargs = {"content": self.content, "package_name": name}
+            manager_kwargs = {
+                "content": self.content,
+                "package_name": name,
+                "filename": filename,
+            }
 
             # Custom set the name of the manager
             pkg = package.get_package(

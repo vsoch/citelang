@@ -18,7 +18,7 @@ class GoModuleManager(PackagesFromFile):
     color = "#007d9c"
     default_versions = None
 
-    def parse(self, content):
+    def parse(self, content, **kwargs):
         """
         Parse the self.content (the Gemfile)
         """

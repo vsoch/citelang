@@ -19,7 +19,7 @@ class GemfileManager(PackagesFromFile):
     color = "#e9573f"
     default_versions = None
 
-    def parse(self, content):
+    def parse(self, content, **kwargs):
         """
         Parse the self.content (the Gemfile)
         """

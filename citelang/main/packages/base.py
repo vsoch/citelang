@@ -70,9 +70,9 @@ class PackagesFromFile(PackageManager):
 
     filesystem_manager = True
 
-    def __init__(self, package_name=None, content=None):
+    def __init__(self, package_name=None, content=None, filename=None):
         """
-        An R package manager parses packages from a DESCRIPTION
+        An base filesystem package manager parses packages from a file
         """
         self.version = None
         self.package_name = package_name
@@ -80,6 +80,7 @@ class PackagesFromFile(PackageManager):
         if package_name:
             self.set_name(package_name)
         self.data = {}
+        self.filename = filename
         if content:
             self.parse(content)
 
@@ -126,9 +127,14 @@ class PackagesFromFile(PackageManager):
             except:
                 pass
 
-        # If we get down here and no package, mark empty
+        # If we get down here and no package, mark empty (unless it isn't a package we know)
         if not pkg:
-            self.cache.mark_empty(f"package/{self.underlying_manager}/{package_name}")
+            try:
+                self.cache.mark_empty(
+                    f"package/{self.underlying_manager}/{package_name}"
+                )
+            except:
+                pass
         return pkg
 
     def get_repo(self):
@@ -155,7 +161,7 @@ class PackagesFromFile(PackageManager):
         """
         return self.data.get("package")
 
-    def parse(self, content):
+    def parse(self, content, **kwargs):
         """
         Parse the self.content
         """

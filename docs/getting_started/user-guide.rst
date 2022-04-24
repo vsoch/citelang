@@ -595,7 +595,7 @@ Requirements Files
 ^^^^^^^^^^^^^^^^^^
 
 If you instead provide a name and filename to render, you can generate the same
-kind of rendering for a custom package (possibly not on pypi or other package managers):s
+kind of rendering for a custom package (possibly not on pypi or other package managers):
 
 .. code-block:: console
 
@@ -607,7 +607,14 @@ Here is a setup.py, harder to parse but we try!
 
    $ citelang gen python-lib setup.py --outfile mylib.md
 
-And a Gemfile:
+
+For each of the python file types, by default we use pip to parse (and get a more accurate result than static). However if there is some issue, it will fall back to the static parser. You can also disable using pipe entirely by doing:
+
+.. code-block:: console
+
+    export CITELANG_USE_PIP=false
+
+As we move on to other languages, here is an example of parsing a Gemfile:
 
 .. code-block:: console
 
@@ -931,9 +938,8 @@ Adding an additional step to commit a file and push to main might look like:
         git commit -m "Automated push with new software-credit $(date '+%Y-%m-%d')" || exit 0
         git push origin main || exit 0
 
-You could also open a pull request if you want to review first! Note that we have more planned
-for this action, including actions for the render and badge types, along with a development
-variant that can parse a requirements.txt or similar. Stay tuned!
+
+You could also open a pull request if you want to review first!
 
 ******
 Python
