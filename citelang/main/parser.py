@@ -104,7 +104,10 @@ class Parser(base.BaseClient):
                 table[node.obj.manager][node.name]["credit"] += node.credit * splitby
         return table, root.round_by
 
-    def prepare_custom_table(self, includes):
+    def prepare_custom_table(
+        self,
+        includes,
+    ):
         """
         Prepare (and return) a table filtered to a specific kind of root.
         """
@@ -202,15 +205,18 @@ class FileNameParser(Parser):
         self._update_roots(**kwargs)
         return self.prepare_table()
 
-    def render(self, start_end_blocks=True):
+    def render(self, start_end_blocks=True, data=None):
         """
         Render final file!
         """
         markdown = table_template
 
+        # Allow parsing custom data
+        data = data or self.data
+
         # Sort from least to greatest
         listing = []
-        for manager, pkgs in self.data.items():
+        for manager, pkgs in data.items():
             for pkg, meta in pkgs.items():
                 listing.append((manager, pkg, meta["credit"], meta["url"]))
 
@@ -278,6 +284,33 @@ class RequirementsParser(FileNameParser):
         elif template == "sunburst":
             return results.InteractiveBadge(root)
         return results.Badge(root)
+
+    def load_datafiles(self, files, includes=None):
+        """
+        Given a list of data.json files, load into roots and then generate the table.
+        """
+        roots = {}
+
+        # Take average depending on number of roots
+        splitby = 1 / len(files)
+        for filename in files:
+            if not os.path.exists(filename):
+                logger.warning("%s does not exist, skipping." % filename)
+                continue
+            data = utils.read_json(filename)
+            for manager, libs in data.items():
+                if includes and manager not in includes:
+                    continue
+                if manager not in roots:
+                    roots[manager] = {}
+                for libname, libmeta in libs.items():
+                    if libname not in roots[manager]:
+                        roots[manager][libname] = libmeta
+                    else:
+                        if libmeta["url"] and not roots[manager][libname]["url"]:
+                            roots[manager][libname]["url"] = libmeta["url"]
+                        roots[manager][libname]["credit"] += libmeta["credit"] * splitby
+        return roots
 
     def gen(self, name, filename=None, *args, **kwargs):
         """

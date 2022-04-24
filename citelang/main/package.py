@@ -9,7 +9,13 @@ from citelang.logger import logger
 
 
 def get_package(
-    manager, name, version=None, data=None, use_cache=True, manager_kwargs=None
+    manager,
+    name,
+    version=None,
+    data=None,
+    use_cache=True,
+    manager_kwargs=None,
+    parsed_data=None,
 ):
     """
     Return a package handle for a custom package (defined in citelang) or libraries.io
@@ -24,6 +30,7 @@ def get_package(
             manager=manager,
             version=version,
             data=data,
+            parsed_data=parsed_data,
             use_cache=use_cache,
             manager_kwargs=manager_kwargs,
         )
@@ -33,6 +40,7 @@ def get_package(
         name=name,
         manager=manager,
         version=version,
+        parsed_data=parsed_data,
         data=data,
         use_cache=use_cache,
     )
@@ -45,6 +53,7 @@ class PackageBase:
         name,
         version=None,
         data=None,
+        parsed_data=None,
         use_cache=True,
         manager_kwargs=None,
     ):
@@ -56,6 +65,7 @@ class PackageBase:
         self.parse(name)
         self.data = data or {}
         self.latest = None
+        self.parsed_data = parsed_data or {}
         self.use_cache = use_cache
         self.cache = cache.cache
         self.manager_kwargs = manager_kwargs or {}
@@ -104,6 +114,21 @@ class CustomPackage(PackageBase):
     A wrapper for a custom package (provided by citelang)
     """
 
+    def __init__(
+        self,
+        manager,
+        name,
+        version=None,
+        data=None,
+        use_cache=True,
+        manager_kwargs=None,
+    ):
+        super().__init__(manager, name, version, data, use_cache, manager_kwargs)
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+
     @property
     def homepage(self):
         url = self.data.get("homepage") or self.data.get("package", {}).get("homepage")
@@ -115,10 +140,6 @@ class CustomPackage(PackageBase):
         """
         Retrieve custom package dependencies
         """
-        if not self.underlying_manager:
-            self.underlying_manager = packages.managers[self.manager](
-                **self.manager_kwargs
-            )
         manager = self.underlying_manager
 
         # Use manager cache first
@@ -173,10 +194,6 @@ class CustomPackage(PackageBase):
         """
         Get info for a custom package
         """
-        if not self.underlying_manager:
-            self.underlying_manager = packages.managers[self.manager](
-                **self.manager_kwargs
-            )
         manager = self.underlying_manager
 
         # Use manager cache first

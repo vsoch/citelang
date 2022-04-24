@@ -87,10 +87,11 @@ class PackageLister(InstallCommand):
                 reqs, check_supported_wheels=False
             ).all_requirements
 
-        except:
+        except Exception as err:
             self._citelang_success = False
             logger.warning(
-                "Issue using pip to resolve dependencies, will fall back to static parser."
+                "Issue using pip to resolve dependencies: %s, will fall back to static parser."
+                % err
             )
             self._citelang_reqs = []
 

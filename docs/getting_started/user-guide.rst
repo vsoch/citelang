@@ -670,6 +670,33 @@ two requirements.txt files in a repository, and combining the results:
 
     print(table.render())
 
+Loading Data
+^^^^^^^^^^^^
+
+If you save your client data to file (e.g., to data.json for some repository)
+you can later load it into a parser to combine results.
+
+.. code-block:: python
+
+    # Let's say we have a list of data.json files, each with a repository and dependencies
+    roots = global_cli.load_datafiles(data_files)
+
+    # Let's tweak the round by value to our liking...
+    global_cli.round_by = 100
+    
+    # And render providing the custom data!
+    global_cli.render(data=roots)
+    
+    # You can also do the same, but scope to a type of requirement file
+    data = global_cli.load_datafiles(data_files, includes=["setup.py", "requirements.txt", "pypi"])
+    data = global_cli.load_datafiles(data_files, includes=["cran", "DESCRIPTION"])
+    data = global_cli.load_datafiles(data_files, includes=["package.json", "npm"])
+    data = global_cli.load_datafiles(data_files, includes=["go.mod", "go"])
+
+
+And then you could run a custom render for each to generate the requirements table, but scoped
+to a language.
+
 
 Contrib
 =======
