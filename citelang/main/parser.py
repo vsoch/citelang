@@ -304,7 +304,10 @@ class RequirementsParser(FileNameParser):
                 if manager not in roots:
                     roots[manager] = {}
                 for libname, libmeta in libs.items():
+                    if not libname:
+                        continue
                     if libname not in roots[manager]:
+                        libmeta["credit"] = libmeta["credit"] * splitby
                         roots[manager][libname] = libmeta
                     else:
                         if libmeta["url"] and not roots[manager][libname]["url"]:
