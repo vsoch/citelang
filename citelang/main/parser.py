@@ -226,7 +226,11 @@ class FileNameParser(Parser):
             if credit == 0:
                 logger.warning("Rounded credit for %s is 0, skipping." % pkg)
                 continue
+
+            # R packages have some "doubled up" urls, by space or newline
             if url:
+                if re.search("( |\n)", url):
+                    url = re.split("( |\n)", url.strip())[0]
                 pkg = "[%s](%s)" % (pkg, url)
             markdown += "|%s|%s|%s|\n" % (
                 manager,

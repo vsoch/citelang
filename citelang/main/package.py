@@ -81,6 +81,9 @@ class PackageBase:
         url = self.data.get("package", {}).get("homepage")
         if not url and self.manager == "pypi":
             return f"https://pypi.org/project/{self.name}"
+        # Some R urls have TWO and they are wonky
+        if " " in url:
+            url = url.strip().split(" ")[0]
         return url
 
     def parse(self, name):
@@ -129,6 +132,8 @@ class CustomPackage(PackageBase):
         url = self.data.get("homepage") or self.data.get("package", {}).get("homepage")
         if not url and self.manager == "github":
             return f"https://github.com/{self.name}"
+        if " " in url:
+            url = url.strip().split(" ")[0]
         return url
 
     def dependencies(self, return_data=False):
