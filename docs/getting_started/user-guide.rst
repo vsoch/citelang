@@ -595,7 +595,7 @@ Requirements Files
 ^^^^^^^^^^^^^^^^^^
 
 If you instead provide a name and filename to render, you can generate the same
-kind of rendering for a custom package (possibly not on pypi or other package managers):s
+kind of rendering for a custom package (possibly not on pypi or other package managers):
 
 .. code-block:: console
 
@@ -607,7 +607,14 @@ Here is a setup.py, harder to parse but we try!
 
    $ citelang gen python-lib setup.py --outfile mylib.md
 
-And a Gemfile:
+
+For each of the python file types, by default we use pip to parse (and get a more accurate result than static). However if there is some issue, it will fall back to the static parser. You can also disable using pipe entirely by doing:
+
+.. code-block:: console
+
+    export CITELANG_USE_PIP=false
+
+As we move on to other languages, here is an example of parsing a Gemfile:
 
 .. code-block:: console
 
@@ -662,6 +669,33 @@ two requirements.txt files in a repository, and combining the results:
     table = cli.prepare_table()
 
     print(table.render())
+
+Loading Data
+^^^^^^^^^^^^
+
+If you save your client data to file (e.g., to data.json for some repository)
+you can later load it into a parser to combine results.
+
+.. code-block:: python
+
+    # Let's say we have a list of data.json files, each with a repository and dependencies
+    roots = global_cli.load_datafiles(data_files)
+
+    # Let's tweak the round by value to our liking...
+    global_cli.round_by = 100
+    
+    # And render providing the custom data!
+    global_cli.render(data=roots)
+    
+    # You can also do the same, but scope to a type of requirement file
+    data = global_cli.load_datafiles(data_files, includes=["setup.py", "requirements.txt", "pypi"])
+    data = global_cli.load_datafiles(data_files, includes=["cran", "DESCRIPTION"])
+    data = global_cli.load_datafiles(data_files, includes=["package.json", "npm"])
+    data = global_cli.load_datafiles(data_files, includes=["go.mod", "go"])
+
+
+And then you could run a custom render for each to generate the requirements table, but scoped
+to a language.
 
 
 Contrib
@@ -931,9 +965,8 @@ Adding an additional step to commit a file and push to main might look like:
         git commit -m "Automated push with new software-credit $(date '+%Y-%m-%d')" || exit 0
         git push origin main || exit 0
 
-You could also open a pull request if you want to review first! Note that we have more planned
-for this action, including actions for the render and badge types, along with a development
-variant that can parse a requirements.txt or similar. Stay tuned!
+
+You could also open a pull request if you want to review first!
 
 ******
 Python

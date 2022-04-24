@@ -27,8 +27,18 @@ palettes = {
 # Generally safe colors for light or black backgrounds in the 16 color palette.
 # See also https://robotmoon.com/256-colors/
 termColors = [
-    1, 2, 3, 4, 5, 6, 
-    9, 10, 11, 12, 13, 14,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
 ]
 
 

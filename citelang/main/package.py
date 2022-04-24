@@ -9,7 +9,12 @@ from citelang.logger import logger
 
 
 def get_package(
-    manager, name, version=None, data=None, use_cache=True, manager_kwargs=None
+    manager,
+    name,
+    version=None,
+    data=None,
+    use_cache=True,
+    manager_kwargs=None,
 ):
     """
     Return a package handle for a custom package (defined in citelang) or libraries.io
@@ -104,6 +109,21 @@ class CustomPackage(PackageBase):
     A wrapper for a custom package (provided by citelang)
     """
 
+    def __init__(
+        self,
+        manager,
+        name,
+        version=None,
+        data=None,
+        use_cache=True,
+        manager_kwargs=None,
+    ):
+        super().__init__(manager, name, version, data, use_cache, manager_kwargs)
+        if not self.underlying_manager:
+            self.underlying_manager = packages.managers[self.manager](
+                **self.manager_kwargs
+            )
+
     @property
     def homepage(self):
         url = self.data.get("homepage") or self.data.get("package", {}).get("homepage")
@@ -115,10 +135,6 @@ class CustomPackage(PackageBase):
         """
         Retrieve custom package dependencies
         """
-        if not self.underlying_manager:
-            self.underlying_manager = packages.managers[self.manager](
-                **self.manager_kwargs
-            )
         manager = self.underlying_manager
 
         # Use manager cache first
@@ -173,10 +189,6 @@ class CustomPackage(PackageBase):
         """
         Get info for a custom package
         """
-        if not self.underlying_manager:
-            self.underlying_manager = packages.managers[self.manager](
-                **self.manager_kwargs
-            )
         manager = self.underlying_manager
 
         # Use manager cache first
