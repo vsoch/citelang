@@ -15,7 +15,6 @@ def get_package(
     data=None,
     use_cache=True,
     manager_kwargs=None,
-    parsed_data=None,
 ):
     """
     Return a package handle for a custom package (defined in citelang) or libraries.io
@@ -30,7 +29,6 @@ def get_package(
             manager=manager,
             version=version,
             data=data,
-            parsed_data=parsed_data,
             use_cache=use_cache,
             manager_kwargs=manager_kwargs,
         )
@@ -40,7 +38,6 @@ def get_package(
         name=name,
         manager=manager,
         version=version,
-        parsed_data=parsed_data,
         data=data,
         use_cache=use_cache,
     )
@@ -53,7 +50,6 @@ class PackageBase:
         name,
         version=None,
         data=None,
-        parsed_data=None,
         use_cache=True,
         manager_kwargs=None,
     ):
@@ -65,7 +61,6 @@ class PackageBase:
         self.parse(name)
         self.data = data or {}
         self.latest = None
-        self.parsed_data = parsed_data or {}
         self.use_cache = use_cache
         self.cache = cache.cache
         self.manager_kwargs = manager_kwargs or {}
