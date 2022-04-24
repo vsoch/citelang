@@ -41,6 +41,8 @@ class NPMPackageManager(PackagesFromFile):
             # Always get rid of @ - doesn't seem to get hits
             package_name = package_name.replace("@", "", 1)
             pkg = self.get_package(package_name, version)
+            if not package_name:
+                continue
 
             # If we don't have a package, try using start of name
             if not pkg:
