@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.26 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.27 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.26
+                0.0.27
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -509,7 +509,7 @@ open an issue!</p>
 <h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
 <p>This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
-per package. As an example, let’s say we start with <a href="#id2"><span class="problematic" id="id3">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper.md">https://github.com/vsoch/citelang/blob/main/examples/paper.md</a>&gt;`_ .
+per package. As an example, let’s say we start with <a href="#id2"><span class="problematic" id="id3">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md">https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md</a>&gt;`_ .
 You’ll notice there are software references formatted as follows:</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="ni">@apt</span>{name=singularity-container, version=3.8.2}
 <span class="ni">@pypi</span>{name=singularity-hpc}
@@ -523,14 +523,14 @@ You’ll notice there are software references formatted as follows:</p>
 </pre></div>
 </div>
 <p>Then to render the citation table into the file:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/paper.md
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/pre-render.md
 </pre></div>
 </div>
 <p>This will print the result to the screen! To save to output file (overwrite the same file or write to a different file):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/paper.md --outfile examples/paper-render.md
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang render examples/pre-render.md --outfile examples/post-render.md
 </pre></div>
 </div>
-<p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/paper-render.md">example rendering here</a>.</p>
+<p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/post-render.md">example rendering here</a>.</p>
 </div>
 <div class="section" id="gen-generate">
 <h3>Gen (generate)<a class="headerlink" href="#gen-generate" title="Permalink to this headline"></a></h3>
