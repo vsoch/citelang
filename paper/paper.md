@@ -12,7 +12,7 @@ authors:
    orcid: 0000-0002-4387-3819
    affiliation: 1
 affiliations:
- - name: Lawrence Livermore National Lab, Livermore, CA, USA
+ - name: Lawrence Livermore National Laboratory, Livermore, CA, USA
    index: 1
 date: 16 April 2022
 bibliography: paper.bib
