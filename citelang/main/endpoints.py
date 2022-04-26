@@ -112,7 +112,7 @@ class PackageManagers(Endpoint):
 
     def table_data(self, data):
         """
-        Ensure we don't include any repeats
+        Ensure we don't include any repeats and sort by name
         """
         seen = set()
         final_set = []
@@ -124,7 +124,7 @@ class PackageManagers(Endpoint):
             item["name"] = item["name"].capitalize()
             final_set.append(item)
             seen.add(item["name"].lower())
-        return final_set
+        return sorted(final_set, key=lambda x: x["name"])
 
 
 class Dependencies(Endpoint):

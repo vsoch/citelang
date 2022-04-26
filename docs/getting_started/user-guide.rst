@@ -539,7 +539,7 @@ Render
 
 This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
-per package. As an example, let's say we start with _`this markdown file <https://github.com/vsoch/citelang/blob/main/examples/paper.md>`_ .
+per package. As an example, let's say we start with _`this markdown file <https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md>`_ .
 You'll notice there are software references formatted as follows:
 
 .. code-block:: markdown
@@ -561,7 +561,7 @@ Then to render the citation table into the file:
 
 .. code-block:: console
 
-   $ citelang render examples/paper.md
+   $ citelang render examples/pre-render.md
 
 
 This will print the result to the screen! To save to output file (overwrite the same file or write to a different file):
@@ -569,9 +569,9 @@ This will print the result to the screen! To save to output file (overwrite the 
 
 .. code-block:: console
 
-   $ citelang render examples/paper.md --outfile examples/paper-render.md
+   $ citelang render examples/pre-render.md --outfile examples/post-render.md
 
-You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/paper-render.md>`_.
+You can see an `example rendering here <https://github.com/vsoch/citelang/blob/main/examples/post-render.md>`_.
 
 Gen (generate)
 ==============
