@@ -69,42 +69,41 @@ traversed. CiteLang works by way of taking advantage of package manager APIs (wh
 discover software metadata and dependencies, and generates a cache for saving all data and for re-use. 
 A list of supported package managers in provided in Table 1.
 
-| Name      | Project Count | Homepage                              | Default Language |
-|-----------|---------------|---------------------------------------|----------------- |
-| Npm       | 2324490       | https://www.npmjs.com                 | JavaScript       |                         
-| Maven     | 469374        | http://maven.org                      | Java             |                         
-| Pypi      | 437955        | https://pypi.org/                     | Python           |                         
-| Nuget     | 375186        | https://www.nuget.org                 | C#               |                         
-| Go        | 365289        | https://pkg.go.dev                    |                  |                         
-| Packagist | 355691        | https://packagist.org                 | PHP              |                         
-| Rubygems  | 178224        | https://rubygems.org                  | Ruby             |                         
-| Cocoapods | 87311         | http://cocoapods.org/                 | Objective-C      |                         
-| Cargo     | 81429         | https://crates.io                     | Rust             |                         
-| Bower     | 69517         | http://bower.io                       | CSS              |                         
-| Cpan      | 39086         | https://metacpan.org                  | Perl             |                         
-| Pub       | 30141         | https://pub.dartlang.org              | Dart             |                         
-| Clojars   | 24291         | https://clojars.org                   | Clojure          |                         
-| Cran      | 22051         | https://cran.r-project.org/           | R                |                         
-| Hackage   | 16460         | http://hackage.haskell.org            |                  |                         
-| Conda     | 16297         | https://anaconda.org                  |                  |                         
-| Meteor    | 13410         | https://atmospherejs.com              | JavaScript       |                         
-| Hex       | 12946         | https://hex.pm                        | Elixir           |
-| Homebrew  | 7503          | http://brew.sh/                       | C                |                         
-| Puppet    | 6923          | https://forge.puppet.com              | Puppet           |                         
-| Carthage  | 4515          | https://github.com/Carthage/Cartha... | Swift            |                         
-| Swiftpm   | 4207          | https://developer.apple.com/swift/    | Swift            |                         
-| Julia     | 3048          | http://pkg.julialang.org/             | Julia            |                         
-| Elm       | 2605          | http://package.elm-lang.org/          | Elm              |                         
-| Dub       | 2404          | http://code.dlang.org                 | D                |                         
-| Racket    | 2193          | http://pkgs.racket-lang.org/          |                  |    
-| Nimble    | 1902          | https://github.com/nim-lang/nimble    | Nim              |                         
-| Haxelib   | 1703          | https://lib.haxe.org                  | Haxe             |                         
-| Purescript| 582           | https://github.com/purescript/psc-... | PureScript       |                         
-| Alcatraz  | 464           | http://alcatraz.io                    | Objective-C      |                         
-| Inqlude   | 228           | https://inqlude.org/                  | C++              |                         
-| Github    |               | https://github.com                    |                  |                         
-| Spack     | 6375          | https://spack.github.io/packages      |                  | 
-
+|  Name      | Project Count | Homepage                              | Default Language |
+|------------|---------------|---------------------------------------|----------------- |
+| Alcatraz   | 464           | http://alcatraz.io                    | Objective-C      |                         
+| Bower      | 69517         | http://bower.io                       | CSS              |                         
+| Cargo      | 81429         | https://crates.io                     | Rust             |                         
+| Carthage   | 4515          | https://github.com/Carthage/Cartha... | Swift            |                         
+| Clojars    | 24291         | https://clojars.org                   | Clojure          |                         
+| Cocoapods  | 87311         | http://cocoapods.org/                 | Objective-C      |                         
+| Conda      | 16297         | https://anaconda.org                  |                  |                         
+| Cpan       | 39086         | https://metacpan.org                  | Perl             |                         
+| Cran       | 22051         | https://cran.r-project.org/           | R                |                         
+| Dub        | 2404          | http://code.dlang.org                 | D                |                         
+| Elm        | 2605          | http://package.elm-lang.org/          | Elm              |                         
+| Github     |               | https://github.com                    |                  |                         
+| Go         | 365289        | https://pkg.go.dev                    |                  |                         
+| Hackage    | 16460         | http://hackage.haskell.org            |                  |                         
+| Haxelib    | 1703          | https://lib.haxe.org                  | Haxe             |                         
+| Hex        | 12946         | https://hex.pm                        | Elixir           |                         
+| Homebrew   | 7503          | http://brew.sh/                       | C                |                         
+| Inqlude    | 228           | https://inqlude.org/                  | C++              |                         
+| Julia      | 3048          | http://pkg.julialang.org/             | Julia            |                         
+| Maven      | 469374        | http://maven.org                      | Java             |                         
+| Meteor     | 13410         | https://atmospherejs.com              | JavaScript       |                         
+| Nimble     | 1902          | https://github.com/nim-lang/nimble    | Nim              |                         
+| Npm        | 2324490       | https://www.npmjs.com                 | JavaScript       |                         
+| Nuget      | 375186        | https://www.nuget.org                 | C#               |                         
+| Packagist  | 355691        | https://packagist.org                 | PHP              |                         
+| Pub        | 30141         | https://pub.dartlang.org              | Dart             |                         
+| Puppet     | 6923          | https://forge.puppet.com              | Puppet           |                         
+| Purescript | 582           | https://github.com/purescript/psc-... | PureScript       |                         
+| Pypi       | 437955        | https://pypi.org/                     | Python           |                         
+| Racket     | 2193          | http://pkgs.racket-lang.org/          |                  |                         
+| Rubygems   | 178224        | https://rubygems.org                  | Ruby             |                         
+| Spack      | 6375          | https://spack.github.io/packages      |                  |                         
+| Swiftpm    | 4207          | https://developer.apple.com/swift/    | Swift            |                         
 
 > *Table 1* Package managers supported by CiteLang. A subset use their own APIs, while others use [libraries.io](https://libraries.io). The "GitHub" package manager looks at dependencies parsed from the [GitHub dependency graph](https://docs.github.com/en/code-security/supply-chain-security understanding-your-software-supply-chain/about-the-dependency-graph).
 
