@@ -11,6 +11,7 @@ from .cran_description import RPackageManager
 from .ruby_gem import GemfileManager
 from .go_mod import GoModuleManager
 from .npm_packages import NPMPackageManager
+from .cpp_cmakelist import CMakeListManager
 
 # Registered endpoints (populated on init)
 managers = {}
@@ -26,6 +27,7 @@ for manager in [
     GemfileManager,
     GoModuleManager,
     NPMPackageManager,
+    CMakeListManager,
 ]:
     manager_names.append(manager.name)
     managers[manager.name] = manager
