@@ -28,6 +28,24 @@ here = os.path.dirname(os.path.abspath(__file__))
             ],
         ),
         (
+            "cpp-lib",
+            "CMakeLists.txt",
+            [
+                "spack",
+                "eigen3",
+                "openmp",
+                "lapack",
+                "gnuconfig",
+                "python",
+                "cpio",
+                "curl",
+                "xpat",
+                "zlib",
+                "CMakeLists.txt",
+                "cpp-lib",
+            ],
+        ),
+        (
             "r-lib",
             "DESCRIPTION",
             [
@@ -68,7 +86,6 @@ def test_package_files(name, filename, deps):
     """
     cli = client.get_parser(filename=os.path.join(here, "testdata", filename))
     result = cli.gen(name=name)
-
     content = result.render()
     for string in ["Software Credit", name, filename] + deps:
         assert string in content

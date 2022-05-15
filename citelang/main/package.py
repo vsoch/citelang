@@ -269,6 +269,9 @@ class Package(PackageBase):
         Get info for a libraries.io package
         """
         result = self.cache.get(self.cache_name)
+        if not result and not self.manager:
+            return result
+
         if not result or not self.use_cache:
             version = "@%s" % self.version if self.version else ""
             logger.info(

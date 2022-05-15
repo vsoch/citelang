@@ -68,7 +68,7 @@ class BaseClient:
         # Ensure the manager is allowed
         if managers.data:
             managers = [x["name"].lower() for x in managers.data]
-            if name not in managers:
+            if name not in managers and name is not None:
                 managers = "\n".join(managers)
                 logger.exit(f"{name} is not a known manager. Choices are:\n{managers}")
 
