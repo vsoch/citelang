@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.27 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.28 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.27
+                0.0.28
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -569,7 +569,13 @@ kind of rendering for a custom package (possibly not on pypi or other package ma
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen npm-lib package.json --outfile mylib.md
 </pre></div>
 </div>
-<p>And here is an example with a DESCRIPTION file, which goes alongside an R package and includes
+<p>Cpp doesn’t have a great package manager, but we can still derive the direct
+dependencies from a CMakeLists.txt.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen cpp-lib CMakeLists.txt
+</pre></div>
+</div>
+<p>Since a lot of C++ dependencies are in spack, we use that as the underlying manager!
+And here is an example with a DESCRIPTION file, which goes alongside an R package and includes
 dependencies.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen mylib DESCRIPTION --outfile mylib.md
 </pre></div>

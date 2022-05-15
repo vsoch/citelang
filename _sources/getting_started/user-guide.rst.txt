@@ -633,6 +633,14 @@ or npm package.json:
    $ citelang gen npm-lib package.json --outfile mylib.md
 
 
+Cpp doesn't have a great package manager, but we can still derive the direct
+dependencies from a CMakeLists.txt.
+
+.. code-block:: console
+
+    $ citelang gen cpp-lib CMakeLists.txt
+
+Since a lot of C++ dependencies are in spack, we use that as the underlying manager!
 And here is an example with a DESCRIPTION file, which goes alongside an R package and includes
 dependencies.
 
