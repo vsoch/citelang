@@ -539,7 +539,7 @@ Render
 
 This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
-per package. As an example, let's say we start with _`this markdown file <https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md>`_ .
+per package. As an example, let's say we start with `this markdown file <https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md>`_ .
 You'll notice there are software references formatted as follows:
 
 .. code-block:: markdown
@@ -909,6 +909,12 @@ directory. We can load that file and filter it for different contexts.
 GitHub Action
 *************
 
+CiteLang has several GitHub actions to make it easy to automate using some of
+these tools, and proudly show your software credit trees.
+
+Generate GitHub Action
+======================
+
 If you want to generate a software credit markdown for your software (perhaps after a release)
 you can do the following. Here is an example of releasing a Python package.
 
@@ -954,8 +960,12 @@ you can do the following. Here is an example of releasing a Python package.
 
 
 Notice that we have generated a libraries.io key to make the process faster.
-and customized the file to be named software-credit.md. Here is how you would generate
-a png badge for your repository, named custom or by the ``<manager>-<package>.png`` (default).
+and customized the file to be named software-credit.md. 
+
+Badge GitHub Action
+===================
+
+Here is how you would generate a png badge for your repository, named custom or by the ``<manager>-<package>.png`` (default).
 
 .. code-block:: yaml
 
@@ -985,6 +995,27 @@ Adding an additional step to commit a file and push to main might look like:
 
 
 You could also open a pull request if you want to review first!
+
+Contribute GitHub Action
+========================
+
+This is to generate contribution data, and you can decide what to do with it.
+It could be for provenance or analysis.
+
+
+.. code-block:: yaml
+
+    - name: Generate CiteLang Contrib Data
+      uses: vsoch/citelang/action/contrib@main
+      with:   
+        root: /tmp/cloned-repo
+        outdir: /tmp/cloned-repo/.contrib
+        start: 0.0.52
+        end: 0.0.53
+        detail: true
+
+If you would like another tool developed, or to discuss an idea for software credit,
+please don't hesitate to reach out to @vsoch.
 
 ******
 Python
