@@ -750,7 +750,17 @@ or to instead save to an output file (complete json)
 
     $ citelang contrib --start 0.0.17 --end 0.0.19 --outfile author-lines.json
 
-This currently prints a table and saves data. We have plans to provide an associated
+
+Note that by default, we do a deep search, meaning that we do not include ``--first-parent`` 
+when we derive a list of commits (adds more commits) and we do not add ``-C`` or ``-M`` to
+the blame command to try and squash copies and movements. However, if you want a more
+shallow result that does this:
+
+.. code-block:: console
+
+    $ citelang contrib --start v3.9.1 --end v3.9.2 --filters filters.yaml --detail --shallow
+
+All of these examples currently print a table and save data. We have plans to provide an associated
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).
 

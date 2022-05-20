@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; CiteLang Python 0.0.28 documentation</title>
+  <title>User Guide &mdash; CiteLang Python 0.0.29 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.28
+                0.0.29
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -655,7 +655,14 @@ To add detail (e.g., specific files to authors, and authors to paths):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang contrib --start <span class="m">0</span>.0.17 --end <span class="m">0</span>.0.19 --outfile author-lines.json
 </pre></div>
 </div>
-<p>This currently prints a table and saves data. We have plans to provide an associated
+<p>Note that by default, we do a deep search, meaning that we do not include <code class="docutils literal notranslate"><span class="pre">--first-parent</span></code>
+when we derive a list of commits (adds more commits) and we do not add <code class="docutils literal notranslate"><span class="pre">-C</span></code> or <code class="docutils literal notranslate"><span class="pre">-M</span></code> to
+the blame command to try and squash copies and movements. However, if you want a more
+shallow result that does this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang contrib --start v3.9.1 --end v3.9.2 --filters filters.yaml --detail --shallow
+</pre></div>
+</div>
+<p>All of these examples currently print a table and save data. We have plans to provide an associated
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).</p>
 <p>It may be that you want to disambiguate different aliases, or ignore contributions by
