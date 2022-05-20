@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on GitHub.
 
 ## [0.0.x](https://github.com/vsoch/citelang/tree/main) (0.0.x)
+ - contrib does not count commits from other REFs, now uses git log without `--all` (0.0.30)
  - Default contrib does a deep search, with option to add `--shallow` (0.0.29)
  - Adding basic support for parsing CMakeLists.txt (0.0.28)
  - JoSS paper and sort package names in listing (0.0.27)
