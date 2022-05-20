@@ -18,15 +18,9 @@ that when you publish your software, you should publish it to an appropriate pac
 
 ## Getting Started 
 
-If you want to use CiteLang as an analysis library, jump into the mode detailed
-
-⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️ 
-
+If you want to use CiteLang as an analysis library, jump into the mode detailed ⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️ 
 or look specifically at the [Python API](https://vsoch.github.io/citelang/getting_started/user-guide.html#python).
-As an example analysis, the [RSE-Pedia Ecosystem](rseng.github.io/rsepedia-analysis/) is a completed automated setup that parses and summarizes dependencies across the Research Software Encyclopedia weekly, and it's powered by CiteLang! You can do similar analyses or build your own tools using
-CiteLang.
-
-Otherwise, you likely want to use a provided tool, and we will provide a small summary here.
+As an example analysis, the [RSEPedia Software Ecosystem](https://rseng.github.io/rsepedia-analysis/) is a completed automated setup that parses and summarizes dependencies across the [Research Software Encyclopedia](https://rseng.github.io/software) weekly, and it's powered by CiteLang! You can do similar analyses or build your own tools using CiteLang. We will provide a small summary of the tools available here.
 
 ### Badges
 
@@ -56,7 +50,7 @@ will print this to the console, and optionally in json if you want just the data
 CiteLang has a [**Contrib**](https://vsoch.github.io/citelang/getting_started/user-guide.html#contrib) command and underlying
 API that can dig into your git history and look at contributions based on lines. You can read a complete write-up
 and see examples [in this blog post](https://vsoch.github.io/2022/citelang-contrib/#citelang-contrib). It is currently being used
-by the SingularyCE project to say thank you to contributors!
+by the SingularityCE project to say thank you to contributors!
 
 [![asciicast](https://asciinema.org/a/486073.svg)](https://asciinema.org/a/486073?speed=2)
 
@@ -68,10 +62,6 @@ If you want to generate data programatically, we provide [A GitHub action](https
 The functionality that originally derived the name - a "markdown syntax for citations" means that we can start from a [markdown paper](https://github.com/vsoch/citelang/blob/main/examples/pre-render.md) that has some number of CiteLang formatted references, and result in a [rendered paper](https://github.com/vsoch/citelang/blob/main/examples/post-render.md) that includes a credit table. This is done with the [**Render**](https://vsoch.github.io/citelang/getting_started/user-guide.html#render) command, or you can just output a table into its own markdown file with [**Generate**](https://vsoch.github.io/citelang/getting_started/user-guide.html#gen-generate). We provide [an example here](https://github.com/vsoch/citelang/blob/main/software-credit.md) and also provide a [GitHub action](https://vsoch.github.io/citelang/getting_started/user-guide.html#generate-github-action) for you to generate this for your own repository.
 
 
-## TODO
-
- - save commit content and message for further filtering
- - colors should be meaningful
 
 ## Contributors
 
