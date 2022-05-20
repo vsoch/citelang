@@ -8,7 +8,7 @@ CiteLang
     :alt: GitHub stars
     :target: https://github.com/vsoch/citelang/stargazers
 
-.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/citelang-tree.png
+.. image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/assets/img/pypi-citelang.png
 
 Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
 when you use CiteLang to reference software.

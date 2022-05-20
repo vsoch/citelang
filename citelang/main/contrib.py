@@ -520,14 +520,14 @@ class ContributionParser(GitParser):
         """
         # Single commit, honor previous behavior
         if self.start and self.start == self.end:
-            log_range = self.start +"~1.." + self.start
+            log_range = self.start + "~1.." + self.start
         # Open or closed range with start
         elif self.start:
             log_range = self.start + ".." + self.end
         # Open range with end (initial commit to end)
         elif self.end:
             log_range = self.end
-        # No start or end... all history for HEAD 
+        # No start or end... all history for HEAD
         else:
             log_range = "HEAD"
 
