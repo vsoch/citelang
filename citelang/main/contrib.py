@@ -29,7 +29,7 @@ def blame_task(args):
     with blame, record the file as empty in the cache so we don't try again.
     """
     # Sploot out args into variables
-    root, commit, path, save_to = args
+    root, commit, path, save_to, shallow = args
 
     # If we have the history already, return
     if os.path.exists(save_to):
@@ -43,21 +43,16 @@ def blame_task(args):
     # Atomic save
     tmp_file = save_to + ".tmp.%d" % os.getpid()
 
+    # Asssemble command
+    command = ["git", "blame", "-w", "--line-porcelain"]
+
+    # find line copies and movements across files (more shallow result)
+    if shallow:
+        command += ["-M", "-C"]
+    command += [commit, "--", path]
     with utils.workdir(root):
         try:
-            res = utils.run_command(
-                [
-                    "git",
-                    "blame",
-                    "-w",
-                    "-M",
-                    "-C",
-                    "--line-porcelain",
-                    commit,
-                    "--",
-                    path,
-                ]
-            )
+            res = utils.run_command(command)
         # This means we hit some binary, etc.
         except:
             return {"empty": "%s-%s" % (commit, path)}
@@ -139,11 +134,12 @@ class CommitStats(GitParser):
     Stats for a particular commit, saved to a cache.
     """
 
-    def __init__(self, root, commit, paths, outdir):
+    def __init__(self, root, commit, paths, outdir, shallow=False):
         self.paths = paths
         self.commit = commit
         self.items = {}
         self.root = root
+        self.shallow = shallow
 
         # This is a shared cache of blame output
         self.outdir = outdir
@@ -166,6 +162,7 @@ class CommitStats(GitParser):
         files = self.git(
             "git", "ls-tree", "-r", "--name-only", "--full-tree", self.commit
         ).split("\n")
+
         if self.paths:
             files = [x for x in files if x in self.paths]
 
@@ -184,6 +181,7 @@ class CommitStats(GitParser):
                 self.commit,
                 f,
                 os.path.join(self.outdir, f, f"{self.commit}.json"),
+                self.shallow,
             )
             for f in set(files)
             if "%s-%s" % (self.commit, f) not in self.empties
@@ -402,6 +400,10 @@ class ContributionParser(GitParser):
         prefixes = prefixes or []
         regex = "(%s)" % "|".join(prefixes) if prefixes else ""
 
+        if not prefixes:
+            self.paths = []
+            return
+
         # Get all files in the commit history
         for path in self.git(
             "git", "log", "--pretty=format:", "--name-only", "--diff-filter=A"
@@ -416,7 +418,7 @@ class ContributionParser(GitParser):
 
         self.paths = list(paths)
 
-    def parse(self, return_summary=True, within_range=True):
+    def parse(self, return_summary=True, within_range=True, shallow=False):
         """
         Parse the contributions. If within_range is True, don't include git
         blame that goes outside of the range provided.
@@ -426,10 +428,10 @@ class ContributionParser(GitParser):
             logger.exit(f"Cannot find .git repo in {self.root}")
 
         # get commits associated with start to end
-        commits = self.get_commit_range()
+        commits = self.get_commit_range(shallow)
 
         # Retrieve items of history
-        history = self.index_history(commits)
+        history = self.index_history(commits, shallow=shallow)
 
         # Do we want to only include within a range?
         start_timestamp = (
@@ -450,9 +452,9 @@ class ContributionParser(GitParser):
         """
         return int(self.git("git", "show", "-s", "--format=%ct", commit))
 
-    def index_history(self, commits):
+    def index_history(self, commits, shallow=False):
         """
-        index git history. We should eventually run this in parallel.
+        index git history.
         """
         # Keep a lookup of commit stats by directory
         parsers = {}
@@ -479,7 +481,9 @@ class ContributionParser(GitParser):
             total = 0
             print("Preparing all tasks...", end="\r")
             for commit in commits:
-                parser = CommitStats(self.root, commit, self.paths, cache)
+                parser = CommitStats(
+                    self.root, commit, self.paths, cache, shallow=shallow
+                )
                 print("Preparing all tasks...%s" % next(spins), end="\r")
                 total += parser.ntasks
                 parsers[commit] = parser
@@ -510,11 +514,16 @@ class ContributionParser(GitParser):
         """
         return self.git("git", "rev-list", "-n", "1", tag)
 
-    def get_commit_range(self):
+    def get_commit_range(self, shallow=False):
         """
         Given a start and end, parse and return the commits from git
         """
-        res = self.git("git", "log", "--first-parent", "--all", "--format=%H")
+        if shallow:
+            res = self.git("git", "log", "--first-parent", "--all", "--format=%H")
+
+        # Possibly duplications but won't miss any commits
+        else:
+            res = self.git("git", "log", "--all", "--format=%H")
 
         # Get commits and timestamps
         commits = [x for x in res.split("\n") if x]

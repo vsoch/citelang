@@ -123,6 +123,12 @@ def get_parser():
         action="store_true",
     )
     contrib.add_argument(
+        "--shallow",
+        help="Only look at the --first-parent and try to summarize copies and movements.",
+        default=False,
+        action="store_true",
+    )
+    contrib.add_argument(
         "--all-time",
         help="include blame from all time, not just within range.",
         default=False,

@@ -14,7 +14,7 @@ def main(args, parser, extra, subparser):
     )
 
     # All time true means we include git blames done before the range
-    summary = parser.parse(within_range=not args.all_time)
+    summary = parser.parse(within_range=not args.all_time, shallow=args.shallow)
 
     if args.by == "author":
         data = summary.by_author(args.detail, filters=args.filters)
