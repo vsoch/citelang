@@ -45,9 +45,13 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html">User Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary-of-tools">Summary of Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html">User Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
@@ -85,26 +89,68 @@
              
   <div class="section" id="getting-started">
 <span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
-<p>CiteLang is the first markdown syntax for citing software. It allows you to:</p>
+<p>CiteLang is software for digging into software credit. It provides methods and graph-based modeling to study
+single projects or entire software ecosystems. You can use CiteLang for your research, or a provided tool to generate
+software graph artifacts, including (but not limited to):</p>
 <ol class="arabic simple">
 <li>Generate basic software credit trees</li>
 <li>Give credit accounting for dependencies</li>
 <li>Choose the filter or threshold you want for credit</li>
 </ol>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline"></a></h2>
 <p>We don’t believe that “the traditional academic way” of citing papers makes sense for software.
 Why should we be trying to generate separate DOIs (digital object identifiers) when we already have
 established ways to “publish” and distribute software using package managers? The getting started
 guides here will show you the basics of using CiteLang, and of course if you have a question
 or issue, please <a class="reference external" href="https://github.com/vsoch/citelang/issues">let us know</a></p>
+</div>
+<div class="section" id="summary-of-tools">
+<h2>Summary of Tools<a class="headerlink" href="#summary-of-tools" title="Permalink to this headline"></a></h2>
+<p>Along with the underlying Python methods to derive your own credit graphs (see <a class="reference external" href="https://vsoch.github.io/2022/rsepedia/">this writeup about the RSEPedia Software Ecosystem</a>) it provides a set of “ready to go” tools that can be used to visualize or understand your project:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Badge</strong> can show an entire credit tree for a project, and are generated as static png or interactive web page.</li>
+<li><strong>Credit</strong> can visually show dependency graphs in the terminal.</li>
+<li><strong>Graph</strong> can output these same graphs in output formats for graphing software.</li>
+<li><strong>Contrib</strong> (contributions) can be assessed on the level of the line. See <a class="reference external" href="https://vsoch.github.io/2022/citelang-contrib/#citelang-contrib">this write-up on citelang contrib</a> for more detail.</li>
+<li><strong>Render</strong> takes a markdown formatting with CiteLang references, and renders into it a summary table. A comparison can be made to .all-contributors.rc, except instead of contributors, we summarize dependencies.</li>
+<li><strong>Generate</strong> does the same, but doesn’t require a pre-written paper. You can dump out markdown to describe software of your choosing.</li>
+</ul>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#commands">Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#github-action">GitHub Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#credentials">Credentials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#package-managers">Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#package">Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#cache">Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#credit">Credit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#graph">Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#badge">Badge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#render">Render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#gen-generate">Gen (generate)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#contrib">Contrib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#github-action">GitHub Action</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#generate-github-action">Generate GitHub Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#badge-github-action">Badge GitHub Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#contribute-github-action">Contribute GitHub Action</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="user-guide.html#python">Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#frequently-asked-questions">Frequently Asked Questions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-guide.html#why-don-t-the-trees-show-package-managers">Why don’t the trees show package managers?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a><ul>
@@ -113,6 +159,7 @@ or issue, please <a class="reference external" href="https://github.com/vsoch/ci
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 

@@ -77,7 +77,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#contrib">Contrib</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#github-action">GitHub Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-action">GitHub Action</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-github-action">Generate GitHub Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#badge-github-action">Badge GitHub Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contribute-github-action">Contribute GitHub Action</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#why-don-t-the-trees-print-versions">Why don’t the trees print versions?</a></li>
@@ -509,7 +514,7 @@ open an issue!</p>
 <h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
 <p>This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
-per package. As an example, let’s say we start with <a href="#id2"><span class="problematic" id="id3">_`</span></a>this markdown file &lt;<a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md">https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md</a>&gt;`_ .
+per package. As an example, let’s say we start with <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md">this markdown file</a> .
 You’ll notice there are software references formatted as follows:</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="ni">@apt</span>{name=singularity-container, version=3.8.2}
 <span class="ni">@pypi</span>{name=singularity-hpc}
@@ -788,6 +793,10 @@ directory. We can load that file and filter it for different contexts.</p>
 </div>
 <div class="section" id="github-action">
 <h2>GitHub Action<a class="headerlink" href="#github-action" title="Permalink to this headline"></a></h2>
+<p>CiteLang has several GitHub actions to make it easy to automate using some of
+these tools, and proudly show your software credit trees.</p>
+<div class="section" id="generate-github-action">
+<h3>Generate GitHub Action<a class="headerlink" href="#generate-github-action" title="Permalink to this headline"></a></h3>
 <p>If you want to generate a software credit markdown for your software (perhaps after a release)
 you can do the following. Here is an example of releasing a Python package.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Release Python Package</span><span class="w"></span>
@@ -829,8 +838,11 @@ you can do the following. Here is an example of releasing a Python package.</p>
 </pre></div>
 </div>
 <p>Notice that we have generated a libraries.io key to make the process faster.
-and customized the file to be named software-credit.md. Here is how you would generate
-a png badge for your repository, named custom or by the <code class="docutils literal notranslate"><span class="pre">&lt;manager&gt;-&lt;package&gt;.png</span></code> (default).</p>
+and customized the file to be named software-credit.md.</p>
+</div>
+<div class="section" id="badge-github-action">
+<h3>Badge GitHub Action<a class="headerlink" href="#badge-github-action" title="Permalink to this headline"></a></h3>
+<p>Here is how you would generate a png badge for your repository, named custom or by the <code class="docutils literal notranslate"><span class="pre">&lt;manager&gt;-&lt;package&gt;.png</span></code> (default).</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang Badge</span><span class="w"></span>
 <span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch/citelang/action/badge@main</span><span class="w"></span>
 <span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
@@ -855,6 +867,24 @@ a png badge for your repository, named custom or by the <code class="docutils li
 </pre></div>
 </div>
 <p>You could also open a pull request if you want to review first!</p>
+</div>
+<div class="section" id="contribute-github-action">
+<h3>Contribute GitHub Action<a class="headerlink" href="#contribute-github-action" title="Permalink to this headline"></a></h3>
+<p>This is to generate contribution data, and you can decide what to do with it.
+It could be for provenance or analysis.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang Contrib Data</span><span class="w"></span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch/citelang/action/contrib@main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">root</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/cloned-repo</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/cloned-repo/.contrib</span><span class="w"></span>
+<span class="w">    </span><span class="nt">start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.52</span><span class="w"></span>
+<span class="w">    </span><span class="nt">end</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.53</span><span class="w"></span>
+<span class="w">    </span><span class="nt">detail</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</pre></div>
+</div>
+<p>If you would like another tool developed, or to discuss an idea for software credit,
+please don’t hesitate to reach out to &#64;vsoch.</p>
+</div>
 </div>
 <div class="section" id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h2>
