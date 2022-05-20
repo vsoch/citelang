@@ -123,6 +123,12 @@ def get_parser():
         action="store_true",
     )
     contrib.add_argument(
+        "--deep",
+        help="Use --first-parent to include even merged commits (can be redundant or give mergers higher counts, but can give more complete results).",
+        default=False,
+        action="store_true",
+    )
+    contrib.add_argument(
         "--all-time",
         help="include blame from all time, not just within range.",
         default=False,

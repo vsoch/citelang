@@ -750,6 +750,16 @@ or to instead save to an output file (complete json)
 
     $ citelang contrib --start 0.0.17 --end 0.0.19 --outfile author-lines.json
 
+Note that by default, we add ``--first-parent`` to the git log to retrieve commits,
+meaning that if you have a commit from another branch that is merged (or squashed) into
+another, we only show the commit in its final state. While this reduces redundancy, it also
+might lose some contributions that were squashed. To disable using this flag and do a deeper search,
+use ``--deep``:
+
+.. code-block:: console
+
+    $ citelang contrib --start v3.9.1 --end v3.9.2 --filters filters.yaml --detail --deep
+
 This currently prints a table and saves data. We have plans to provide an associated
 action that can use this data and generate a contributors panel for each release (or some other
 range based on commits or tags).

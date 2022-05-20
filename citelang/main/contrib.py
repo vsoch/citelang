@@ -166,6 +166,7 @@ class CommitStats(GitParser):
         files = self.git(
             "git", "ls-tree", "-r", "--name-only", "--full-tree", self.commit
         ).split("\n")
+
         if self.paths:
             files = [x for x in files if x in self.paths]
 
@@ -416,7 +417,7 @@ class ContributionParser(GitParser):
 
         self.paths = list(paths)
 
-    def parse(self, return_summary=True, within_range=True):
+    def parse(self, return_summary=True, within_range=True, first_parent=True):
         """
         Parse the contributions. If within_range is True, don't include git
         blame that goes outside of the range provided.
@@ -426,7 +427,7 @@ class ContributionParser(GitParser):
             logger.exit(f"Cannot find .git repo in {self.root}")
 
         # get commits associated with start to end
-        commits = self.get_commit_range()
+        commits = self.get_commit_range(first_parent)
 
         # Retrieve items of history
         history = self.index_history(commits)
@@ -510,11 +511,16 @@ class ContributionParser(GitParser):
         """
         return self.git("git", "rev-list", "-n", "1", tag)
 
-    def get_commit_range(self):
+    def get_commit_range(self, first_parent=True):
         """
         Given a start and end, parse and return the commits from git
         """
-        res = self.git("git", "log", "--first-parent", "--all", "--format=%H")
+        if first_parent:
+            res = self.git("git", "log", "--first-parent", "--all", "--format=%H")
+
+        # Possibly duplications but won't miss any commits
+        else:
+            res = self.git("git", "log", "--all", "--format=%H")
 
         # Get commits and timestamps
         commits = [x for x in res.split("\n") if x]
