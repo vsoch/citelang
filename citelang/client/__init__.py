@@ -123,8 +123,8 @@ def get_parser():
         action="store_true",
     )
     contrib.add_argument(
-        "--deep",
-        help="Use --first-parent to include even merged commits (can be redundant or give mergers higher counts, but can give more complete results).",
+        "--shallow",
+        help="Only look at the --first-parent and try to summarize copies and movements.",
         default=False,
         action="store_true",
     )
