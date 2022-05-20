@@ -365,8 +365,8 @@ class ContributionSummary:
 
 class ContributionParser(GitParser):
     def __init__(self, root=None, start=None, end=None, outdir=None, paths=None):
-        self.start = start
-        self.end = end
+        self.start = start or ""
+        self.end = end or ""
         self.set_root(root)
         self.set_paths(paths)
         self.outdir = outdir or os.path.join(os.getcwd(), ".contrib")
@@ -518,12 +518,25 @@ class ContributionParser(GitParser):
         """
         Given a start and end, parse and return the commits from git
         """
+        # Single commit, honor previous behavior
+        if self.start and self.start == self.end:
+            log_range = self.start +"~1.." + self.start
+        # Open or closed range with start
+        elif self.start:
+            log_range = self.start + ".." + self.end
+        # Open range with end (initial commit to end)
+        elif self.end:
+            log_range = self.end
+        # No start or end... all history for HEAD 
+        else:
+            log_range = "HEAD"
+
         if shallow:
-            res = self.git("git", "log", "--first-parent", "--all", "--format=%H")
+            res = self.git("git", "log", "--first-parent", "--format=%H", log_range)
 
         # Possibly duplications but won't miss any commits
         else:
-            res = self.git("git", "log", "--all", "--format=%H")
+            res = self.git("git", "log", "--format=%H", log_range)
 
         # Get commits and timestamps
         commits = [x for x in res.split("\n") if x]
@@ -535,23 +548,5 @@ class ContributionParser(GitParser):
         # Need to reverse - end (most recent) is at top!
         commits.reverse()
 
-        # Do we have a start commit or tag?
-        start_commit = self.start
-        if start_commit:
-            if start_commit not in commits:
-                start_commit = self.get_tag_commit(start_commit)
-
-        end_commit = self.end
-        if end_commit:
-            if end_commit not in commits:
-                end_commit = self.get_tag_commit(end_commit)
-
-        if not end_commit:
-            end_commit = commits[-1]
-        if not start_commit:
-            start_commit = commits[0]
-
-        # +1 ensures we include the end commit in the range
-        commits = commits[commits.index(start_commit) : commits.index(end_commit) + 1]
         logger.info("Found %s commits." % len(commits))
         return commits
