@@ -4,12 +4,14 @@ __license__ = "MPL 2.0"
 
 # Custom package managers not in libraries IO
 
-import sys
 from citelang.logger import logger
 import citelang.main.cache as cache
 import citelang.main.endpoints as endpoints
 import citelang.utils as utils
 import requests
+
+import os
+import sys
 
 
 class PackageManager:
@@ -160,6 +162,17 @@ class PackagesFromFile(PackageManager):
         The package endpoint ignores the name and just returns parsed data
         """
         return self.data.get("package")
+
+    def from_file(self, filename, **kwargs):
+        """
+        From file reads in the filename and presents to parse.
+
+        This is a means for a specific package manager to be used directly.
+        We trust the user to provide the correct content file to parse.
+        """
+        self.filename = os.path.abspath(filename)
+        content = utils.read_file(filename)
+        return self.parse(content, **kwargs)
 
     def parse(self, content, **kwargs):
         """
