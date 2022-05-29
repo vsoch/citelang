@@ -68,14 +68,13 @@ class PackageLister(InstallCommand):
                 session=session,
                 finder=finder,
                 use_user_site=options.use_user_site,
-                verbosity=self.verbosity,
             )
             resolver = self.make_resolver(
                 preparer=preparer,
                 finder=finder,
                 options=options,
                 wheel_cache=wheel_cache,
-                use_user_site=options.use_user_site,
+                use_user_site=False,
                 ignore_installed=options.ignore_installed,
                 ignore_requires_python=options.ignore_requires_python,
                 force_reinstall=options.force_reinstall,
