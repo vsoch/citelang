@@ -172,7 +172,7 @@ class PackagesFromFile(PackageManager):
         """
         self.filename = os.path.abspath(filename)
         content = utils.read_file(filename)
-        return self.parse(filename, **kwargs)
+        return self.parse(content, **kwargs)
 
     def parse(self, content, **kwargs):
         """
