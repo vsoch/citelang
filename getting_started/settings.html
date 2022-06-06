@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings &mdash; CiteLang Python 0.0.31 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -83,12 +85,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="settings">
-<span id="getting-started-settings"></span><h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline"></a></h1>
+  <section id="settings">
+<span id="getting-started-settings"></span><h1>Settings<a class="headerlink" href="#settings" title="Permalink to this heading"></a></h1>
 <p>Most defaults should work without changing, however you will likely want to customize
 settings if you want to customize your cache location or similar.</p>
-<div class="section" id="updating-settings">
-<h2>Updating Settings<a class="headerlink" href="#updating-settings" title="Permalink to this headline"></a></h2>
+<section id="updating-settings">
+<h2>Updating Settings<a class="headerlink" href="#updating-settings" title="Permalink to this heading"></a></h2>
 <p>To change defaults you can either edit the settings.yml file in the installation directory
 at <code class="docutils literal notranslate"><span class="pre">citelang/settings.yml</span></code> or create a user-specific configuration by doing:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config userinit
@@ -99,40 +101,40 @@ at <code class="docutils literal notranslate"><span class="pre">citelang/setting
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config <span class="nb">set</span> cache_dir:/tmp/cache
 </pre></div>
 </div>
-</div>
-<div class="section" id="settings-table">
-<h2>Settings Table<a class="headerlink" href="#settings-table" title="Permalink to this headline"></a></h2>
+</section>
+<section id="settings-table">
+<h2>Settings Table<a class="headerlink" href="#settings-table" title="Permalink to this heading"></a></h2>
 <p>The following variables can be configured in your user settings:</p>
-<table border="1" class="docutils" id="id1">
+<table class="docutils align-default" id="id1">
 <caption><span class="caption-text">Title</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
-<col width="25%" />
-<col width="65%" />
-<col width="10%" />
+<col style="width: 25%" />
+<col style="width: 65%" />
+<col style="width: 10%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>disable_cache</td>
-<td>Disable caching packages and managers</td>
-<td>false</td>
+<tbody>
+<tr class="row-even"><td><p>disable_cache</p></td>
+<td><p>Disable caching packages and managers</p></td>
+<td><p>false</p></td>
 </tr>
-<tr class="row-odd"><td>disable_memory_cache</td>
-<td>Disable caching package managers and packages to memory during a session</td>
-<td>false</td>
+<tr class="row-odd"><td><p>disable_memory_cache</p></td>
+<td><p>Disable caching package managers and packages to memory during a session</p></td>
+<td><p>false</p></td>
 </tr>
-<tr class="row-even"><td>cache_dir</td>
-<td>This is in user home in .citelang by default</td>
-<td>$citelang_home/cache</td>
+<tr class="row-even"><td><p>cache_dir</p></td>
+<td><p>This is in user home in .citelang by default</p></td>
+<td><p>$citelang_home/cache</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

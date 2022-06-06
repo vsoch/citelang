@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Guide &mdash; CiteLang Python 0.0.31 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -124,13 +126,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="user-guide">
-<span id="getting-started-user-guide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+  <section id="user-guide">
+<span id="getting-started-user-guide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading"></a></h1>
 <p>Welcome to CiteLang! This is the first markdown syntax for citing software. Importantly,
 when you use CiteLang to reference software.</p>
 <ol class="arabic simple">
-<li>Generate basic software credit trees</li>
-<li>Give credit accounting for dependencies!</li>
+<li><p>Generate basic software credit trees</p></li>
+<li><p>Give credit accounting for dependencies!</p></li>
 </ol>
 <p>No - we aren’t using DOIs! A manually crafted identifier that a human has to remember to generate,
 in addition to a publication or release, is too much work for people to reasonably do. As research
@@ -140,12 +142,12 @@ that when you publish your software, you should publish it to an appropriate pac
 Please <a class="reference external" href="https://github.com/vsoch/citelang/issues">let us know</a> if you have a questions,
 find a bug, or want to request a feature! This is an open source project and we are
 eager for your contribution. 🎉️</p>
-<div class="section" id="usage">
-<span id="getting-started-user-guide-usage"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<section id="usage">
+<span id="getting-started-user-guide-usage"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>Once you have <code class="docutils literal notranslate"><span class="pre">citelang</span></code> installed (<a class="reference internal" href="installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a>) you
 can use citelang either from the command line, or from within Python.</p>
-<div class="section" id="credentials">
-<span id="getting-started-user-guide-usage-client"></span><h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline"></a></h3>
+<section id="credentials">
+<span id="getting-started-user-guide-usage-client"></span><h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this heading"></a></h3>
 <p>CiteLang will require a libraries.io token, so you should <a class="reference external" href="https://libraries.io/">login</a> (it works with
 GitHub and other easy OAuth2 that don’t require permissions beyond your email) and then
 go to the top right -&gt; Settings -&gt; API Key.</p>
@@ -157,13 +159,13 @@ go to the top right -&gt; Settings -&gt; API Key.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
 <p>The following commands are available.</p>
-<div class="section" id="package-managers">
-<h3>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this headline"></a></h3>
+<section id="package-managers">
+<h3>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this heading"></a></h3>
 <p>Let’s find package managers supported.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang list
 </pre></div>
@@ -184,17 +186,17 @@ config section. You can disable using or setting the cache for any command as fo
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citeling list --no-cache
 </pre></div>
 </div>
-</div>
-<div class="section" id="package">
-<h3>Package<a class="headerlink" href="#package" title="Permalink to this headline"></a></h3>
+</section>
+<section id="package">
+<h3>Package<a class="headerlink" href="#package" title="Permalink to this heading"></a></h3>
 <p>To get metadata for a package, or from the command line, to list versions available:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang package pypi requests
 </pre></div>
 </div>
 <p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/package-requests.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/package-requests.png</a></p>
-</div>
-<div class="section" id="dependencies">
-<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
+</section>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
 <p>You can ask to see package dependencies:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang deps pypi requests
 </pre></div>
@@ -204,8 +206,8 @@ config section. You can disable using or setting the cache for any command as fo
 </pre></div>
 </div>
 <p>image:: <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png">https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png</a></p>
-<div class="section" id="config">
-<h4>Config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h4>
+<section id="config">
+<h4>Config<a class="headerlink" href="#config" title="Permalink to this heading"></a></h4>
 <p>You don’t technically need to do any custom configuration. However, if you want to make
 your own user-specific settings file:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang config inituser
@@ -214,25 +216,25 @@ your own user-specific settings file:</p>
 <p>You can also edit the default config in <code class="docutils literal notranslate"><span class="pre">citelang/settings.yml</span></code>
 if you control the install. We will be adding a table of settings when we add official
 documentation. For now, let’s talk about specific variables.</p>
-</div>
-<div class="section" id="disable-cache">
-<h4>disable_cache<a class="headerlink" href="#disable-cache" title="Permalink to this headline"></a></h4>
+</section>
+<section id="disable-cache">
+<h4>disable_cache<a class="headerlink" href="#disable-cache" title="Permalink to this heading"></a></h4>
 <p>This defaults to false, meaning we aren’t disabling the cache. Not disabling the cache
 means we can cache different results in your citelang home. We do this to minimize API calls.
 The exception is for when you ask for a package without a version. Since we cannot
 be sure what the latest version is, we need to check again.</p>
-</div>
-<div class="section" id="disable-memory-cache">
-<h4>disable_memory_cache<a class="headerlink" href="#disable-memory-cache" title="Permalink to this headline"></a></h4>
+</section>
+<section id="disable-memory-cache">
+<h4>disable_memory_cache<a class="headerlink" href="#disable-memory-cache" title="Permalink to this heading"></a></h4>
 <p>Akin to the filesystem, given that you are using a client in a session (whether directly
 in Python or via a command provided by citelang) we will cache results in memory. E.g.,
 if you are asking for multiple packages, we check first that you are asking for a valid
 manager. When we cache the list of managers available, this is possible without an extra
 API call.</p>
-</div>
-</div>
-<div class="section" id="cache">
-<h3>Cache<a class="headerlink" href="#cache" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="cache">
+<h3>Cache<a class="headerlink" href="#cache" title="Permalink to this heading"></a></h3>
 <p>Citelng includes a cache command group for viewing or clearing your filesystem cache.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang cache
 <span class="go">/home/vanessa/.citelang/cache</span>
@@ -247,9 +249,9 @@ API call.</p>
 <span class="go">Are you sure you want to clear the cache? yes</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="credit">
-<h3>Credit<a class="headerlink" href="#credit" title="Permalink to this headline"></a></h3>
+</section>
+<section id="credit">
+<h3>Credit<a class="headerlink" href="#credit" title="Permalink to this heading"></a></h3>
 <p>To create a simple citation credit calculation, you can do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang credit pypi requests
 </pre></div>
@@ -257,9 +259,9 @@ API call.</p>
 <p>By default, we will split the credit graph until:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>if set, we reach a threshold N of packages added (<cite>–max-depth</cite>)</li>
-<li>if set, we reach a total number of unique dependencies added (<cite>–max-deps</cite>)</li>
-<li>we reach a threshold that is smaller than our minimum credit (<cite>–min-credit</cite>)</li>
+<li><p>if set, we reach a threshold N of packages added (<cite>–max-depth</cite>)</p></li>
+<li><p>if set, we reach a total number of unique dependencies added (<cite>–max-deps</cite>)</p></li>
+<li><p>we reach a threshold that is smaller than our minimum credit (<cite>–min-credit</cite>)</p></li>
 </ol>
 </div></blockquote>
 <p>It’s up to you to set the first two cases (they default to None, meaning unset) and
@@ -323,9 +325,9 @@ You can also try changing this value!</p>
 </div>
 <p>By default, the <code class="docutils literal notranslate"><span class="pre">--max-depth</span></code> and <code class="docutils literal notranslate"><span class="pre">--map-deps</span></code> are unset so we don’t stop parsing based on some
 maximum depth or number of dependencies. You can try setting these values as well.</p>
-</div>
-<div class="section" id="graph">
-<h3>Graph<a class="headerlink" href="#graph" title="Permalink to this headline"></a></h3>
+</section>
+<section id="graph">
+<h3>Graph<a class="headerlink" href="#graph" title="Permalink to this heading"></a></h3>
 <p>To create a simple citation graph, you can do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests
 </pre></div>
@@ -346,17 +348,17 @@ Here is spack:</p>
 <p>GitHub is a bit of a deviant parser because we use the dendency graph that GitHub has found in your repository.
 If you have a non-traditional way of defining deps (e.g., singularity-cli above writes them into a version.py that gets piped into setup.py) they won’t show up. Also note that when you cite GitHub, we are giving credit to ALL the software you use for your setup, including documentation and CI. Here is a more traditional GitHub repository
 that has a detectable file.</p>
-<div class="section" id="dot">
-<h4>Dot<a class="headerlink" href="#dot" title="Permalink to this headline"></a></h4>
+<section id="dot">
+<h4>Dot<a class="headerlink" href="#dot" title="Permalink to this heading"></a></h4>
 <p>To generate (and then render a dot graph):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt dot &gt; examples/dot/graph.dot
 <span class="gp">$ </span>dot -Tpng &lt; examples/dot/graph.dot &gt; examples/dot/graph.png
 <span class="gp">$ </span>dot -Tsvg &lt; examples/dot/graph.dot &gt; examples/dot/graph.svg
 </pre></div>
 </div>
-</div>
-<div class="section" id="cypher">
-<h4>Cypher<a class="headerlink" href="#cypher" title="Permalink to this headline"></a></h4>
+</section>
+<section id="cypher">
+<h4>Cypher<a class="headerlink" href="#cypher" title="Permalink to this heading"></a></h4>
 <p>Cypher is the query format for Neo4j, the graph database.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt cypher
 
@@ -395,9 +397,9 @@ that has a detectable file.</p>
 <span class="go">client.graph(manager=&quot;pypi&quot;, name=&quot;requests&quot;, fmt=&quot;cypher&quot;)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="gexf-networkx">
-<h4>Gexf (NetworkX)<a class="headerlink" href="#gexf-networkx" title="Permalink to this headline"></a></h4>
+</section>
+<section id="gexf-networkx">
+<h4>Gexf (NetworkX)<a class="headerlink" href="#gexf-networkx" title="Permalink to this heading"></a></h4>
 <p>If you want to use networkX or Gephi or a <a class="reference external" href="https://github.com/raphv/gexf-js">viewer</a> you can generate output as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang graph pypi requests --fmt gexf
 <span class="gp">$ </span>citelang graph pypi requests --fmt gexf &gt; examples/gexf/graph.xml
@@ -429,27 +431,27 @@ that has a detectable file.</p>
 </pre></div>
 </div>
 <p>That should generate <a class="reference external" href="https://raw.githubusercontent.com/vsoch/citelang/main/examples/gexf/graph.xml">examples/gexf/graph.xml</a>.</p>
-</div>
-</div>
-<div class="section" id="badge">
-<h3>Badge<a class="headerlink" href="#badge" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="badge">
+<h3>Badge<a class="headerlink" href="#badge" title="Permalink to this heading"></a></h3>
 <p>There are two kinds of badges:</p>
 <blockquote>
 <div><ul class="simple">
-<li>static png for GitHub README.md or similar</li>
-<li>interactive SVG for a web interface</li>
+<li><p>static png for GitHub README.md or similar</p></li>
+<li><p>interactive SVG for a web interface</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="static">
-<h4>Static<a class="headerlink" href="#static" title="Permalink to this headline"></a></h4>
+<section id="static">
+<h4>Static<a class="headerlink" href="#static" title="Permalink to this heading"></a></h4>
 <p>The static badge requires a few extra dependencies, namely plotly and supporting libraries.
 Either of these install methods will provide that:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install citelang<span class="o">[</span>all<span class="o">]</span>
 <span class="gp">$ </span>pip install citelang<span class="o">[</span>badge<span class="o">]</span>
 </pre></div>
 </div>
-<div class="section" id="static-sunburst">
-<h5>Static Sunburst<a class="headerlink" href="#static-sunburst" title="Permalink to this headline"></a></h5>
+<section id="static-sunburst">
+<h5>Static Sunburst<a class="headerlink" href="#static-sunburst" title="Permalink to this heading"></a></h5>
 <p>The default badge is a static sunburst, and it will generate a png file named by the package and manager.
 Both of these are the same:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template static pypi requests
@@ -466,15 +468,15 @@ Both of these are the same:</p>
 </div>
 <p>The above would generate a badge from the local Gemfile in the usrse.github.io repository, which
 is an arbitrary name we are assigning for the badge.</p>
-</div>
-</div>
-<div class="section" id="interactive">
-<h4>Interactive<a class="headerlink" href="#interactive" title="Permalink to this headline"></a></h4>
+</section>
+</section>
+<section id="interactive">
+<h4>Interactive<a class="headerlink" href="#interactive" title="Permalink to this heading"></a></h4>
 <p>An interactive badge is typically an svg in a webpage (meaning citelang will typically output an index.html file for you to include
 somewhere) for a user to interactively explore your dependency tree. We have a few different versions
 of badges that you can generate for your software!</p>
-<div class="section" id="sunburst">
-<h5>Sunburst<a class="headerlink" href="#sunburst" title="Permalink to this headline"></a></h5>
+<section id="sunburst">
+<h5>Sunburst<a class="headerlink" href="#sunburst" title="Permalink to this heading"></a></h5>
 <p>To generate a sunburst interactive (html) badge:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template sunburst pypi requests
 </pre></div>
@@ -487,9 +489,9 @@ of badges that you can generate for your software!</p>
 </div>
 <img alt="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png" src="https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/badge-sunburst-larger.png" />
 <p>Or see an  <a class="reference external" href="../_static/example/badge/index.html">interactive version here</a>.</p>
-</div>
-<div class="section" id="treemap">
-<h5>Treemap<a class="headerlink" href="#treemap" title="Permalink to this headline"></a></h5>
+</section>
+<section id="treemap">
+<h5>Treemap<a class="headerlink" href="#treemap" title="Permalink to this heading"></a></h5>
 <p>For the treemap we took inspiration from the periodic table of elements, meaning that the top layer looks like a single element, and clicking
 allows you to explore the nested inner tables, and each table is composed of squares.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang badge --template treemap pypi requests
@@ -507,11 +509,11 @@ allows you to explore the nested inner tables, and each table is composed of squ
 <p>The badge design is still being developed - for example it would be good to have
 a smaller version, or a static one. If you have ideas or inspiration please
 open an issue!</p>
-</div>
-</div>
-</div>
-<div class="section" id="render">
-<h3>Render<a class="headerlink" href="#render" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+</section>
+<section id="render">
+<h3>Render<a class="headerlink" href="#render" title="Permalink to this heading"></a></h3>
 <p>This command will support rendering an entire markdown file with software references,
 and create a citation summary table that can represent shared credit across your dependencies, weighted equally (by default)
 per package. As an example, let’s say we start with <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/pre-paper.md">this markdown file</a> .
@@ -536,9 +538,9 @@ You’ll notice there are software references formatted as follows:</p>
 </pre></div>
 </div>
 <p>You can see an <a class="reference external" href="https://github.com/vsoch/citelang/blob/main/examples/post-render.md">example rendering here</a>.</p>
-</div>
-<div class="section" id="gen-generate">
-<h3>Gen (generate)<a class="headerlink" href="#gen-generate" title="Permalink to this headline"></a></h3>
+</section>
+<section id="gen-generate">
+<h3>Gen (generate)<a class="headerlink" href="#gen-generate" title="Permalink to this heading"></a></h3>
 <p>If you just want to generate a markdown file for a piece of software, you can do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang gen pypi requests
 </pre></div>
@@ -633,9 +635,9 @@ you can later load it into a parser to combine results.</p>
 </div>
 <p>And then you could run a custom render for each to generate the requirements table, but scoped
 to a language.</p>
-</div>
-<div class="section" id="contrib">
-<h3>Contrib<a class="headerlink" href="#contrib" title="Permalink to this headline"></a></h3>
+</section>
+<section id="contrib">
+<h3>Contrib<a class="headerlink" href="#contrib" title="Permalink to this heading"></a></h3>
 <p>Contrib will allow you to look at a different kind of credit - git commits!</p>
 <p>It’s recommended to look for data between two git tags or commits:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>citelang contrib --start <span class="m">0</span>.0.17 --end <span class="m">0</span>.0.19
@@ -733,16 +735,16 @@ when we run git blame on a file we get the last commit and timestamp that every 
 was modified. This gives us the ability to have two modes - being able to see contributions
 for all time, or limiting to a specific range. The way contrib works is to:</p>
 <ol class="arabic simple">
-<li>Take a start and end tag or commit to parse</li>
-<li>Find the range of commits relevant to that range</li>
-<li>For each commit, find all relevant changed files</li>
-<li>Run git blame for the commit and file, and save a cached result</li>
-<li>The result includes authors, paths, commits, timestamps, and counts (lines) per timestamp</li>
-<li>Each multiprocessing worker returns the complete blame result</li>
-<li>We combine results across workers</li>
-<li>Unless the <code class="docutils literal notranslate"><span class="pre">--all-time</span></code> flag is provided, we then filter down to timestamps within the range</li>
-<li>We organized based on author or path, and with or without detail</li>
-<li>The result is printed or saved to the filesystem as json</li>
+<li><p>Take a start and end tag or commit to parse</p></li>
+<li><p>Find the range of commits relevant to that range</p></li>
+<li><p>For each commit, find all relevant changed files</p></li>
+<li><p>Run git blame for the commit and file, and save a cached result</p></li>
+<li><p>The result includes authors, paths, commits, timestamps, and counts (lines) per timestamp</p></li>
+<li><p>Each multiprocessing worker returns the complete blame result</p></li>
+<li><p>We combine results across workers</p></li>
+<li><p>Unless the <code class="docutils literal notranslate"><span class="pre">--all-time</span></code> flag is provided, we then filter down to timestamps within the range</p></li>
+<li><p>We organized based on author or path, and with or without detail</p></li>
+<li><p>The result is printed or saved to the filesystem as json</p></li>
 </ol>
 <p>For the fourth step, we run jobs with multiprocessing, and we store the result in the <code class="docutils literal notranslate"><span class="pre">.contrib</span></code>
 cache, which is organized equivalently to the repository. For example, here is Singularity after a run, and we can
@@ -789,14 +791,14 @@ which is pretty cool!</p>
 <p>Once you parse a blame for a specific commit and file, you won’t need to parse
 it again as it will be cached in (default) <code class="docutils literal notranslate"><span class="pre">.contrib</span></code> in the present working
 directory. We can load that file and filter it for different contexts.</p>
-</div>
-</div>
-<div class="section" id="github-action">
-<h2>GitHub Action<a class="headerlink" href="#github-action" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="github-action">
+<h2>GitHub Action<a class="headerlink" href="#github-action" title="Permalink to this heading"></a></h2>
 <p>CiteLang has several GitHub actions to make it easy to automate using some of
 these tools, and proudly show your software credit trees.</p>
-<div class="section" id="generate-github-action">
-<h3>Generate GitHub Action<a class="headerlink" href="#generate-github-action" title="Permalink to this headline"></a></h3>
+<section id="generate-github-action">
+<h3>Generate GitHub Action<a class="headerlink" href="#generate-github-action" title="Permalink to this heading"></a></h3>
 <p>If you want to generate a software credit markdown for your software (perhaps after a release)
 you can do the following. Here is an example of releasing a Python package.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Release Python Package</span><span class="w"></span>
@@ -839,9 +841,9 @@ you can do the following. Here is an example of releasing a Python package.</p>
 </div>
 <p>Notice that we have generated a libraries.io key to make the process faster.
 and customized the file to be named software-credit.md.</p>
-</div>
-<div class="section" id="badge-github-action">
-<h3>Badge GitHub Action<a class="headerlink" href="#badge-github-action" title="Permalink to this headline"></a></h3>
+</section>
+<section id="badge-github-action">
+<h3>Badge GitHub Action<a class="headerlink" href="#badge-github-action" title="Permalink to this heading"></a></h3>
 <p>Here is how you would generate a png badge for your repository, named custom or by the <code class="docutils literal notranslate"><span class="pre">&lt;manager&gt;-&lt;package&gt;.png</span></code> (default).</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang Badge</span><span class="w"></span>
 <span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vsoch/citelang/action/badge@main</span><span class="w"></span>
@@ -867,9 +869,9 @@ and customized the file to be named software-credit.md.</p>
 </pre></div>
 </div>
 <p>You could also open a pull request if you want to review first!</p>
-</div>
-<div class="section" id="contribute-github-action">
-<h3>Contribute GitHub Action<a class="headerlink" href="#contribute-github-action" title="Permalink to this headline"></a></h3>
+</section>
+<section id="contribute-github-action">
+<h3>Contribute GitHub Action<a class="headerlink" href="#contribute-github-action" title="Permalink to this heading"></a></h3>
 <p>This is to generate contribution data, and you can decide what to do with it.
 It could be for provenance or analysis.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate CiteLang Contrib Data</span><span class="w"></span>
@@ -884,10 +886,10 @@ It could be for provenance or analysis.</p>
 </div>
 <p>If you would like another tool developed, or to discuss an idea for software credit,
 please don’t hesitate to reach out to &#64;vsoch.</p>
-</div>
-</div>
-<div class="section" id="python">
-<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this heading"></a></h2>
 <p>You can do all of the same interactions from within Python! And indeed if you want
 to do some kind of analysis or custom parsing this is the recommended approach.
 For all cases from within Python, after exporing the token, we need to create a client.</p>
@@ -937,24 +939,24 @@ You can also ask for it verbatim:</p>
 </pre></div>
 </div>
 <p>Without a version, we will grab the latest. Otherwise we use the version provided.</p>
-</div>
-<div class="section" id="frequently-asked-questions">
-<h2>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline"></a></h2>
-<div class="section" id="why-don-t-the-trees-print-versions">
-<h3>Why don’t the trees print versions?<a class="headerlink" href="#why-don-t-the-trees-print-versions" title="Permalink to this headline"></a></h3>
+</section>
+<section id="frequently-asked-questions">
+<h2>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading"></a></h2>
+<section id="why-don-t-the-trees-print-versions">
+<h3>Why don’t the trees print versions?<a class="headerlink" href="#why-don-t-the-trees-print-versions" title="Permalink to this heading"></a></h3>
 <p>The current thinking is that when I give credit to software, I’m not caring so much about the version.
 The goal of this isn’t reproducibility, but rather to say “for this software package, here are the dependencies and credits to give for each.” Given a version (which will default to latest) this will mean a particular
 set of dependencies, but it’s not something we require reproducing, especially because we choose a threshold (number of dependencies, a credit minimum threshold, or depth) to cut our search. The only data we care about is preserving a representation of how to give credit after we do a search.</p>
-</div>
-<div class="section" id="why-don-t-the-trees-show-package-managers">
-<h3>Why don’t the trees show package managers?<a class="headerlink" href="#why-don-t-the-trees-show-package-managers" title="Permalink to this headline"></a></h3>
+</section>
+<section id="why-don-t-the-trees-show-package-managers">
+<h3>Why don’t the trees show package managers?<a class="headerlink" href="#why-don-t-the-trees-show-package-managers" title="Permalink to this heading"></a></h3>
 <p>In truth we probably should, because looking at a credit graph later you need to know the manager
 used to derive the graph (e.g., some packages can be present in multiple package managers!)
 I haven’t added this yet.</p>
 <p>This library is under development and we will have more documentation coming soon!</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
