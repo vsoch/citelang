@@ -17,7 +17,7 @@ class SpackManager(PackageManager):
     """
 
     name = "spack"
-    apiroot = "https://spack.github.io/packages/data"
+    apiroot = "https://packages.spack.io/data"
     homepage = "https://spack.github.io/packages"
     color = "#0f3a80"
     default_language = None

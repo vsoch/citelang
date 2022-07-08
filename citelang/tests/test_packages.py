@@ -34,7 +34,6 @@ here = os.path.dirname(os.path.abspath(__file__))
                 "spack",
                 "eigen3",
                 "openmp",
-                "lapack",
                 "python",
                 "curl",
                 "xpat",
