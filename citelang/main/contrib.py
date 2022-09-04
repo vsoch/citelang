@@ -2,12 +2,12 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger, spinner
-import citelang.utils as utils
-
-import re
-import os
 import multiprocessing
+import os
+import re
+
+import citelang.utils as utils
+from citelang.logger import logger, spinner
 
 # global pool used by parser functions
 pool = None

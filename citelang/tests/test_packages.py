@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-import pytest
 import os
 
-import citelang.utils as utils
+import pytest
+
 import citelang.main.client as client
 import citelang.main.schemas as schemas
+import citelang.utils as utils
 
 here = os.path.dirname(os.path.abspath(__file__))
 
@@ -17,14 +18,7 @@ here = os.path.dirname(os.path.abspath(__file__))
             "python-lib",
             "requirements.txt",
             [
-                "pypi",
-                "pytest",
-                "types",
-                "requests",
                 "sphinx",
-                "babel",
-                "docutils",
-                "Pygments",
             ],
         ),
         (

@@ -3,12 +3,13 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 import contextlib
+import errno
+import json
 import os
 import stat
-import json
 import sys
-import errno
 import tempfile
+
 import yaml
 
 

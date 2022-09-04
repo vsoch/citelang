@@ -3,10 +3,11 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
-from datetime import datetime
-from subprocess import Popen, PIPE, STDOUT
-from .fileio import get_tmpdir
 import os
+from datetime import datetime
+from subprocess import PIPE, STDOUT, Popen
+
+from .fileio import get_tmpdir
 
 
 def get_installdir():

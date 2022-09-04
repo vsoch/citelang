@@ -2,9 +2,10 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.defaults as defaults
 import re
+
+import citelang.defaults as defaults
+from citelang.logger import logger
 
 try:
     # The python manager that uses pip is more reliable

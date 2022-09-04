@@ -2,8 +2,9 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from .base import PackagesFromFile
 import re
+
+from .base import PackagesFromFile
 
 
 class GemfileManager(PackagesFromFile):

@@ -2,8 +2,8 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.main.client import get_parser
 import citelang.utils as utils
+from citelang.main.client import get_parser
 
 
 def main(args, parser, extra, subparser):

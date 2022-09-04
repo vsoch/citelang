@@ -4,14 +4,14 @@ __license__ = "MPL 2.0"
 
 # Custom package managers not in libraries IO
 
-from .github import GitHubManager
-from .spack import SpackManager
-from .pypi_requirements import RequirementsManager, SetupManager
+from .cpp_cmakelist import CMakeListManager
 from .cran_description import RPackageManager
-from .ruby_gem import GemfileManager
+from .github import GitHubManager
 from .go_mod import GoModuleManager
 from .npm_packages import NPMPackageManager
-from .cpp_cmakelist import CMakeListManager
+from .pypi_requirements import RequirementsManager, SetupManager
+from .ruby_gem import GemfileManager
+from .spack import SpackManager
 
 # Registered endpoints (populated on init)
 managers = {}

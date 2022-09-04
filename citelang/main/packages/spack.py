@@ -4,11 +4,13 @@ __license__ = "MPL 2.0"
 
 # Custom package managers not in libraries IO
 
-import requests
 import jsonschema
-from .base import PackageManager
+import requests
+
 import citelang.main.schemas as schemas
 from citelang.logger import logger
+
+from .base import PackageManager
 
 
 class SpackManager(PackageManager):

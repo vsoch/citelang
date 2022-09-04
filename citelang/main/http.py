@@ -3,11 +3,13 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
-from citelang.logger import logger
-import os
 import json
-import requests
+import os
 import time
+
+import requests
+
+from citelang.logger import logger
 
 default_headers = {"Accept": "application/json", "User-Agent": "citelang-python"}
 params = {"per_page": 100}
