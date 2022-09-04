@@ -5,9 +5,11 @@ __license__ = "MPL 2.0"
 # Custom package managers not in libraries IO
 
 import os
+
 import requests
-from citelang.logger import logger
+
 import citelang.utils as utils
+from citelang.logger import logger
 
 from .base import PackageManager
 

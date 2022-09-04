@@ -2,21 +2,22 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+import os
+import re
+
+from pip._internal.cache import WheelCache
+from pip._internal.cli import cmdoptions
+from pip._internal.cli.cmdoptions import make_target_python
+from pip._internal.cli.main_parser import create_main_parser
 from pip._internal.commands.install import (
     InstallCommand,
     reject_location_related_install_options,
 )
-from pip._internal.cli.cmdoptions import make_target_python
-from pip._internal.cli.main_parser import create_main_parser
 from pip._internal.req.req_tracker import get_requirement_tracker
 from pip._internal.utils.temp_dir import TempDirectory
-from pip._internal.cli import cmdoptions
-from pip._internal.cache import WheelCache
 
-from citelang.logger import logger
 import citelang.utils as utils
-import re
-import os
+from citelang.logger import logger
 
 from .base import PackagesFromFile
 

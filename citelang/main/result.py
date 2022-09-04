@@ -2,16 +2,16 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
-import citelang.main.graph as graph
-import citelang.main.colors as colors
-
-from rich.table import Table as RichTable
-from rich.console import Console
-
 import json
 import os
+
+from rich.console import Console
+from rich.table import Table as RichTable
+
+import citelang.main.colors as colors
+import citelang.main.graph as graph
+import citelang.utils as utils
+from citelang.logger import logger
 
 here = os.path.dirname(os.path.abspath(__file__))
 

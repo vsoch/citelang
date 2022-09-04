@@ -2,9 +2,8 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
 import citelang.main.colors as colors
-
+from citelang.logger import logger
 
 try:
     import plotly.graph_objs as go

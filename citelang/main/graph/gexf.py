@@ -3,10 +3,11 @@ __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
 
-from citelang.logger import logger
 import sys
-
 from datetime import datetime
+
+from citelang.logger import logger
+
 from .base import GraphBase
 
 template = """<?xml version="1.0" encoding="UTF-8"?>

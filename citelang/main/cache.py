@@ -2,13 +2,13 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
-import citelang.main.result as results
-import citelang.main.settings as settings
-
 import os
 import shutil
+
+import citelang.main.result as results
+import citelang.main.settings as settings
+import citelang.utils as utils
+from citelang.logger import logger
 
 
 class Cache:

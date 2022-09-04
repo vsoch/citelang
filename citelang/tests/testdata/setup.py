@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-import os
 import glob
+import os
+
+from pybind11.setup_helpers import ParallelCompile, Pybind11Extension
 from setuptools import setup
-from pybind11.setup_helpers import Pybind11Extension, ParallelCompile
 
 # see https://github.com/pybind/python_example
 

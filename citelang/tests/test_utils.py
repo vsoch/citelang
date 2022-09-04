@@ -1,9 +1,11 @@
 #!/usr/bin/python
 
+import json
 import os
 import shutil
+
 import pytest
-import json
+
 import citelang.utils as utils
 
 

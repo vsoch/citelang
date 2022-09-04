@@ -2,10 +2,11 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
+import random
+
 from rich import print
 from rich.text import Text
 from rich.tree import Tree
-import random
 
 # Randomly select an AMAZING icon
 # Note some of these require TWO spaces after the icon to render properly!

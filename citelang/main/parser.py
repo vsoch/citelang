@@ -2,16 +2,16 @@ __author__ = "Vanessa Sochat"
 __copyright__ = "Copyright 2022, Vanessa Sochat"
 __license__ = "MPL 2.0"
 
-from citelang.logger import logger
-import citelang.utils as utils
-import citelang.main.base as base
-import citelang.main.result as results
-import citelang.main.package as package
-import citelang.main.packages as packages
+import os
+import re
 from operator import itemgetter
 
-import re
-import os
+import citelang.main.base as base
+import citelang.main.package as package
+import citelang.main.packages as packages
+import citelang.main.result as results
+import citelang.utils as utils
+from citelang.logger import logger
 
 table_template = """|Manager|Name|Credit|
 |-------|----|------|
