@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/citelang.svg)](https://badge.fury.io/py/citelang)
 [![DOI](https://zenodo.org/badge/469517560.svg)](https://zenodo.org/badge/latestdoi/469517560)
+[![status](https://joss.theoj.org/papers/3e3f4e819e6f9400ba204dbae4b9c3d5/status.svg)](https://joss.theoj.org/papers/3e3f4e819e6f9400ba204dbae4b9c3d5)
 
 Welcome to CiteLang! CiteLang provides methods and graph-based modeling to study software
 ecosystems. You can use CiteLang for your research, or a provided tool to generate
