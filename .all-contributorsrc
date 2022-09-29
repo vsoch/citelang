@@ -31,6 +31,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/4522799?v=4"
             ]
+        },
+        {
+            "login": "Traceton",
+            "name": "Traceton",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/Traceton",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/40130660?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7
