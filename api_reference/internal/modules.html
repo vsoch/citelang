@@ -19,6 +19,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -91,28 +92,300 @@
 <li class="toctree-l1"><a class="reference internal" href="citelang.html">citelang package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.defaults">citelang.defaults module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.logger">citelang.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.logger">citelang.logger module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.BLACK"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.BLACK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.BLUE"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.BLUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.BOLD_SEQ"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.BOLD_SEQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.COLOR_SEQ"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.COLOR_SEQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.CYAN"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.CYAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.GREEN"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.GREEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.MAGENTA"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.MAGENTA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.RED"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.RED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.RESET_SEQ"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.RESET_SEQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.WHITE"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.WHITE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.YELLOW"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.YELLOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.can_color_tty"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.can_color_tty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.colors"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.decorate"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.decorate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.emit"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.emit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.ColorizingStreamHandler.is_tty"><code class="docutils literal notranslate"><span class="pre">ColorizingStreamHandler.is_tty</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.cleanup"><code class="docutils literal notranslate"><span class="pre">Logger.cleanup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.debug"><code class="docutils literal notranslate"><span class="pre">Logger.debug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.error"><code class="docutils literal notranslate"><span class="pre">Logger.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.exit"><code class="docutils literal notranslate"><span class="pre">Logger.exit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.handler"><code class="docutils literal notranslate"><span class="pre">Logger.handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.info"><code class="docutils literal notranslate"><span class="pre">Logger.info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.location"><code class="docutils literal notranslate"><span class="pre">Logger.location()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.progress"><code class="docutils literal notranslate"><span class="pre">Logger.progress()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.set_level"><code class="docutils literal notranslate"><span class="pre">Logger.set_level()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.set_stream_handler"><code class="docutils literal notranslate"><span class="pre">Logger.set_stream_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.shellcmd"><code class="docutils literal notranslate"><span class="pre">Logger.shellcmd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.text_handler"><code class="docutils literal notranslate"><span class="pre">Logger.text_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.logger.Logger.warning"><code class="docutils literal notranslate"><span class="pre">Logger.warning()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.logger.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.logger.spinner"><code class="docutils literal notranslate"><span class="pre">spinner()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main">citelang.main module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.base">citelang.main.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.client">citelang.main.client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.endpoints">citelang.main.endpoints module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.package">citelang.main.package module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.result">citelang.main.result module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.base">citelang.main.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient"><code class="docutils literal notranslate"><span class="pre">BaseClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.badge"><code class="docutils literal notranslate"><span class="pre">BaseClient.badge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.check_manager"><code class="docutils literal notranslate"><span class="pre">BaseClient.check_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.credit"><code class="docutils literal notranslate"><span class="pre">BaseClient.credit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.dependencies"><code class="docutils literal notranslate"><span class="pre">BaseClient.dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.graph"><code class="docutils literal notranslate"><span class="pre">BaseClient.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.package"><code class="docutils literal notranslate"><span class="pre">BaseClient.package()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.base.BaseClient.package_managers"><code class="docutils literal notranslate"><span class="pre">BaseClient.package_managers()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.client">citelang.main.client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.client.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.endpoints">citelang.main.endpoints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies"><code class="docutils literal notranslate"><span class="pre">Dependencies</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.dont_truncate"><code class="docutils literal notranslate"><span class="pre">Dependencies.dont_truncate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.emoji"><code class="docutils literal notranslate"><span class="pre">Dependencies.emoji</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.format_url"><code class="docutils literal notranslate"><span class="pre">Dependencies.format_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.name"><code class="docutils literal notranslate"><span class="pre">Dependencies.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.path"><code class="docutils literal notranslate"><span class="pre">Dependencies.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.skips"><code class="docutils literal notranslate"><span class="pre">Dependencies.skips</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Dependencies.table_data"><code class="docutils literal notranslate"><span class="pre">Dependencies.table_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint"><code class="docutils literal notranslate"><span class="pre">Endpoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.dont_truncate"><code class="docutils literal notranslate"><span class="pre">Endpoint.dont_truncate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.emoji"><code class="docutils literal notranslate"><span class="pre">Endpoint.emoji</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.format_params"><code class="docutils literal notranslate"><span class="pre">Endpoint.format_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.order"><code class="docutils literal notranslate"><span class="pre">Endpoint.order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.require_params"><code class="docutils literal notranslate"><span class="pre">Endpoint.require_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.skip_list"><code class="docutils literal notranslate"><span class="pre">Endpoint.skip_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.table_data"><code class="docutils literal notranslate"><span class="pre">Endpoint.table_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.title"><code class="docutils literal notranslate"><span class="pre">Endpoint.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.truncate_list"><code class="docutils literal notranslate"><span class="pre">Endpoint.truncate_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Endpoint.url"><code class="docutils literal notranslate"><span class="pre">Endpoint.url</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package"><code class="docutils literal notranslate"><span class="pre">Package</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.emoji"><code class="docutils literal notranslate"><span class="pre">Package.emoji</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.format_url"><code class="docutils literal notranslate"><span class="pre">Package.format_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.name"><code class="docutils literal notranslate"><span class="pre">Package.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.order"><code class="docutils literal notranslate"><span class="pre">Package.order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.path"><code class="docutils literal notranslate"><span class="pre">Package.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.skips"><code class="docutils literal notranslate"><span class="pre">Package.skips</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.table_data"><code class="docutils literal notranslate"><span class="pre">Package.table_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.Package.title"><code class="docutils literal notranslate"><span class="pre">Package.title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers"><code class="docutils literal notranslate"><span class="pre">PackageManagers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers.emoji"><code class="docutils literal notranslate"><span class="pre">PackageManagers.emoji</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers.name"><code class="docutils literal notranslate"><span class="pre">PackageManagers.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers.path"><code class="docutils literal notranslate"><span class="pre">PackageManagers.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers.skips"><code class="docutils literal notranslate"><span class="pre">PackageManagers.skips</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.endpoints.PackageManagers.table_data"><code class="docutils literal notranslate"><span class="pre">PackageManagers.table_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.endpoint"><code class="docutils literal notranslate"><span class="pre">endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.endpoints.get_endpoint"><code class="docutils literal notranslate"><span class="pre">get_endpoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.package">citelang.main.package module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.package.CustomPackage"><code class="docutils literal notranslate"><span class="pre">CustomPackage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.CustomPackage.dependencies"><code class="docutils literal notranslate"><span class="pre">CustomPackage.dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.CustomPackage.homepage"><code class="docutils literal notranslate"><span class="pre">CustomPackage.homepage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.CustomPackage.info"><code class="docutils literal notranslate"><span class="pre">CustomPackage.info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.package.Package"><code class="docutils literal notranslate"><span class="pre">Package</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.Package.dependencies"><code class="docutils literal notranslate"><span class="pre">Package.dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.Package.info"><code class="docutils literal notranslate"><span class="pre">Package.info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase"><code class="docutils literal notranslate"><span class="pre">PackageBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase.cache_name"><code class="docutils literal notranslate"><span class="pre">PackageBase.cache_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase.dependencies"><code class="docutils literal notranslate"><span class="pre">PackageBase.dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase.homepage"><code class="docutils literal notranslate"><span class="pre">PackageBase.homepage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase.info"><code class="docutils literal notranslate"><span class="pre">PackageBase.info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.package.PackageBase.parse"><code class="docutils literal notranslate"><span class="pre">PackageBase.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.package.get_package"><code class="docutils literal notranslate"><span class="pre">get_package()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.result">citelang.main.result module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Badge"><code class="docutils literal notranslate"><span class="pre">Badge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Badge.print_result"><code class="docutils literal notranslate"><span class="pre">Badge.print_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Badge.save"><code class="docutils literal notranslate"><span class="pre">Badge.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Graph.graph"><code class="docutils literal notranslate"><span class="pre">Graph.graph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.InteractiveBadge"><code class="docutils literal notranslate"><span class="pre">InteractiveBadge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.InteractiveBadge.print_result"><code class="docutils literal notranslate"><span class="pre">InteractiveBadge.print_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.InteractiveBadge.save"><code class="docutils literal notranslate"><span class="pre">InteractiveBadge.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Result.print_json"><code class="docutils literal notranslate"><span class="pre">Result.print_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Result.save"><code class="docutils literal notranslate"><span class="pre">Result.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Result.to_dict"><code class="docutils literal notranslate"><span class="pre">Result.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.available_width"><code class="docutils literal notranslate"><span class="pre">Table.available_width()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.ensure_complete"><code class="docutils literal notranslate"><span class="pre">Table.ensure_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.ensure_complete_list"><code class="docutils literal notranslate"><span class="pre">Table.ensure_complete_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.table"><code class="docutils literal notranslate"><span class="pre">Table.table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.table_columns"><code class="docutils literal notranslate"><span class="pre">Table.table_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Table.table_rows"><code class="docutils literal notranslate"><span class="pre">Table.table_rows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Tree"><code class="docutils literal notranslate"><span class="pre">Tree</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Tree.parse_data"><code class="docutils literal notranslate"><span class="pre">Tree.parse_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Tree.print_result"><code class="docutils literal notranslate"><span class="pre">Tree.print_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.result.Treemap"><code class="docutils literal notranslate"><span class="pre">Treemap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Treemap.print_result"><code class="docutils literal notranslate"><span class="pre">Treemap.print_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.result.Treemap.save"><code class="docutils literal notranslate"><span class="pre">Treemap.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.schemas">citelang.main.schemas module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.settings">citelang.main.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.settings">citelang.main.settings module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.settings.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase"><code class="docutils literal notranslate"><span class="pre">SettingsBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.add"><code class="docutils literal notranslate"><span class="pre">SettingsBase.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.change_validate"><code class="docutils literal notranslate"><span class="pre">SettingsBase.change_validate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.delete"><code class="docutils literal notranslate"><span class="pre">SettingsBase.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.edit"><code class="docutils literal notranslate"><span class="pre">SettingsBase.edit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.get"><code class="docutils literal notranslate"><span class="pre">SettingsBase.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.get_settings_file"><code class="docutils literal notranslate"><span class="pre">SettingsBase.get_settings_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.inituser"><code class="docutils literal notranslate"><span class="pre">SettingsBase.inituser()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.load"><code class="docutils literal notranslate"><span class="pre">SettingsBase.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.parse_boolean"><code class="docutils literal notranslate"><span class="pre">SettingsBase.parse_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.parse_null"><code class="docutils literal notranslate"><span class="pre">SettingsBase.parse_null()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.remove"><code class="docutils literal notranslate"><span class="pre">SettingsBase.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.save"><code class="docutils literal notranslate"><span class="pre">SettingsBase.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.set"><code class="docutils literal notranslate"><span class="pre">SettingsBase.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.update_param"><code class="docutils literal notranslate"><span class="pre">SettingsBase.update_param()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.update_params"><code class="docutils literal notranslate"><span class="pre">SettingsBase.update_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.settings.SettingsBase.validate"><code class="docutils literal notranslate"><span class="pre">SettingsBase.validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.settings.init_settings"><code class="docutils literal notranslate"><span class="pre">init_settings()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph">citelang.main.graph module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.base">citelang.main.graph.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.cypher">citelang.main.graph.cypher module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.dot">citelang.main.graph.dot module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.gexf">citelang.main.graph.gexf module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.text">citelang.main.graph.text module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.tree">citelang.main.graph.tree module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.base">citelang.main.graph.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.base.GraphBase"><code class="docutils literal notranslate"><span class="pre">GraphBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.base.GraphBase.generate_placeholder"><code class="docutils literal notranslate"><span class="pre">GraphBase.generate_placeholder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.base.GraphBase.iter_nodes"><code class="docutils literal notranslate"><span class="pre">GraphBase.iter_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.base.GraphBase.outfile"><code class="docutils literal notranslate"><span class="pre">GraphBase.outfile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.base.GraphBase.parse"><code class="docutils literal notranslate"><span class="pre">GraphBase.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.cypher">citelang.main.graph.cypher module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.cypher.Cypher"><code class="docutils literal notranslate"><span class="pre">Cypher</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.cypher.Cypher.generate"><code class="docutils literal notranslate"><span class="pre">Cypher.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.dot">citelang.main.graph.dot module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.dot.Dot"><code class="docutils literal notranslate"><span class="pre">Dot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.dot.Dot.generate"><code class="docutils literal notranslate"><span class="pre">Dot.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.gexf">citelang.main.graph.gexf module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.gexf.Gexf"><code class="docutils literal notranslate"><span class="pre">Gexf</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.gexf.Gexf.generate"><code class="docutils literal notranslate"><span class="pre">Gexf.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.text">citelang.main.graph.text module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.text.Console"><code class="docutils literal notranslate"><span class="pre">Console</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.graph.text.Console.generate"><code class="docutils literal notranslate"><span class="pre">Console.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.graph.tree">citelang.main.graph.tree module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.tree.generate_tree"><code class="docutils literal notranslate"><span class="pre">generate_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.graph.tree.print_tree"><code class="docutils literal notranslate"><span class="pre">print_tree()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.packages">citelang.main.packages module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.packages.spack">citelang.main.packages.spack module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.packages.github">citelang.main.packages.github module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.packages.spack">citelang.main.packages.spack module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager"><code class="docutils literal notranslate"><span class="pre">SpackManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.apiroot"><code class="docutils literal notranslate"><span class="pre">SpackManager.apiroot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.color"><code class="docutils literal notranslate"><span class="pre">SpackManager.color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.default_language"><code class="docutils literal notranslate"><span class="pre">SpackManager.default_language</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.default_versions"><code class="docutils literal notranslate"><span class="pre">SpackManager.default_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.dependencies"><code class="docutils literal notranslate"><span class="pre">SpackManager.dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.homepage"><code class="docutils literal notranslate"><span class="pre">SpackManager.homepage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.name"><code class="docutils literal notranslate"><span class="pre">SpackManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.package"><code class="docutils literal notranslate"><span class="pre">SpackManager.package()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.spack.SpackManager.project_count"><code class="docutils literal notranslate"><span class="pre">SpackManager.project_count</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.main.packages.github">citelang.main.packages.github module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager"><code class="docutils literal notranslate"><span class="pre">GitHubManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.apiroot"><code class="docutils literal notranslate"><span class="pre">GitHubManager.apiroot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.clone"><code class="docutils literal notranslate"><span class="pre">GitHubManager.clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.color"><code class="docutils literal notranslate"><span class="pre">GitHubManager.color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.default_language"><code class="docutils literal notranslate"><span class="pre">GitHubManager.default_language</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.default_versions"><code class="docutils literal notranslate"><span class="pre">GitHubManager.default_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.homepage"><code class="docutils literal notranslate"><span class="pre">GitHubManager.homepage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.name"><code class="docutils literal notranslate"><span class="pre">GitHubManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.package"><code class="docutils literal notranslate"><span class="pre">GitHubManager.package()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="citelang.html#citelang.main.packages.github.GitHubManager.project_count"><code class="docutils literal notranslate"><span class="pre">GitHubManager.project_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.main.packages.github.find_dependencies"><code class="docutils literal notranslate"><span class="pre">find_dependencies()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.utils">citelang.utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.utils.fileio">citelang.utils.fileio module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.utils.terminal">citelang.utils.terminal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.utils.fileio">citelang.utils.fileio module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.get_tmpdir"><code class="docutils literal notranslate"><span class="pre">get_tmpdir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.get_tmpfile"><code class="docutils literal notranslate"><span class="pre">get_tmpfile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.mkdir_p"><code class="docutils literal notranslate"><span class="pre">mkdir_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.print_json"><code class="docutils literal notranslate"><span class="pre">print_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.read_json"><code class="docutils literal notranslate"><span class="pre">read_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.workdir"><code class="docutils literal notranslate"><span class="pre">workdir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.write_file"><code class="docutils literal notranslate"><span class="pre">write_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.fileio.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.utils.terminal">citelang.utils.terminal module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.clone"><code class="docutils literal notranslate"><span class="pre">clone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.confirm_action"><code class="docutils literal notranslate"><span class="pre">confirm_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.confirm_uninstall"><code class="docutils literal notranslate"><span class="pre">confirm_uninstall()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.get_installdir"><code class="docutils literal notranslate"><span class="pre">get_installdir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.get_time_now"><code class="docutils literal notranslate"><span class="pre">get_time_now()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="citelang.html#citelang.utils.terminal.run_command"><code class="docutils literal notranslate"><span class="pre">run_command()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="citelang.html#module-citelang.version">citelang.version module</a></li>
 </ul>
 </li>
