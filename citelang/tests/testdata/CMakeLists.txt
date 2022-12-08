@@ -25,17 +25,6 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
     endif()
 endif()
 
-find_package(Eigen3 REQUIRED)
-target_link_libraries(uvlm PUBLIC Eigen3::Eigen)
-
-find_package(OpenMP)
-if(OpenMP_CXX_FOUND)
-    target_link_libraries(uvlm PUBLIC OpenMP::OpenMP_CXX)
-endif()
-
-find_package(Eigen3 REQUIRED)
-target_link_libraries(uvlm PUBLIC Eigen3::Eigen)
-
 # For all compilers
 target_compile_options(uvlm PUBLIC $<$<CONFIG:RELEASE>: -fomit-frame-pointer -ffast-math>)
 

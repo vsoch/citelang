@@ -26,8 +26,6 @@ here = os.path.dirname(os.path.abspath(__file__))
             "CMakeLists.txt",
             [
                 "spack",
-                "eigen3",
-                "openmp",
                 "python",
                 "curl",
                 "xpat",
@@ -87,7 +85,7 @@ def test_package_files(name, filename, deps):
     "manager,name",
     [
         ("pypi", "requests"),
-        ("spack", "caliper"),
+        ("spack", "zlib"),
         ("github", "singularityhub/singularity-cli"),
     ],
 )
@@ -130,7 +128,7 @@ def test_list(tmp_path):
     "manager,name",
     [
         ("pypi", "requests"),
-        ("spack", "caliper"),
+        ("spack", "zlib"),
         ("github", "singularityhub/singularity-cli"),
     ],
 )
