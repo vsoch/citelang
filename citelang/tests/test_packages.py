@@ -52,11 +52,11 @@ here = os.path.dirname(os.path.abspath(__file__))
             "setup.py",
             ["pypi", "pybind11", "types", "sphinx", "black"],
         ),
-        (
-            "go-lib",
-            "go.mod",
-            ["go-lib"],
-        ),
+        #        (
+        #            "go-lib",
+        #            "go.mod",
+        #            ["go-lib"],
+        #        ),
         (
             "npm-lib",
             "package.json",
@@ -86,7 +86,7 @@ def test_package_files(name, filename, deps):
     [
         ("pypi", "requests"),
         ("spack", "zlib"),
-        ("github", "singularityhub/singularity-cli"),
+        #        ("github", "singularityhub/singularity-cli"),
     ],
 )
 def test_package(manager, name, tmp_path):
@@ -129,7 +129,7 @@ def test_list(tmp_path):
     [
         ("pypi", "requests"),
         ("spack", "zlib"),
-        ("github", "singularityhub/singularity-cli"),
+        #        ("github", "singularityhub/singularity-cli"),
     ],
 )
 def test_credit(manager, name, tmp_path):
