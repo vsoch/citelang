@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on GitHub.
 
 ## [0.0.x](https://github.com/vsoch/citelang/tree/main) (0.0.x)
+ - updates for pypi parsing (0.0.34)
  - release for joss paper (0.0.33)
  - spack changed their packages url (0.0.32)
  - removing deprecated pypi argument and adding from_file to package base (0.0.31)
