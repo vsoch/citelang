@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install CiteLang
         run: pip install .[all]
@@ -27,7 +27,7 @@ jobs:
           detail: true
 
       - name: Ensure cache is populated
-        run: tree .contrib/cache
+        run: tree /tmp/shpc/.contrib/cache
 
       - name: Test CiteLang Released
         uses: vsoch/citelang/action/gen@main
