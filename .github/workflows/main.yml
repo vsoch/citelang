@@ -31,7 +31,7 @@ jobs:
           CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install -e .[all]
+          pip install .[all]
           pip install bs4
           cd citelang/tests
           /bin/bash test_client.sh
