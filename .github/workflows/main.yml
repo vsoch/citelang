@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup black linter
-        run: conda create --quiet --name black pyflakes
-
       - name: Check Spelling
         uses: crate-ci/typos@592b36d23c62cb378f6097a292bc902ee73f93ef # version 1.0.4
         with:
@@ -22,26 +19,18 @@ jobs:
 
       - name: Lint and format Python code
         run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate black
           pip install -r .github/dev-requirements.txt
           pre-commit run --all-files
 
   testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup black linter
-        run: conda create --quiet --name testing pytest
-
+      - uses: actions/checkout@v3
       - name: Run Tests
         env:
           CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate testing
           pip install -e .[all]
           pip install bs4
           cd citelang/tests
