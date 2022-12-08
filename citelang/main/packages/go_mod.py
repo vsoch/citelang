@@ -49,7 +49,7 @@ class GoModuleManager(PackagesFromFile):
             pkg = None
             try:
                 pkg = self.get_package(package_name, version)
-            except:
+            except Exception:
                 pass
 
             if pkg is None:

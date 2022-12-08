@@ -1,6 +1,6 @@
-from setuptools import setup, find_packages
-import codecs
 import os
+
+from setuptools import find_packages, setup
 
 
 def get_lookup():
@@ -12,7 +12,7 @@ def get_lookup():
 
 
 def get_reqs(lookup=None, key="INSTALL_REQUIRES"):
-    if lookup == None:
+    if lookup is None:
         lookup = get_lookup()
 
     install_requires = []
@@ -22,7 +22,7 @@ def get_reqs(lookup=None, key="INSTALL_REQUIRES"):
         if "exact_version" in module_meta:
             dependency = "%s==%s" % (module_name, module_meta["exact_version"])
         elif "min_version" in module_meta:
-            if module_meta["min_version"] == None:
+            if module_meta["min_version"] is None:
                 dependency = module_name
             else:
                 dependency = "%s>=%s" % (module_name, module_meta["min_version"])
@@ -49,7 +49,7 @@ LICENSE = lookup["LICENSE"]
 try:
     with open("README.md") as filey:
         LONG_DESCRIPTION = filey.read()
-except:
+except Exception:
     LONG_DESCRIPTION = DESCRIPTION
 
 ################################################################################

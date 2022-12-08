@@ -29,7 +29,7 @@ class SpackManager(PackageManager):
     def project_count(self):
         try:  # "pythonic"
             return len(requests.get("%s/packages.json" % self.apiroot).json())
-        except:
+        except Exception:
             return None
 
     def dependencies(self, name):

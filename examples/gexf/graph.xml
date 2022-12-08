@@ -14,7 +14,7 @@
         <node id="wzcqmkwm" label="chardet (0.071)"/>
         <node id="xcjzmskw" label="certifi (0.071)"/>
         <node id="tsasnasn" label="urllib3 (0.071)"/>
-        <node id="iuzxxnys" label="unicodedata2 (0.036)"/>    
+        <node id="iuzxxnys" label="unicodedata2 (0.036)"/>
     </nodes>
     <edges>
         <edge id="wjtwbfju" source="vvchvlef" target="wjtwbfju" label="depends on"/>

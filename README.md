@@ -18,9 +18,9 @@ software engineers we also want to move away from the traditional "be valued lik
 We are getting software metadata and a reference to an identifier via a package manager. This means
 that when you publish your software, you should publish it to an appropriate package manager.
 
-## Getting Started 
+## Getting Started
 
-If you want to use CiteLang as an analysis library, jump into the more detailed ⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️ 
+If you want to use CiteLang as an analysis library, jump into the more detailed ⭐️ [Documentation](https://vsoch.github.io/citelang) ⭐️
 or look specifically at the [Python API](https://vsoch.github.io/citelang/getting_started/user-guide.html#python).
 As an example analysis, the [RSEPedia Software Ecosystem](https://rseng.github.io/rsepedia-analysis/) is a completed automated setup that parses and summarizes dependencies across the [Research Software Encyclopedia](https://rseng.github.io/software) weekly, and it's powered by CiteLang! You can do similar analyses or build your own tools using CiteLang. We will provide a small summary of the tools available here.
 
@@ -67,7 +67,7 @@ The functionality that originally derived the name - a "markdown syntax for cita
 
 ## Contributors
 
-We use the [all-contributors](https://github.com/all-contributors/all-contributors) 
+We use the [all-contributors](https://github.com/all-contributors/all-contributors)
 tool to generate a contributors graphic below.
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -82,7 +82,7 @@ tool to generate a contributors graphic below.
     </tr>
   </tbody>
   <tfoot>
-    
+
   </tfoot>
 </table>
 

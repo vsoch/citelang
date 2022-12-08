@@ -13,7 +13,16 @@ from pip._internal.commands.install import (
     InstallCommand,
     reject_location_related_install_options,
 )
-from pip._internal.req.req_tracker import get_requirement_tracker
+
+try:
+    from pip._internal.req.req_tracker import (
+        get_requirement_tracker as get_build_tracker,
+    )
+except ImportError:
+    from pip._internal.operations.build.build_tracker import (
+        get_build_tracker as get_build_tracker,
+    )
+
 from pip._internal.utils.temp_dir import TempDirectory
 
 import citelang.utils as utils
@@ -54,7 +63,7 @@ class PackageLister(InstallCommand):
             for req in reqs:
                 req.permit_editable_wheels = True
 
-            req_tracker = self.enter_context(get_requirement_tracker())
+            build_tracker = self.enter_context(get_build_tracker())
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
             reject_location_related_install_options(reqs, options.install_options)
             directory = TempDirectory(
@@ -65,7 +74,7 @@ class PackageLister(InstallCommand):
             preparer = self.make_requirement_preparer(
                 temp_build_dir=directory,
                 options=options,
-                req_tracker=req_tracker,
+                build_tracker=build_tracker,
                 session=session,
                 finder=finder,
                 use_user_site=options.use_user_site,

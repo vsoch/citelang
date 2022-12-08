@@ -13,7 +13,7 @@ def get_terminal_pad(size):
     try:
         # This will fail in a test environment
         return max(os.get_terminal_size().columns - size, 0)
-    except:
+    except Exception:
         return 30
 
 

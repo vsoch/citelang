@@ -4,7 +4,7 @@
 Settings
 ========
 
-Most defaults should work without changing, however you will likely want to customize 
+Most defaults should work without changing, however you will likely want to customize
 settings if you want to customize your cache location or similar.
 
 Updating Settings
@@ -49,4 +49,3 @@ The following variables can be configured in your user settings:
    * - cache_dir
      - This is in user home in .citelang by default
      - $citelang_home/cache
-
