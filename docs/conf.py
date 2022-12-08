@@ -37,7 +37,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinxcontrib.napoleon",
     "sphinxarg.ext",
     "sphinx.ext.autosectionlabel",
 ]
