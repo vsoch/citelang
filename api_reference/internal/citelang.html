@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang package &mdash; CiteLang Python 0.0.33 documentation</title>
+  <title>citelang package &mdash; CiteLang Python 0.0.34 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -34,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.33
+                0.0.34
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -185,9 +185,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Internal API</a> &raquo;</li>
-      <li>citelang package</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Internal API</a></li>
+      <li class="breadcrumb-item active">citelang package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/api_reference/internal/citelang.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -364,8 +364,10 @@ output to the stream.</p>
 <span class="sig-name descname"><span class="pre">text_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/logger.html#Logger.text_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.logger.Logger.text_handler" title="Permalink to this definition"></a></dt>
 <dd><p>The default snakemake log handler.
 Prints the output to the console.
-:param msg: the log message dictionary
-:type msg: dict</p>
+Args:</p>
+<blockquote>
+<div><p>msg (dict):     the log message dictionary</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -1328,28 +1330,22 @@ we are trying to scrape them :)</p>
 <dt class="sig sig-object py" id="citelang.utils.terminal.confirm_action">
 <span class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">confirm_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#confirm_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.confirm_action" title="Permalink to this definition"></a></dt>
 <dd><p>confirm if the user wants to perform a certain action</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>question</strong> (<em>the question that will be asked</em>) – </p></li>
-<li><p><strong>force</strong> (<em>if the user wants to skip the prompt</em>) – </p></li>
-</ul>
-</dd>
-</dl>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h3>
+<p>question: the question that will be asked
+force: if the user wants to skip the prompt</p>
+</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="citelang.utils.terminal.confirm_uninstall">
 <span class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">confirm_uninstall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#confirm_uninstall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.confirm_uninstall" title="Permalink to this definition"></a></dt>
 <dd><p>confirm if the user wants to uninstall a module</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>the file that will be removed</em>) – </p></li>
-<li><p><strong>force</strong> (<em>if the user wants to skip the prompt</em>) – </p></li>
-</ul>
-</dd>
-</dl>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>filename: the file that will be removed
+force: if the user wants to skip the prompt</p>
+</section>
 </dd></dl>
 
 <dl class="py function">
@@ -1368,15 +1364,12 @@ we are trying to scrape them :)</p>
 <dt class="sig sig-object py" id="citelang.utils.terminal.run_command">
 <span class="sig-prename descclassname"><span class="pre">citelang.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sudo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/citelang/utils/terminal.html#run_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#citelang.utils.terminal.run_command" title="Permalink to this definition"></a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cmd</strong> (<em>the command to send</em><em>, </em><em>should be a list for subprocess</em>) – </p></li>
-<li><p><strong>error_message</strong> (<em>the error message to give to user if fails</em><em>,</em>) – </p></li>
-<li><p><strong>failed.</strong> (<em>if none specified</em><em>, </em><em>will alert that command</em>) – </p></li>
-</ul>
-</dd>
-</dl>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>cmd: the command to send, should be a list for subprocess
+error_message: the error message to give to user if fails,
+if none specified, will alert that command failed.</p>
+</section>
 </dd></dl>
 
 </section>

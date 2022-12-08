@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang.main.base &mdash; CiteLang Python 0.0.33 documentation</title>
+  <title>citelang.main.base &mdash; CiteLang Python 0.0.34 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="../../../index.html" class="icon icon-home"> CiteLang Python
           </a>
               <div class="version">
-                0.0.33
+                0.0.34
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -67,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>citelang.main.base</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">citelang.main.base</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -228,7 +228,7 @@
             <span class="c1"># Sometimes we know a package name / version but cannot get deps</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">deps</span> <span class="o">=</span> <span class="n">next_node</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">dependencies</span><span class="p">(</span><span class="n">return_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">deps</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="p">[</span>
                 <span class="n">node_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
