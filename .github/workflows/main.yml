@@ -19,7 +19,7 @@ jobs:
 
       - name: Lint and format Python code
         run: |
-          pip install -r .github/dev-requirements.txt
+          sudo pip install -r .github/dev-requirements.txt
           pre-commit run --all-files
 
   testing:
@@ -31,8 +31,8 @@ jobs:
           CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install .[all]
-          pip install bs4
+          sudo pip install .[all]
+          sudo pip install bs4
           cd citelang/tests
           /bin/bash test_client.sh
           pytest -xsv test_*.py
