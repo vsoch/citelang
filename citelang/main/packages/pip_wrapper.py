@@ -13,11 +13,16 @@ from pip._internal.commands.install import (
     InstallCommand,
     reject_location_related_install_options,
 )
+
 try:
-    from pip._internal.req.req_tracker import get_requirement_tracker as get_build_tracker
+    from pip._internal.req.req_tracker import (
+        get_requirement_tracker as get_build_tracker,
+    )
 except ImportError:
-    from pip._internal.operations.build.build_tracker import get_build_tracker as get_build_tracker
-    
+    from pip._internal.operations.build.build_tracker import (
+        get_build_tracker as get_build_tracker,
+    )
+
 from pip._internal.utils.temp_dir import TempDirectory
 
 import citelang.utils as utils

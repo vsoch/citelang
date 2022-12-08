@@ -53,7 +53,7 @@ class PythonManager(PackagesFromFile):
                 continue
 
             # Remove variants
-            package_name = re.sub("\[.+\]", "", package_name)
+            package_name = re.sub("\[.+\]", "", package_name)  # noqa
 
             # First add requirements (names and pypi manager) to deps
             pkg = self.get_package(package_name, version)

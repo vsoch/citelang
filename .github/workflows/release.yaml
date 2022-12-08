@@ -23,7 +23,7 @@ jobs:
 
     - name: Build and publish
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USER }} 
+        TWINE_USERNAME: ${{ secrets.PYPI_USER }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASS }}
       run: |
         export PATH="/usr/share/miniconda/bin:$PATH"
@@ -35,7 +35,7 @@ jobs:
       uses: vsoch/citelang/action/gen@main
       env:
         CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
-      with:   
+      with:
         package: citelang
         manager: pypi
         outfile: software-credit.md
@@ -45,7 +45,7 @@ jobs:
       uses: vsoch/citelang/action/badge@main
       env:
         CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
-      with:   
+      with:
         package: citelang
         manager: pypi
         outfile: docs/assets/img/pypi-citelang.png

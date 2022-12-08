@@ -4,7 +4,7 @@
 Getting Started
 ===============
 
-CiteLang is software for digging into software credit. It provides methods and graph-based modeling to study 
+CiteLang is software for digging into software credit. It provides methods and graph-based modeling to study
 single projects or entire software ecosystems. You can use CiteLang for your research, or a provided tool to generate
 software graph artifacts, including (but not limited to):
 

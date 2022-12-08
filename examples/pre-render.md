@@ -8,4 +8,3 @@ Singularity Registry HPC (shpc) @pypi{name=singularity-hpc} is the first of its 
 
 <!--citelang start-->
 <!--citelang end-->
-

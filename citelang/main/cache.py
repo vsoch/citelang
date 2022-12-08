@@ -40,7 +40,7 @@ class Cache:
         """
         Given a result, cache if the user has cache enabled.
         """
-        if settings.cfg.disable_cache == True:
+        if settings.cfg.disable_cache is True:
             return
 
         # If we are using the memory cache, return from there.
@@ -115,7 +115,7 @@ class Cache:
         data = None
         try:
             data = utils.read_json(path)
-        except:
+        except Exception:
             logger.warning(f"Cache entry {path} has corrupt json, removing.")
             os.remove(path)
 

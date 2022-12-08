@@ -16,8 +16,8 @@ in addition to a publication or release, is too much work for people to reasonab
 software engineers we also want to move away from the traditional "be valued like an academic" model.
 We are getting software metadata and a reference to an identifier via a package manager. This means
 that when you publish your software, you should publish it to an appropriate package manager.
-Please `let us know <https://github.com/vsoch/citelang/issues>`_ if you have a questions, 
-find a bug, or want to request a feature! This is an open source project and we are 
+Please `let us know <https://github.com/vsoch/citelang/issues>`_ if you have a questions,
+find a bug, or want to request a feature! This is an open source project and we are
 eager for your contribution. 🎉️
 
 .. _getting_started-user-guide-usage:
@@ -35,7 +35,7 @@ can use citelang either from the command line, or from within Python.
 Credentials
 ===========
 
-CiteLang will require a libraries.io token, so you should `login <https://libraries.io/>`_ (it works with 
+CiteLang will require a libraries.io token, so you should `login <https://libraries.io/>`_ (it works with
 GitHub and other easy OAuth2 that don't require permissions beyond your email) and then
 go to the top right -> Settings -> API Key.
 
@@ -112,7 +112,7 @@ You can ask to see package dependencies:
 If you don't provide a version, the latest will be used (retrieved from the package).
 
 .. code-block:: console
-    
+
     $ citelang deps pypi requests@2.27.1
 
 image:: https://raw.githubusercontent.com/vsoch/citelang/main/docs/getting_started/img/requests-deps.png
@@ -161,12 +161,12 @@ Citelng includes a cache command group for viewing or clearing your filesystem c
 
     $ citelang cache
     /home/vanessa/.citelang/cache
-    
-    
+
+
 Or list what's in it!
 
 .. code-block:: console
-    
+
     $ tree $(citelang cache)
 
 
@@ -192,7 +192,7 @@ By default, we will split the credit graph until:
 
  1. if set, we reach a threshold N of packages added (`--max-depth`)
  2. if set, we reach a total number of unique dependencies added (`--max-deps`)
- 3. we reach a threshold that is smaller than our minimum credit (`--min-credit`) 
+ 3. we reach a threshold that is smaller than our minimum credit (`--min-credit`)
 
 It's up to you to set the first two cases (they default to None, meaning unset) and
 we always only go up to a minimum threshold (or when there are no more dependencies to allocate).
@@ -224,7 +224,7 @@ And then you'll get the credit score:
 
 .. code-block:: console
 
-    $ citelang credit pypi requests 
+    $ citelang credit pypi requests
                   requests: 0.5
                win-inet-pton: 0.071
                      PySocks: 0.071
@@ -237,7 +237,7 @@ And then you'll get the credit score:
     total: 1.0
 
 
-The default "minimum credit" (to determine when we stop parsing) is 0.01. 
+The default "minimum credit" (to determine when we stop parsing) is 0.01.
 You can also try changing this value!
 
 .. code-block:: console
@@ -322,7 +322,7 @@ Cypher
 Cypher is the query format for Neo4j, the graph database.
 
 .. code-block:: console
-    
+
     $ citelang graph pypi requests --fmt cypher
 
     CREATE (tlolycos:PACKAGE {name: 'requests (0.5)', label: 'tlolycos'}),
@@ -342,7 +342,7 @@ Cypher is the query format for Neo4j, the graph database.
     (tlolycos)-[:DEPENDSON]->(gnveurko),
     (tlolycos)-[:DEPENDSON]->(eoikqvix),
     (gotbtadg)-[:DEPENDSON]->(kvccvkva);
-    
+
 What you are seeing above is a definition of node and relationships. You can pipe to file:
 
 
@@ -369,8 +369,8 @@ From within Python you can do:
     from citelang.main import Client
     client = Client()
     client.graph(manager="pypi", name="requests", fmt="cypher")
-    
-    
+
+
 Gexf (NetworkX)
 ---------------
 
@@ -428,7 +428,7 @@ There are two kinds of badges:
 
  - static png for GitHub README.md or similar
  - interactive SVG for a web interface
- 
+
 
 Static
 ------
@@ -581,7 +581,7 @@ If you just want to generate a markdown file for a piece of software, you can do
 .. code-block:: console
 
    $ citelang gen pypi requests
-   
+
 And of course save to an output file:
 
 .. code-block:: console
@@ -673,7 +673,7 @@ two requirements.txt files in a repository, and combining the results:
         require_text = os.path.join(repo_dir, "requirements.txt")
         cli.gen(name, filename=require_text)
 
-    # Summarize across packages!   
+    # Summarize across packages!
     table = cli.prepare_table()
 
     print(table.render())
@@ -691,10 +691,10 @@ you can later load it into a parser to combine results.
 
     # Let's tweak the round by value to our liking...
     global_cli.round_by = 100
-    
+
     # And render providing the custom data!
     global_cli.render(data=roots)
-    
+
     # You can also do the same, but scope to a type of requirement file
     data = global_cli.load_datafiles(data_files, includes=["setup.py", "requirements.txt", "pypi"])
     data = global_cli.load_datafiles(data_files, includes=["cran", "DESCRIPTION"])
@@ -729,7 +729,7 @@ change that path:
     $ citelang contrib --start 0.0.17 --end 0.0.19 --root /path/to/repo
 
 
-By default, the results are printed to a table, and by author, and without detail. 
+By default, the results are printed to a table, and by author, and without detail.
 To add detail (e.g., specific files to authors, and authors to paths):
 
 .. code-block:: console
@@ -751,7 +751,7 @@ or to instead save to an output file (complete json)
     $ citelang contrib --start 0.0.17 --end 0.0.19 --outfile author-lines.json
 
 
-Note that by default, we do a deep search, meaning that we do not include ``--first-parent`` 
+Note that by default, we do a deep search, meaning that we do not include ``--first-parent``
 when we derive a list of commits (adds more commits) and we do not add ``-C`` or ``-M`` to
 the blame command to try and squash copies and movements. However, if you want a more
 shallow result that does this:
@@ -792,7 +792,7 @@ which might look like the following:
      ignore_basename:
        - go.mod
        - go.sum
-       
+
      # Ignore these specific files
      ignore_files:
        - full/path/to/README.md
@@ -811,7 +811,7 @@ probably guess :O) Then we can run the command with this file:
 
 .. code-block:: console
 
-    $ citelang contrib --start v3.9.7 --end v3.9.8 --all-time --filters singularity-filters.yaml 
+    $ citelang contrib --start v3.9.7 --end v3.9.8 --all-time --filters singularity-filters.yaml
 
 And then we get a much cleaner and organized table because authors are not represented twice.
 You could also get creative here and provide groups that are named based on an organization or group. For example:
@@ -844,7 +844,7 @@ for all time, or limiting to a specific range. The way contrib works is to:
 
 1. Take a start and end tag or commit to parse
 2. Find the range of commits relevant to that range
-3. For each commit, find all relevant changed files 
+3. For each commit, find all relevant changed files
 4. Run git blame for the commit and file, and save a cached result
 5. The result includes authors, paths, commits, timestamps, and counts (lines) per timestamp
 6. Each multiprocessing worker returns the complete blame result
@@ -853,7 +853,7 @@ for all time, or limiting to a specific range. The way contrib works is to:
 9. We organized based on author or path, and with or without detail
 10. The result is printed or saved to the filesystem as json
 
-For the fourth step, we run jobs with multiprocessing, and we store the result in the ``.contrib`` 
+For the fourth step, we run jobs with multiprocessing, and we store the result in the ``.contrib``
 cache, which is organized equivalently to the repository. For example, here is Singularity after a run, and we can
 see there are files from both the golang history and the previous bash/C++ and python
 history:
@@ -939,7 +939,7 @@ you can do the following. Here is an example of releasing a Python package.
 
         - name: Install dependencies
           env:
-            TWINE_USERNAME: ${{ secrets.PYPI_USER }} 
+            TWINE_USERNAME: ${{ secrets.PYPI_USER }}
             TWINE_PASSWORD: ${{ secrets.PYPI_PASS }}
           run: |
             export PATH="/usr/share/miniconda/bin:$PATH"
@@ -953,14 +953,14 @@ you can do the following. Here is an example of releasing a Python package.
           uses: vsoch/citelang/action/gen@main
           env:
             CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
-          with:   
+          with:
             package: citelang
             manager: pypi
             outfile: software-credit.md
 
 
 Notice that we have generated a libraries.io key to make the process faster.
-and customized the file to be named software-credit.md. 
+and customized the file to be named software-credit.md.
 
 Badge GitHub Action
 ===================
@@ -973,11 +973,11 @@ Here is how you would generate a png badge for your repository, named custom or 
       uses: vsoch/citelang/action/badge@main
       env:
         CITELANG_LIBRARIES_KEY: ${{ secrets.CITELANG_LIBRARIES_KEY }}
-      with:   
+      with:
         package: citelang
         manager: pypi
         outfile: pypi-citelang.png
-        
+
 Adding an additional step to commit a file and push to main might look like:
 
 .. code-block:: yaml
@@ -1007,7 +1007,7 @@ It could be for provenance or analysis.
 
     - name: Generate CiteLang Contrib Data
       uses: vsoch/citelang/action/contrib@main
-      with:   
+      with:
         root: /tmp/cloned-repo
         outdir: /tmp/cloned-repo/.contrib
         start: 0.0.52
@@ -1029,7 +1029,7 @@ For all cases from within Python, after exporing the token, we need to create a 
 
     from citelang.main import Client
     client = Client()
-    
+
 You can optionally provide a custom settings file:
 
 .. code-block:: python
@@ -1067,7 +1067,7 @@ You can also ask for it verbatim:
 
     client.package_managers()
 
-or 
+or
 
 .. code-block:: python
 
@@ -1083,7 +1083,7 @@ or
 To get metadata for a package:
 
 .. code-block:: python
-    
+
     client.package(manager="pypi", name="requests")
 
 Or to ask for dependencies:
@@ -1110,8 +1110,8 @@ Why don't the trees show package managers?
 ==========================================
 
 In truth we probably should, because looking at a credit graph later you need to know the manager
-used to derive the graph (e.g., some packages can be present in multiple package managers!) 
-I haven't added this yet. 
+used to derive the graph (e.g., some packages can be present in multiple package managers!)
+I haven't added this yet.
 
 
 This library is under development and we will have more documentation coming soon!

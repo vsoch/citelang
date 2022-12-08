@@ -54,7 +54,7 @@ def blame_task(args):
         try:
             res = utils.run_command(command)
         # This means we hit some binary, etc.
-        except:
+        except Exception:
             return {"empty": "%s-%s" % (commit, path)}
 
     # Do not continue if there is any error

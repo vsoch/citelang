@@ -1,6 +1,7 @@
-import citelang.utils as utils
-import citelang.main.parser as parser
 import os
+
+import citelang.main.parser as parser
+import citelang.utils as utils
 
 # This is an example of using citelang to parse two repos,
 # and to generate a software citation tree that combines BOTH

@@ -147,7 +147,7 @@ class BaseClient:
             # Sometimes we know a package name / version but cannot get deps
             try:
                 deps = next_node.obj.dependencies(return_data=True)
-            except:
+            except Exception:
                 deps = []
             [
                 node_names.add(d["name"])

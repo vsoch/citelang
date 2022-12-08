@@ -52,4 +52,3 @@ Singularity Registry HPC (shpc) @pypi{name=singularity-hpc} is the first of its 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.
 
 <!--citelang end-->
-

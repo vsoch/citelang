@@ -165,7 +165,7 @@ class Package(Endpoint):
                         x["published_at"].split("T", 1)[0], "%Y-%m-%d"
                     ),
                 )
-            except:
+            except Exception:
                 pass
 
         if "versions" not in data:

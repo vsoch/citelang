@@ -29,13 +29,13 @@ class NPMPackageManager(PackagesFromFile):
 
         try:
             meta = json.loads(content)
-        except:
+        except Exception:
             meta = {}
 
         deps = []
         for package_name, version in meta.get("dependencies", {}).items():
 
-            version = re.sub("(\^|<|>|=)", "", version)
+            version = re.sub("(\^|<|>|=)", "", version)  # noqa
 
             # Always get rid of @ - doesn't seem to get hits
             package_name = package_name.replace("@", "", 1)

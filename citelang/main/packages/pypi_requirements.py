@@ -13,7 +13,7 @@ try:
         from .pip_wrapper import PipManager as PythonManager
     else:
         from .python_base import PythonManager
-except:
+except Exception:
     # vs. static parsing, not perfect but fairly good!
     from .python_base import PythonManager
 
@@ -136,7 +136,7 @@ class SetupManager(PythonManager):
         cleaned = [x.strip() for x in cleaned if not x.strip().startswith("#")]
 
         # Remove any variants (e.g., [all])
-        cleaned = [re.sub("\[.+\]", "", x) for x in cleaned]
+        cleaned = [re.sub("\[.+\]", "", x) for x in cleaned]  # noqa
         deps = self.parse_python_deps(cleaned)
         repo["dependencies"] = deps
         self.data["package"] = repo

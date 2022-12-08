@@ -127,7 +127,7 @@ class PackagesFromFile(PackageManager):
                     package_name=package_name,
                     manager=self.underlying_manager,
                 )
-            except:
+            except Exception:
                 pass
 
         # If we get down here and no package, mark empty (unless it isn't a package we know)
@@ -136,7 +136,7 @@ class PackagesFromFile(PackageManager):
                 self.cache.mark_empty(
                     f"package/{self.underlying_manager}/{package_name}"
                 )
-            except:
+            except Exception:
                 pass
         return pkg
 
