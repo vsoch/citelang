@@ -196,10 +196,11 @@ def get_parser():
 
     for command in [graph, credit, badge, render, gen]:
         command.add_argument(
-            "--max-depth", help="maximum depth to parse tree (default is unset)"
+            "--max-depth", type=int, help="maximum depth to parse tree (default is unset)"
         )
         command.add_argument(
             "--max-deps",
+            type=int,
             help="maximum number of dependencies to include (default is unset)",
         )
         command.add_argument(

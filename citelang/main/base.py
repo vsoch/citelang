@@ -142,6 +142,8 @@ class BaseClient:
         previous = []
 
         while next_nodes and not stop_looking:
+            # Booleans to skip looking into dependencies of the next node
+            skip = False
             next_node = next_nodes.pop(0)
 
             # Sometimes we know a package name / version but cannot get deps
@@ -173,13 +175,13 @@ class BaseClient:
             # credit for all deps AS a percentage of the weight BROKEN into number of deps
             dep_credit = ((1 - credit_split) * next_node.weight) / len(deps)
 
-            # Stopping point - dependency credit is too small
+            # Skipping point - dependency credit is too small
             if dep_credit < min_credit:
-                stop_looking = True
+                skip = True
 
-            # If we are stopping, time to break and distribute remaining credit
+            # If we are stopping or skipping, time to break and distribute remaining credit
             # to nodes we couldn't parse children for.
-            if stop_looking:
+            if stop_looking or skip:
 
                 # We haven't parsed this one yet
                 next_node.total_credit = next_node.weight
@@ -203,7 +205,10 @@ class BaseClient:
                         )
                     else:
                         node.total_credit = node.weight
-                break
+                if stop_looking:
+                    break
+                else:
+                    continue
 
             # Calculate credit for each dependency and add as child
             for dep in deps:

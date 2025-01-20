@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on GitHub.
 
 ## [0.0.x](https://github.com/vsoch/citelang/tree/main) (0.0.x)
+ - fix loop exiting too early when `dep_credit` of a package is too smal (0.0.35)
  - updates for pypi parsing (0.0.34)
  - release for joss paper (0.0.33)
  - spack changed their packages url (0.0.32)
