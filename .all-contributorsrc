@@ -42,6 +42,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/40130660?v=4"
             ]
+        },
+        {
+            "login": "hykelvinlee42",
+            "name": "HY. Kelvin Lee",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://hykelvinlee.com",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/34256578?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7

@@ -79,6 +79,7 @@ tool to generate a contributors graphic below.
       <td align="center" valign="top" width="14.28%"><a href="https://vsoch.github.io"><img src="https://avatars.githubusercontent.com/u/814322?v=4?s=100" width="100px;" alt="Vanessasaurus"/><br /><sub><b>Vanessasaurus</b></sub></a><br /><a href="https://github.com/vsoch/citelang/commits?author=vsoch" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dtrudg"><img src="https://avatars.githubusercontent.com/u/4522799?v=4?s=100" width="100px;" alt="Dave Trudgian"/><br /><sub><b>Dave Trudgian</b></sub></a><br /><a href="https://github.com/vsoch/citelang/commits?author=dtrudg" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Traceton"><img src="https://avatars.githubusercontent.com/u/40130660?v=4?s=100" width="100px;" alt="Traceton"/><br /><sub><b>Traceton</b></sub></a><br /><a href="https://github.com/vsoch/citelang/commits?author=Traceton" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://hykelvinlee.com"><img src="https://avatars.githubusercontent.com/u/34256578?v=4?s=100" width="100px;" alt="HY. Kelvin Lee"/><br /><sub><b>HY. Kelvin Lee</b></sub></a><br /><a href="https://github.com/vsoch/citelang/commits?author=hykelvinlee42" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
