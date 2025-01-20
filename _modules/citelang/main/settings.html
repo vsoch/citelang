@@ -1,24 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang.main.settings &mdash; CiteLang Python 0.0.34 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>citelang.main.settings &mdash; CiteLang Python 0.0.35 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-argparse.css?v=24ffd50e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=bfe54545" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=39aadc1c"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -29,14 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> CiteLang Python
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            CiteLang Python
           </a>
-              <div class="version">
-                0.0.34
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +67,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">citelang.main.settings</li>
       <li class="wy-breadcrumbs-aside">
@@ -84,22 +84,24 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 
-<span class="kn">import</span> <span class="nn">jsonschema</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jsonschema</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 
-<span class="kn">import</span> <span class="nn">citelang.defaults</span> <span class="k">as</span> <span class="nn">defaults</span>
-<span class="kn">import</span> <span class="nn">citelang.main.schemas</span> <span class="k">as</span> <span class="nn">schemas</span>
-<span class="kn">import</span> <span class="nn">citelang.utils</span>
-<span class="kn">from</span> <span class="nn">citelang.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.defaults</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">defaults</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.main.schemas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">schemas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">citelang.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 
 
-<div class="viewcode-block" id="SettingsBase"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase">[docs]</a><span class="k">class</span> <span class="nc">SettingsBase</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SettingsBase">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SettingsBase</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new settings object, which requires a settings file to load</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span> <span class="o">=</span> <span class="kc">None</span>
@@ -108,20 +110,25 @@
         <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;[citelang-settings]&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="SettingsBase.validate"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SettingsBase.validate">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validate the loaded settings with jsonschema</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schemas</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.inituser"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.inituser">[docs]</a>    <span class="k">def</span> <span class="nf">inituser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.inituser">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.inituser">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inituser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a user specific config in user&#39;s home.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">)</span>
@@ -135,8 +142,11 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">,</span> <span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Created user settings file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.edit"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.edit">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.edit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interactively edit a config file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">):</span>
@@ -153,8 +163,11 @@
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config_editor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">],</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.get_settings_file"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.get_settings_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_settings_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.get_settings_file">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.get_settings_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the preferred user settings file, set user settings if exists.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Always use environment first</span>
@@ -170,8 +183,11 @@
         <span class="c1"># First preference to env_settings, then user settings, then default</span>
         <span class="k">return</span> <span class="n">env_settings</span> <span class="ow">or</span> <span class="n">user_settings</span> <span class="ow">or</span> <span class="n">defaults</span><span class="o">.</span><span class="n">default_settings_file</span></div>
 
-<div class="viewcode-block" id="SettingsBase.load"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.load">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.load">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load the settings file into the settings object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get the preferred settings flie</span>
@@ -190,8 +206,11 @@
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="SettingsBase.get"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.get">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a settings value, doing appropriate substitution and expansion.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># This is a reference to a dictionary (object) setting</span>
@@ -209,14 +228,17 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A direct get of an attribute, but default to None if doesn&#39;t exist</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SettingsBase.add"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SettingsBase.add">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.add">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a value to a list parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_boolean</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -237,8 +259,11 @@
                 <span class="s2">&quot;Warning: Check with citelang config edit - ordering of list can change.&quot;</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.remove"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.remove">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.remove">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a value from a list parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -253,8 +278,11 @@
             <span class="s2">&quot;Warning: Check with citelang config edit - ordering of list can change.&quot;</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.parse_boolean"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.parse_boolean">[docs]</a>    <span class="k">def</span> <span class="nf">parse_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.parse_boolean">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.parse_boolean">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the value is True/False, ensure we return a boolean</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">:</span>
@@ -263,8 +291,11 @@
             <span class="n">value</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="SettingsBase.parse_null"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.parse_null">[docs]</a>    <span class="k">def</span> <span class="nf">parse_null</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.parse_null">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.parse_null">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_null</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a null or none from the command line, ensure parsed as None type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;null&quot;</span><span class="p">]:</span>
@@ -275,8 +306,11 @@
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="SettingsBase.set"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.set">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.set">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set a setting based on key and value. If the key has :, it&#39;s nested</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_boolean</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -299,8 +333,11 @@
         <span class="c1"># Validate and catch error message cleanly</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">change_validate</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.change_validate"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.change_validate">[docs]</a>    <span class="k">def</span> <span class="nf">change_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.change_validate">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.change_validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A courtesy function to validate a new config addition.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Don&#39;t allow the user to add a setting not known</span>
@@ -311,8 +348,9 @@
                 <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> cannot be added to config: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
             <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_substitutions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_substitutions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a value, make substitutions</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
@@ -330,12 +368,17 @@
 
         <span class="k">return</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="SettingsBase.delete"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="SettingsBase.delete">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="SettingsBase.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.save">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save settings, but do not change order of anything.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span>
@@ -345,12 +388,15 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
             <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">,</span> <span class="n">fd</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">yield</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="SettingsBase.update_params"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.update_params">[docs]</a>    <span class="k">def</span> <span class="nf">update_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SettingsBase.update_params">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.update_params">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update a configuration on the fly (no save) only for set/add/remove.</span>
 <span class="sd">        Unlike the traditional set/get/add functions, this function expects</span>
 <span class="sd">        each entry in the params list to start with the action, e.g.:</span>
@@ -371,8 +417,11 @@
             <span class="n">command</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_param</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">param</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SettingsBase.update_param"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.update_param">[docs]</a>    <span class="k">def</span> <span class="nf">update_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SettingsBase.update_param">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.SettingsBase.update_param">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a parameter, update the configuration on the fly if it&#39;s in set/add/remove</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
@@ -390,11 +439,15 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Added </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;remove&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Removed </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Removed </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">SettingsBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Settings">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.Settings">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Settings</span><span class="p">(</span><span class="n">SettingsBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The settings class is a wrapper for easily parsing a settings.yml file.</span>
 
 <span class="sd">    We parse into a query-able class. It also gives us control to update settings,</span>
@@ -402,8 +455,8 @@
 <span class="sd">    a dictionary-like class with extra functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new settings object, which requires a settings file to load</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
@@ -411,9 +464,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
+
 <span class="c1"># Global settings</span>
-<div class="viewcode-block" id="init_settings"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.init_settings">[docs]</a><span class="k">def</span> <span class="nf">init_settings</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="init_settings">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.settings.init_settings">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">init_settings</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">SettingsBase</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span></div>
+
 
 
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">init_settings</span><span class="p">()</span>

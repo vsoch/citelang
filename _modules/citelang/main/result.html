@@ -1,24 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>citelang.main.result &mdash; CiteLang Python 0.0.34 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>citelang.main.result &mdash; CiteLang Python 0.0.35 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-argparse.css?v=24ffd50e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=bfe54545" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=39aadc1c"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -29,14 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> CiteLang Python
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            CiteLang Python
           </a>
-              <div class="version">
-                0.0.34
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +67,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">citelang.main.result</li>
       <li class="wy-breadcrumbs-aside">
@@ -83,26 +83,28 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2022, Vanessa Sochat&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MPL 2.0&quot;</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">rich.table</span> <span class="kn">import</span> <span class="n">Table</span> <span class="k">as</span> <span class="n">RichTable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span> <span class="k">as</span> <span class="n">RichTable</span>
 
-<span class="kn">import</span> <span class="nn">citelang.main.colors</span> <span class="k">as</span> <span class="nn">colors</span>
-<span class="kn">import</span> <span class="nn">citelang.main.graph</span> <span class="k">as</span> <span class="nn">graph</span>
-<span class="kn">import</span> <span class="nn">citelang.utils</span> <span class="k">as</span> <span class="nn">utils</span>
-<span class="kn">from</span> <span class="nn">citelang.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.main.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">colors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.main.graph</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">graph</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">citelang.utils</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">citelang.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 
 <span class="n">here</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="Result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result">[docs]</a><span class="k">class</span> <span class="nc">Result</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Result">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Result</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A result holds the request result and can parse or return in different formats.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">=</span> <span class="n">endpoint</span>
 
         <span class="c1"># Does the endpoint want to sort or otherwise order?</span>
@@ -112,34 +114,48 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 
-<div class="viewcode-block" id="Result.print_json"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.print_json">[docs]</a>    <span class="k">def</span> <span class="nf">print_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Result.print_json">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.print_json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">print_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Result.to_dict"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Result.to_dict">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
 
-<div class="viewcode-block" id="Result.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Result.save">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Result.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
-        <span class="n">utils</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+        <span class="n">utils</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Table"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table">[docs]</a><span class="k">class</span> <span class="nc">Table</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Table">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Table</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A table is a result formatted as a table for the client.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span>
 
         <span class="c1"># Keep track of the max length for each field not truncated</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_widths</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ensure_complete</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Table.available_width"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.available_width">[docs]</a>    <span class="k">def</span> <span class="nf">available_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Table.available_width">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.available_width">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">available_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate available width based on fields we cannot truncate (urls)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We will determine column width based on terminal size</span>
@@ -165,16 +181,22 @@
         <span class="c1"># that don&#39;t have a max width</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">updated</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_widths</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="Table.ensure_complete"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.ensure_complete">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Table.ensure_complete">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.ensure_complete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ensure_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If any data missing fields, ensure they are included</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ensure_complete_list</span><span class="p">()</span></div>
+
         <span class="c1"># We don&#39;t check other types for now</span>
 
-<div class="viewcode-block" id="Table.ensure_complete_list"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.ensure_complete_list">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_complete_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Table.ensure_complete_list">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.ensure_complete_list">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ensure_complete_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a list result, check the fields.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -198,8 +220,11 @@
                     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_widths</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="n">field</span><span class="p">]):</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">max_widths</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="n">field</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Table.table_columns"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Table.table_columns">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table_columns">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Shared function to return consistent table columns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># An endpoint that returns structured json can choose to flatten</span>
@@ -224,8 +249,11 @@
             <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">columns</span></div>
 
-<div class="viewcode-block" id="Table.table_rows"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table_rows">[docs]</a>    <span class="k">def</span> <span class="nf">table_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Table.table_rows">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">table_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Shared function to yield rows as a list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># All keys are lowercase</span>
@@ -252,8 +280,11 @@
                 <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
             <span class="k">yield</span> <span class="n">parsed</span></div>
 
-<div class="viewcode-block" id="Table.table"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table">[docs]</a>    <span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Table.table">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Table.table">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pretty print a table of results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">table_title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -287,16 +318,22 @@
 
         <span class="c1"># And print!</span>
         <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">()</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span></div></div>
+        <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Tree"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree">[docs]</a><span class="k">class</span> <span class="nc">Tree</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Tree">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Tree</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_data</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Tree.parse_data"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree.parse_data">[docs]</a>    <span class="k">def</span> <span class="nf">parse_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Tree.parse_data">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree.parse_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse result into data. The size is for d3, and makes each node</span>
 <span class="sd">        relative to its siblings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -317,7 +354,7 @@
             <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color_lookup</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
         <span class="p">}</span>
 
-        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
             <span class="n">total</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">credit</span>
             <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
                 <span class="n">child_size</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
@@ -345,12 +382,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;levels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">levels</span></div>
 
-<div class="viewcode-block" id="Tree.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Tree.print_result">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Tree.print_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print a tree result (todo redo with color and rich)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="s2">&quot;</span><span class="si">%s%20s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span>
                 <span class="o">%</span> <span class="p">(</span>
@@ -363,19 +403,25 @@
                 <span class="n">print_result</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="n">print_result</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span></div></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Graph">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Graph">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Graph</span><span class="p">(</span><span class="n">Result</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A graph result can generate text for a graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
 
-<div class="viewcode-block" id="Graph.graph"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Graph.graph">[docs]</a>    <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Graph.graph">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Graph.graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a graph of dependencies</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Select output format (default to console)</span>
@@ -388,19 +434,28 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Only console supported for now!</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">Console</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span></div></div>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Treemap"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap">[docs]</a><span class="k">class</span> <span class="nc">Treemap</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Treemap">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Treemap</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A treemap is an interactive tree.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Treemap.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Treemap.print_result">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.print_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Treemap.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Treemap.save">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Treemap.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
@@ -411,22 +466,31 @@
         <span class="n">root</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;citelang&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]}</span>
         <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{data}}&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Badge"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge">[docs]</a><span class="k">class</span> <span class="nc">Badge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Badge">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Badge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is an static badge that uses plotly.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Badge.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Badge.print_result">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.print_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Badge.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Badge.save">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.Badge.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">citelang.main.badge</span> <span class="k">as</span> <span class="nn">badge</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">citelang.main.badge</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">badge</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
 
@@ -444,19 +508,28 @@
             <span class="n">min_credit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">min_credit</span><span class="p">,</span>
             <span class="n">credit_split</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">credit_split</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="InteractiveBadge"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge">[docs]</a><span class="k">class</span> <span class="nc">InteractiveBadge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="InteractiveBadge">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InteractiveBadge</span><span class="p">(</span><span class="n">Tree</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A badge uses tree data with d3 for an interactive visualization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="InteractiveBadge.print_result"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.print_result">[docs]</a>    <span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InteractiveBadge.print_result">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.print_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="InteractiveBadge.save"><a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="InteractiveBadge.save">
+<a class="viewcode-back" href="../../../api_reference/internal/citelang.html#citelang.main.result.InteractiveBadge.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save to output file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span>
@@ -469,7 +542,9 @@
         <span class="c1"># Add an extra parent to the data (root) so the one child is requests</span>
         <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{{data}}&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Result saved to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outfile</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>
